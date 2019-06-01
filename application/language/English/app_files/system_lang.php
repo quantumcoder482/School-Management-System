@@ -17,6 +17,7 @@ $lang['add_accountant'] = 'Add Accountant';
 $lang['add_admin_user'] = 'Add Admin User';
 $lang['add_another_language'] = 'Add Another Language';
 $lang['add_book'] = 'Add Book';
+$lang['add_journals'] = 'Add Journal';
 $lang['add_category'] = 'Add Category';
 $lang['add_class'] = 'Add Class';
 $lang['add_exam'] = 'Add Exam';
@@ -105,8 +106,11 @@ $lang['bank_name'] = 'Bank Name';
 $lang['basic_information'] = 'Basic Information';
 $lang['book'] = 'Book';
 $lang['book_details'] = 'Book Details';
+$lang['journals'] = 'Journal';
+$lang['journals_details'] = 'Journal Details';
 $lang['book_issued'] = 'Book Issued';
 $lang['book_list'] = 'Book List';
+$lang['journals_list'] = 'Journal List';
 $lang['book_no'] = 'Book Number';
 $lang['book_title'] = 'Book Title';
 $lang['bookprice'] = 'Book Price';
@@ -919,4 +923,14 @@ $lang['work_shift'] = 'Work Shift';
 $lang['year'] = 'Year';
 $lang['years'] = 'Years';
 $lang['youtube_url'] = 'Youtube URL';
+
+#Version 4.2.0
+
+$lang['code'] = "Code";
+$lang['short'] = "Short";
+$lang['mobile_app_api_url'] = "Mobile App Api URL";
+$lang['app_primary_color_code'] = "Mobile App Primary Color Code";
+$lang['app_secondary_color_code'] = "Mobile App Secondary Color Code";
+$lang['mobile_app_logo'] = "Mobile App Logo";
+$lang['mobile_app'] = "Mobile App";
 ?>

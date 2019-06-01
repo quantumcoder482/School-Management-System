@@ -574,7 +574,7 @@
                         if ($this->module_lib->hasActive('library')) {
                             if (($this->rbac->hasPrivilege('books', 'can_view') ||
                              $this->rbac->hasPrivilege('books', 'can_add') ||
-                            $this->rbac->hasPrivilege('issue_return_student', 'can_view') ||
+                            $this->rbac->hasPrivilege('issue_return', 'can_view') ||
                                  $this->rbac->hasPrivilege('add_staff_member', 'can_view') ||
                                   $this->rbac->hasPrivilege('add_student', 'can_view')
                              )) {
@@ -589,7 +589,12 @@
                                         <?php } if ($this->rbac->hasPrivilege('books', 'can_view')) { ?>
                                             <li class="<?php echo set_Submenu('book/getall'); ?>">
                                                 <a href="<?php echo base_url(); ?>admin/book/getall"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('book_list'); ?></a></li>
-                                        <?php } if ($this->rbac->hasPrivilege('issue_return_student', 'can_view')) { ?>
+                                        <?php } if ($this->rbac->hasPrivilege('journals', 'can_add')) { ?>
+                                            <li class="<?php echo set_Submenu('journals/index'); ?>"><a href="<?php echo base_url(); ?>admin/journals"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_journals'); ?></a></li>
+                                        <?php } if ($this->rbac->hasPrivilege('journals', 'can_view')) { ?>
+                                            <li class="<?php echo set_Submenu('journals/getall'); ?>">
+                                                <a href="<?php echo base_url(); ?>admin/journals/getall"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('journals_list'); ?></a></li>
+                                        <?php }if ($this->rbac->hasPrivilege('issue_return', 'can_view')) { ?>
                                             <li class="<?php echo set_Submenu('member/index'); ?>"><a href="<?php echo base_url(); ?>admin/member"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('issue_return'); ?></a></li>
                                         <?php } ?>
                                         <?php if ($this->rbac->hasPrivilege('add_student', 'can_view')) { ?>
