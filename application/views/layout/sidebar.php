@@ -941,6 +941,7 @@
                                $this->rbac->hasPrivilege('sms_setting', 'can_edit') ||
                                 $this->rbac->hasPrivilege('email_setting', 'can_edit') ||
                                  $this->rbac->hasPrivilege('payment_methods', 'can_edit') ||
+                                 $this->rbac->hasPrivilege('user_status', 'can_view') ||
                                   $this->rbac->hasPrivilege('languages', 'can_view') ||
                                    $this->rbac->hasPrivilege('languages', 'can_add') ||
                                     $this->rbac->hasPrivilege('backup_restore', 'can_view') ||
@@ -1006,7 +1007,7 @@
                                             <?php
                                         }
                                         ?>
-                                         <?php if ($this->rbac->hasPrivilege('user_status')) { ?>
+                                         <?php if ($this->rbac->hasPrivilege('user_status', 'can_view')) { ?>
                                         <li class="<?php echo set_Submenu('users/index'); ?>"><a href="<?php echo base_url(); ?>admin/users"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('users'); ?></a></li>
                                          <?php } if ($this->rbac->hasPrivilege('superadmin')) { ?>
                                         <li class="<?php echo set_Submenu('admin/module'); ?>"><a href="<?php echo base_url(); ?>admin/module"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('modules'); ?></a></li>

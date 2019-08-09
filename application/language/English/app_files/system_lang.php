@@ -933,4 +933,14 @@ $lang['app_primary_color_code'] = "Mobile App Primary Color Code";
 $lang['app_secondary_color_code'] = "Mobile App Secondary Color Code";
 $lang['mobile_app_logo'] = "Mobile App Logo";
 $lang['mobile_app'] = "Mobile App";
-?>
+
+#New update
+$lang['book_information'] = 'Book Information';
+$lang['edit_journal'] = 'Edit Journal';
+$lang['import_book'] = 'Import Book';
+$lang['import_journal'] = 'Import Journal';
+$lang['issn_no'] = 'ISSN Number';
+$lang['journal_information'] = 'Journal Information';
+$lang['journal_no'] = 'Journal Number';
+$lang['journal_title'] = 'Journal Title';
+$lang['journalprice'] = 'Journal Price';

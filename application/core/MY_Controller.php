@@ -16,7 +16,7 @@ class MY_Controller extends CI_Controller
         $this->config->load('license');
         $this->load->library('auth');
         $this->load->library('module_lib');
-      
+
         $this->load->helper('directory');
         $this->load->model('setting_model');
         if ($this->session->has_userdata('admin')) {
@@ -37,7 +37,6 @@ class MY_Controller extends CI_Controller
 
         $this->load->language($lang_array, $language);
     }
-
 }
 
 class Admin_Controller extends MY_Controller
@@ -54,47 +53,42 @@ class Admin_Controller extends MY_Controller
     public function check_license()
     {
 
-       $license = $this->config->item('SSLK');
+        $license = $this->config->item('SSLK');
 
         if (!empty($license)) {
 
             $regex = "/^[A-Z0-9]{6}-[A-Z0-9]{6}-[A-Z0-9]{6}-/";
-          
-        
+
+
             if (preg_match($regex, $license)) {
-              $valid_string = $this->aes->validchk('encrypt', base_url());
- 
+                $valid_string = $this->aes->validchk('encrypt', base_url());
+
                 if (strpos($license, $valid_string) !== false) {
 
                     true; //valid
-                }else{
-                       $this->update_ss_routine();
+                } else {
+                    $this->update_ss_routine();
                 }
             } else {
-             
-             $this->update_ss_routine();
 
+                $this->update_ss_routine();
             }
-
         }
-
     }
-    public function update_ss_routine(){
-       
-                $license = $this->config->item('SSLK');
-                $fname         = APPPATH . 'config/license.php';
-                $update_handle = fopen($fname, "r");
-                $content       = fread($update_handle, filesize($fname));
-                $file_contents = str_replace('$config[\'SSLK\'] = \'' . $license . '\'', '$config[\'SSLK\'] = \'\'', $content);
-                $update_handle = fopen($fname, 'w') or die("can't open file");
-                if (fwrite($update_handle, $file_contents)) {
+    public function update_ss_routine()
+    {
 
-                }
-                fclose($update_handle);
+        $license = $this->config->item('SSLK');
+        $fname         = APPPATH . 'config/license.php';
+        $update_handle = fopen($fname, "r");
+        $content       = fread($update_handle, filesize($fname));
+        $file_contents = str_replace('$config[\'SSLK\'] = \'' . $license . '\'', '$config[\'SSLK\'] = \'\'', $content);
+        $update_handle = fopen($fname, 'w') or die("can't open file");
+        if (fwrite($update_handle, $file_contents)) { }
+        fclose($update_handle);
 
-                $this->config->set_item('SSLK', '');
+        $this->config->set_item('SSLK', '');
     }
-
 }
 
 class Student_Controller extends MY_Controller
@@ -105,7 +99,6 @@ class Student_Controller extends MY_Controller
         parent::__construct();
         $this->auth->is_logged_in_user('student');
     }
-
 }
 
 class Public_Controller extends MY_Controller
@@ -115,7 +108,6 @@ class Public_Controller extends MY_Controller
     {
         parent::__construct();
     }
-
 }
 
 class Parent_Controller extends MY_Controller
@@ -126,7 +118,6 @@ class Parent_Controller extends MY_Controller
         parent::__construct();
         $this->auth->is_logged_in_user('parent');
     }
-
 }
 
 class Front_Controller extends CI_Controller
@@ -162,7 +153,7 @@ class Front_Controller extends CI_Controller
             }
         }
         $this->theme_path = $this->front_setting->theme;
-//================
+        //================
         $language = ($this->school_details->language);
         $this->load->helper('directory');
         $lang_array = array('form_validation_lang');
@@ -172,7 +163,7 @@ class Front_Controller extends CI_Controller
         }
 
         $this->load->language($lang_array, $language);
-//===============
+        //===============
 
         $this->load->config('ci-blog');
     }
@@ -225,5 +216,4 @@ class Front_Controller extends CI_Controller
             }
         }
     }
-
 }

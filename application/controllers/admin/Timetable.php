@@ -56,19 +56,27 @@ class Timetable extends Admin_Controller {
                         );
                         $result = $this->timetable_model->get($where_array);
                         if (!empty($result)) {
-                            $obj = new stdClass();
-                            $obj->status = "Yes";
-                            $obj->start_time = $result[0]['start_time'];
-                            $obj->end_time = $result[0]['end_time'];
-                            $obj->room_no = $result[0]['room_no'];
-                            $result_array[$day_value] = $obj;
+                            $obj_0 = new stdClass();
+                            $obj_0->status = "Yes";
+                            $obj_0->start_time = $result[0]['start_time'];
+                            $obj_0->end_time = $result[0]['end_time'];
+                            $obj_0->room_no = $result[0]['room_no'];
+                            
+                            $obj_1 = new stdClass();
+                            $obj_1->status = "Yes";
+                            $obj_1->start_time = $result[1]['start_time'];
+                            $obj_1->end_time = $result[1]['end_time'];
+                            $obj_1->room_no = $result[1]['room_no'];
+
+                            $result_array[$day_value][0] = $obj_0;
+                            $result_array[$day_value][1] = $obj_1;
                         } else {
                             $obj = new stdClass();
                             $obj->status = "No";
                             $obj->start_time = "N/A";
                             $obj->end_time = "N/A";
                             $obj->room_no = "N/A";
-                            $result_array[$day_value] = $obj;
+                            $result_array[$day_value][0] = $obj;
                         }
                     }
                     $final_array[$subject_v['name']] = $result_array;
@@ -137,6 +145,7 @@ class Timetable extends Admin_Controller {
             $data['getDaysnameList'] = $getDaysnameList;
             $array = array();
             $data['timetableSchedule'] = array();
+
             foreach ($getDaysnameList as $key => $value) {
                 $where_array = array(
                     'teacher_subject_id' => $subject_id,
@@ -144,31 +153,67 @@ class Timetable extends Admin_Controller {
                 );
                 $result = $this->timetable_model->get($where_array);
                 if (empty($result)) {
-                    $obj = new stdClass();
-                    $obj->starting_time = "";
-                    $obj->post_id = 0;
-                    $obj->ending_time = "";
-                    $obj->room_no = "";
+                    $obj_1 = new stdClass();
+                    $obj_1->starting_time = "";
+                    $obj_1->post_id = 0;
+                    $obj_1->ending_time = "";
+                    $obj_1->room_no = "";
+                    $obj_2 = new stdClass();
+                    $obj_2->starting_time = "";
+                    $obj_2->post_id = 0;
+                    $obj_2->ending_time = "";
+                    $obj_2->room_no = "";
                 } else {
-                    $obj = new stdClass();
-                    $obj->starting_time = $result[0]['start_time'];
-                    $obj->post_id = $result[0]['id'];
-                    $obj->ending_time = $result[0]['end_time'];
-                    $obj->room_no = $result[0]['room_no'];
+                    if(sizeof($result)>1){
+                        $obj_1 = new stdClass();
+                        $obj_1->starting_time = $result[0]['start_time'];
+                        $obj_1->post_id = $result[0]['id'];
+                        $obj_1->ending_time = $result[0]['end_time'];
+                        $obj_1->room_no = $result[0]['room_no'];
+                        $obj_2 = new stdClass();
+                        $obj_2->starting_time = $result[1]['start_time'];
+                        $obj_2->post_id = $result[1]['id'];
+                        $obj_2->ending_time = $result[1]['end_time'];
+                        $obj_2->room_no = $result[1]['room_no'];
+                    } else {
+                        $obj_1 = new stdClass();
+                        $obj_1->starting_time = $result[0]['start_time'];
+                        $obj_1->post_id = $result[0]['id'];
+                        $obj_1->ending_time = $result[0]['end_time'];
+                        $obj_1->room_no = $result[0]['room_no'];
+                        $obj_2 = new stdClass();
+                        $obj_2->starting_time = "";
+                        $obj_2->post_id = 0;
+                        $obj_2->ending_time = "";
+                        $obj_2->room_no = "";
+                    }
+
                 }
-                $array[$value] = $obj;
+                $array[$value][0] = $obj_1;
+                $array[$value][1] = $obj_2;
             }
+
             $data['timetableSchedule'] = $array;
+
             if ($this->input->post('save_exam') == "save_exam") {
                 $loop = $this->input->post('i');
                 foreach ($loop as $key => $value) {
                     $data = array(
                         'day_name' => $value,
                         'teacher_subject_id' => $this->input->post('subject_id'),
-                        'start_time' => $this->input->post('stime_' . $value),
-                        'end_time' => $this->input->post('etime_' . $value),
-                        'room_no' => $this->input->post('room_' . $value),
-                        'id' => $this->input->post('edit_' . $value),
+                        'start_time' => $this->input->post('stime_' . $value. '_0'),
+                        'end_time' => $this->input->post('etime_' . $value . '_0'),
+                        'room_no' => $this->input->post('room_' . $value . '_0'),
+                        'id' => $this->input->post('edit_' . $value . '_0'),
+                    );
+                    $this->timetable_model->add($data);
+                    $data = array(
+                        'day_name' => $value,
+                        'teacher_subject_id' => $this->input->post('subject_id'),
+                        'start_time' => $this->input->post('stime_' . $value . '_1'),
+                        'end_time' => $this->input->post('etime_' . $value . '_1'),
+                        'room_no' => $this->input->post('room_' . $value . '_1'),
+                        'id' => $this->input->post('edit_' . $value . '_1'),
                     );
                     $this->timetable_model->add($data);
                 }

@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Book_model extends CI_Model {
+class Book_model extends CI_Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->current_session = $this->setting_model->getCurrentSession();
     }
@@ -16,7 +18,8 @@ class Book_model extends CI_Model {
      * @param int $id
      * @return mixed
      */
-    public function get($id = null) {
+    public function get($id = null)
+    {
         $this->db->select()->from('books');
         if ($id != null) {
             $this->db->where('books.id', $id);
@@ -31,13 +34,13 @@ class Book_model extends CI_Model {
         }
     }
 
-  public function getBookwithQty()
+    public function getBookwithQty()
     {
 
         $sql = "SELECT books.*,IFNULL(total_issue, '0') as `total_issue` FROM books LEFT JOIN (SELECT COUNT(*) as `total_issue`, book_id from book_issues  where is_returned= 0 GROUP by book_id) as `book_count` on books.id=book_count.book_id";
 
         $query = $this->db->query($sql);
-        
+
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
@@ -48,7 +51,8 @@ class Book_model extends CI_Model {
      * This function will delete the record based on the id
      * @param $id
      */
-    public function remove($id) {
+    public function remove($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('books');
     }
@@ -59,7 +63,8 @@ class Book_model extends CI_Model {
      * else an insert. One function doing both add and edit.
      * @param $data
      */
-    public function addbooks($data) {
+    public function addbooks($data)
+    {
         if (isset($data['id'])) {
             $this->db->where('id', $data['id']);
             $this->db->update('books', $data);
@@ -69,7 +74,8 @@ class Book_model extends CI_Model {
         }
     }
 
-    public function listbook() {
+    public function listbook()
+    {
         $this->db->select()->from('books');
         $this->db->limit(10);
         $this->db->order_by("id", "desc");
@@ -77,7 +83,8 @@ class Book_model extends CI_Model {
         return $listbook->result_array();
     }
 
-    public function check_Exits_group($data) {
+    public function check_Exits_group($data)
+    {
         $this->db->select('*');
         $this->db->from('feemasters');
         $this->db->where('session_id', $this->current_session);
@@ -92,7 +99,8 @@ class Book_model extends CI_Model {
         }
     }
 
-    public function getTypeByFeecategory($type, $class_id) {
+    public function getTypeByFeecategory($type, $class_id)
+    {
         $this->db->select('feemasters.id,feemasters.session_id,feemasters.amount,feemasters.description,classes.class,feetype.type')->from('feemasters');
         $this->db->join('classes', 'feemasters.class_id = classes.id');
         $this->db->join('feetype', 'feemasters.feetype_id = feetype.id');
@@ -103,5 +111,4 @@ class Book_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
-
 }

@@ -1,46 +1,47 @@
 <style type="text/css">
-    @media print
-    {
-        .no-print, .no-print *
-        {
+    @media print {
+
+        .no-print,
+        .no-print * {
             display: none !important;
         }
     }
-    .print, .print *
-    {
+
+    .print,
+    .print * {
         display: none;
     }
 </style>
 
-<div class="content-wrapper" style="min-height: 946px;">  
+<div class="content-wrapper" style="min-height: 946px;">
     <section class="content-header">
         <h1>
             <i class="fa fa-mortar-board"></i> <?php echo $this->lang->line('academics'); ?> <small><?php echo $this->lang->line('student_fees1'); ?></small></h1>
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="row">       
-            <div class="col-md-12">          
+        <div class="row">
+            <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
                         <div class="box-tools pull-right">
                             <?php if ($this->rbac->hasPrivilege('class_timetable', 'can_add')) { ?>
-                                <a href="<?php echo base_url(); ?>admin/timetable/create" class="btn btn-primary btn-sm"  data-toggle="tooltip" title="<?php echo $this->lang->line('add_timetable'); ?>" >
+                                <a href="<?php echo base_url(); ?>admin/timetable/create" class="btn btn-primary btn-sm" data-toggle="tooltip" title="<?php echo $this->lang->line('add_timetable'); ?>">
                                     <i class="fa fa-plus"></i> <?php echo $this->lang->line('add'); ?>
                                 </a>
                             <?php } ?>
                         </div>
                     </div>
-                    <form action="<?php echo site_url('admin/timetable/index') ?>"  method="post" accept-charset="utf-8">
+                    <form action="<?php echo site_url('admin/timetable/index') ?>" method="post" accept-charset="utf-8">
                         <div class="box-body">
                             <?php echo $this->customlib->getCSRF(); ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                        <select autofocus="" id="class_id" name="class_id" class="form-control" >
+                                        <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
                                             foreach ($classlist as $class) {
@@ -57,7 +58,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
-                                        <select  id="section_id" name="section_id" class="form-control" >
+                                        <select id="section_id" name="section_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
@@ -78,10 +79,10 @@
                             <h3 class="box-title"><i class="fa fa-users"></i> <?php echo $this->lang->line('class_timetable'); ?></h3>
                         </div>
                         <div class="box-body">
-                            <div class="row print" >
+                            <div class="row print">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-4 col-md-4">
-                                        <center><b><?php echo $this->lang->line('class'); ?>: </b> <span class="cls"></span></center> 
+                                        <center><b><?php echo $this->lang->line('class'); ?>: </b> <span class="cls"></span></center>
                                     </div>
                                 </div>
                             </div>
@@ -112,62 +113,73 @@
                                                     <th><?php echo $key; ?></th>
                                                     <?php
                                                     foreach ($timetable as $key => $value) {
-                                                        $status = $value->status;
+                                                        $status = $value[0]->status;
                                                         if ($status == "Yes") {
                                                             ?>
                                                             <td class="text text-center">
                                                                 <div class="attachment-block clearfix">
                                                                     <?php
-                                                                    if ($value->start_time != "" && $value->end_time != "") {
+                                                                    if ($value[0]->start_time != "" && $value[0]->end_time != "") {
                                                                         ?>
-                                                                        <strong class="text-green"><?php echo $value->start_time; ?></strong>
+                                                                        <strong class="text-green"><?php echo $value[0]->start_time; ?></strong>
                                                                         <b class="text text-center">-</b>
-                                                                        <strong class="text-green"><?php echo $value->end_time; ?></strong><br/>
-                                                                        <strong class="text-green"><?php echo $this->lang->line('room_no'); ?>: <?php echo $value->room_no; ?></strong>
-                                                                        <?php
+                                                                        <strong class="text-green"><?php echo $value[0]->end_time; ?></strong><br />
+                                                                        <strong class="text-green"><?php echo $this->lang->line('room_no'); ?>: <?php echo $value[0]->room_no; ?></strong>
+                                                                    <?php
                                                                     } else {
                                                                         ?>
-                                                                        <b class="text text-center"><?php echo $this->lang->line('not'); ?> <br/><?php echo $this->lang->line('scheduled'); ?></b><br/>
+                                                                        <b class="text text-center"><?php echo $this->lang->line('not'); ?> <br /><?php echo $this->lang->line('scheduled'); ?></b><br />
                                                                         <strong class="text-green"></strong>
-                                                                        <?php
+                                                                    <?php
                                                                     }
                                                                     ?>
                                                                 </div>
+                                                                <?php
+                                                                if ($value[1]->start_time != "" && $value[1]->end_time != "") {
+                                                                    ?>
+                                                                    <div class="attachment-block clearfix">
+
+                                                                        <strong class="text-green"><?php echo $value[1]->start_time; ?></strong>
+                                                                        <b class="text text-center">-</b>
+                                                                        <strong class="text-green"><?php echo $value[1]->end_time; ?></strong><br />
+                                                                        <strong class="text-green"><?php echo $this->lang->line('room_no'); ?>: <?php echo $value[1]->room_no; ?></strong>
+                                                                    </div>
+                                                                <?php
+                                                                }
+                                                                ?>
                                                             </td>
-                                                            <?php
+                                                        <?php
                                                         } else {
                                                             ?>
                                                             <td class="text text-center">
                                                                 <div class="attachment-block clearfix">
-                                                                    <strong class="text-red"><?php echo $value->start_time; ?></strong>
+                                                                    <strong class="text-red"><?php echo $value[0]->start_time; ?></strong>
                                                                 </div>
                                                             </td>
-                                                            <?php
+                                                        <?php
                                                         }
                                                     }
                                                     ?>
                                                 </tr>
-                                                <?php
+                                            <?php
                                             }
                                             ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <?php
+                            <?php
                             } else {
                                 ?>
                                 <div class="alert alert-info"><?php echo $this->lang->line('no_record_found'); ?></div>
-                                <?php
+                            <?php
                             }
                             ?>
                         </div>
                     </div>
-                </div> 
-            </div>  
-            <?php
-        } else {
-            
-        }
+                </div>
+            </div>
+        <?php
+        } else { }
         ?>
     </section>
 </div>
@@ -181,11 +193,12 @@
             $.ajax({
                 type: "GET",
                 url: base_url + "sections/getByClass",
-                data: {'class_id': class_id},
+                data: {
+                    'class_id': class_id
+                },
                 dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj)
-                    {
+                success: function(data) {
+                    $.each(data, function(i, obj) {
                         var sel = "";
                         if (section_id == obj.section_id) {
                             sel = "selected";
@@ -198,8 +211,8 @@
             });
         }
     }
-    $(document).ready(function () {
-        $(document).on('change', '#class_id', function (e) {
+    $(document).ready(function() {
+        $(document).on('change', '#class_id', function(e) {
             $('#section_id').html("");
             var class_id = $(this).val();
             var base_url = '<?php echo base_url() ?>';
@@ -207,11 +220,12 @@
             $.ajax({
                 type: "GET",
                 url: base_url + "sections/getByClass",
-                data: {'class_id': class_id},
+                data: {
+                    'class_id': class_id
+                },
                 dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj)
-                    {
+                success: function(data) {
+                    $.each(data, function(i, obj) {
                         div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
                     });
 
@@ -222,7 +236,7 @@
         var class_id = $('#class_id').val();
         var section_id = '<?php echo set_value('section_id') ?>';
         getSectionByClass(class_id, section_id);
-        $(document).on('change', '#feecategory_id', function (e) {
+        $(document).on('change', '#feecategory_id', function(e) {
             $('#feetype_id').html("");
             var feecategory_id = $(this).val();
             var base_url = '<?php echo base_url() ?>';
@@ -230,11 +244,12 @@
             $.ajax({
                 type: "GET",
                 url: base_url + "feemaster/getByFeecategory",
-                data: {'feecategory_id': feecategory_id},
+                data: {
+                    'feecategory_id': feecategory_id
+                },
                 dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, obj)
-                    {
+                success: function(data) {
+                    $.each(data, function(i, obj) {
                         div_data += "<option value=" + obj.id + ">" + obj.type + "</option>";
                     });
 
@@ -244,13 +259,14 @@
         });
     });
 
-    $(document).on('change', '#section_id', function (e) {
+    $(document).on('change', '#section_id', function(e) {
         $("form#schedule-form").submit();
     });
 </script>
 
 <script type="text/javascript">
     var base_url = '<?php echo base_url() ?>';
+
     function printDiv(elem) {
         var cls = $("#class_id option:selected").text();
         var sec = $("#section_id option:selected").text();
@@ -258,12 +274,14 @@
         Popup(jQuery(elem).html());
     }
 
-    function Popup(data)
-    {
+    function Popup(data) {
 
         var frame1 = $('<iframe />');
         frame1[0].name = "frame1";
-        frame1.css({"position": "absolute", "top": "-1000000px"});
+        frame1.css({
+            "position": "absolute",
+            "top": "-1000000px"
+        });
         $("body").append(frame1);
         var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
         frameDoc.document.open();
@@ -289,7 +307,7 @@
         frameDoc.document.write('</body>');
         frameDoc.document.write('</html>');
         frameDoc.document.close();
-        setTimeout(function () {
+        setTimeout(function() {
             window.frames["frame1"].focus();
             window.frames["frame1"].print();
             frame1.remove();

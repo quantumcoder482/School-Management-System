@@ -6,7 +6,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            <i class="fa fa-book"></i> <?php echo $this->lang->line('library'); ?></h1>
+            <i class="fa fa-journal"></i> <?php echo $this->lang->line('library'); ?></h1>
     </section>
 
     <!-- Main content -->
@@ -19,7 +19,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 <!-- general form elements -->
                 <div class="box box-primary" id="bklist">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('book_list'); ?></h3>
+                        <h3 class="box-title titlefix"><?php echo $this->lang->line('journal_list'); ?></h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="mailbox-controls">
@@ -30,13 +30,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         <div class="table-responsive mailbox-messages">
 
 
-                            <div class="download_label"><?php echo $this->lang->line('book_list'); ?></div>
+                            <div class="download_label"><?php echo $this->lang->line('journal_list'); ?></div>
                             <table id="" class="table table-striped table-bordered table-hover example" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th><?php echo $this->lang->line('book_title'); ?></th>
-                                        <th><?php echo $this->lang->line('book_no'); ?></th>
-                                        <th><?php echo $this->lang->line('isbn_no'); ?></th>
+                                        <th><?php echo $this->lang->line('journal_title'); ?></th>
+                                        <th><?php echo $this->lang->line('journal_no'); ?></th>
+                                        <th><?php echo $this->lang->line('issn_no'); ?></th>
                                         <th><?php echo $this->lang->line('publisher'); ?>
                                         </th>
                                         <th><?php echo $this->lang->line('author'); ?>
@@ -45,7 +45,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <th><?php echo $this->lang->line('rack_no'); ?></th>
                                         <th><?php echo $this->lang->line('qty'); ?></th>
                                         <th><?php echo $this->lang->line('available'); ?></th>
-                                        <th><?php echo $this->lang->line('bookprice'); ?></th>
+                                        <th><?php echo $this->lang->line('journalprice'); ?></th>
                                         <th><?php echo $this->lang->line('postdate'); ?></th>
                                         <th class="no-print text text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
@@ -53,54 +53,55 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <tbody>
                                     <?php
                                     $count = 1;
-                        if(!empty($listbook)){
+                                    if (!empty($listjournal)) {
 
-                    
-                                    foreach ($listbook as $book) {
-                                       
-                                        ?>
-                                        <tr>
-                                            <td class="mailbox-name">
-                                                <a href="#" data-toggle="popover" class="detail_popover"><?php echo $book['book_title'] ?></a>
-                                                <div class="fee_detail_popover" style="display: none">
-                                                    <?php
-                                                    if ($book['description'] == "") {
-                                                        ?>
-                                                        <p class="text text-danger"><?php echo $this->lang->line('no_description'); ?></p>
+
+                                        foreach ($listjournal as $journal) {
+
+                                            ?>
+                                            <tr>
+                                                <td class="mailbox-name">
+                                                    <a href="#" data-toggle="popover" class="detail_popover"><?php echo $journal['journal_title'] ?></a>
+                                                    <div class="fee_detail_popover" style="display: none">
+                                                        <?php
+                                                        if ($journal['description'] == "") {
+                                                            ?>
+                                                            <p class="text text-danger"><?php echo $this->lang->line('no_description'); ?></p>
                                                         <?php
                                                     } else {
                                                         ?>
-                                                        <p class="text text-info"><?php echo $book['description']; ?></p>
+                                                            <p class="text text-info"><?php echo $journal['description']; ?></p>
                                                         <?php
                                                     }
                                                     ?>
-                                                </div>
-                                            </td>
-                                            <td class="mailbox-name"> <?php echo $book['book_no'] ?></td>
-                                            <td class="mailbox-name"> <?php echo $book['isbn_no'] ?></td>
-                                            <td class="mailbox-name"> <?php echo $book['publish'] ?></td>
-                                            <td class="mailbox-name"> <?php echo $book['author'] ?></td>
-                                            <td class="mailbox-name"><?php echo $book['subject'] ?></td>
-                                            <td class="mailbox-name"><?php echo $book['rack_no'] ?></td>
-                                            <td class="mailbox-name"> <?php echo $book['qty'] ?></td>
-                                            <td class="mailbox-name"> <?php echo $book['qty']-$book['total_issue'] ?></td>
-                                            <td class="mailbox-name"> <?php echo ($currency_symbol . $book['perunitcost']); ?></td>
-                                            <td class="mailbox-name"> <?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($book['postdate'])); ?></td>
-                                            <td class="mailbox-date no-print text text-right">
-                                                <?php if ($this->rbac->hasPrivilege('books', 'can_edit')) { ?> 
-                                                    <a href="<?php echo base_url(); ?>admin/book/edit/<?php echo $book['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                <?php }if ($this->rbac->hasPrivilege('books', 'can_delete')) { ?> 
-                                                    <a href="<?php echo base_url(); ?>admin/book/delete/<?php echo $book['id'] ?>"class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                <?php } ?>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                        $count++;
-                                    }
+                                                    </div>
+                                                </td>
+                                                <td class="mailbox-name"> <?php echo $journal['journal_no'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $journal['issn_no'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $journal['publisher'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $journal['author'] ?></td>
+                                                <td class="mailbox-name"><?php echo $journal['subject'] ?></td>
+                                                <td class="mailbox-name"><?php echo $journal['rack_no'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $journal['qty'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $journal['qty'] - $journal['total_issue'] ?></td>
+                                                <td class="mailbox-name"> <?php echo ($currency_symbol . $journal['journalprice']); ?></td>
+                                                <td class="mailbox-name"> <?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($journal['postdate'])); ?></td>
+                                                <td class="mailbox-date no-print text text-right">
+                                                    <?php if ($this->rbac->hasPrivilege('journals', 'can_edit')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/journals/edit/<?php echo $journal['id'] ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    <?php }
+                                                if ($this->rbac->hasPrivilege('journals', 'can_delete')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/journals/delete/<?php echo $journal['id'] ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
+                                                            <i class="fa fa-remove"></i>
+                                                        </a>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $count++;
+                                        }
                                     }
                                     ?>
                                 </tbody>
@@ -115,7 +116,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         </div>
                     </div>
                 </div>
-            </div><!--/.col (left) -->
+            </div>
+            <!--/.col (left) -->
             <!-- right column -->
         </div>
         <div class="row">
@@ -124,19 +126,20 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             <div class="col-md-12">
                 <!-- Horizontal Form -->
                 <!-- general form elements disabled -->
-            </div><!--/.col (right) -->
-        </div>   <!-- /.row -->
+            </div>
+            <!--/.col (right) -->
+        </div> <!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
         $('#postdate').datepicker({
             // format: "dd-mm-yyyy",
             format: date_format,
             autoclose: true
         });
-        $("#btnreset").click(function () {
+        $("#btnreset").click(function() {
             /* Single line Reset function executes on click of Reset Button */
             $("#form1")[0].reset();
         });
@@ -148,12 +151,15 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
 <script type="text/javascript">
     var base_url = '<?php echo base_url() ?>';
-    function Popup(data)
-    {
+
+    function Popup(data) {
 
         var frame1 = $('<iframe />');
         frame1[0].name = "frame1";
-        frame1.css({"position": "absolute", "top": "-1000000px"});
+        frame1.css({
+            "position": "absolute",
+            "top": "-1000000px"
+        });
         $("body").append(frame1);
         var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
         frameDoc.document.open();
@@ -179,7 +185,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         frameDoc.document.write('</body>');
         frameDoc.document.write('</html>');
         frameDoc.document.close();
-        setTimeout(function () {
+        setTimeout(function() {
             window.frames["frame1"].focus();
             window.frames["frame1"].print();
             frame1.remove();
@@ -190,18 +196,18 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     }
 
 
-    $("#print_div").click(function () {
+    $("#print_div").click(function() {
         Popup($('#bklist').html());
     });
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.detail_popover').popover({
             placement: 'right',
             trigger: 'hover',
             container: 'body',
             html: true,
-            content: function () {
+            content: function() {
                 return $(this).closest('td').find('.fee_detail_popover').html();
             }
         });

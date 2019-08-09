@@ -3,17 +3,20 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Users extends Admin_Controller {
+class Users extends Admin_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model("classteacher_model");
     }
 
-    function index() {
-        //  if(!$this->rbac->hasPrivilege('student_attendance','can_view')){
-        // access_denied();
-        // }
+    function index()
+    {
+        if (!$this->rbac->hasPrivilege('user_status', 'can_view')) {
+            access_denied();
+        }
         $this->session->set_userdata('top_menu', 'System Settings');
         $this->session->set_userdata('sub_menu', 'users/index');
         $studentList = $this->student_model->getStudents();
@@ -24,12 +27,20 @@ class Users extends Admin_Controller {
         $data['parentList'] = $parentList;
         $data['staffList'] = $staffList;
 
+        $session_data = $this->session->userdata();
+        $data['currentUserId'] = $session_data['admin']['id'];
+
+
         $this->load->view('layout/header', $data);
         $this->load->view('admin/users/userList', $data);
         $this->load->view('layout/footer', $data);
     }
 
-    function changeStatus() {
+    function changeStatus()
+    {
+        if (!$this->rbac->hasPrivilege('user_status', 'can_edit')) {
+            access_denied();
+        }
         $id = $this->input->post('id');
         $status = $this->input->post('status');
         $role = $this->input->post('role');
@@ -53,7 +64,85 @@ class Users extends Admin_Controller {
         }
     }
 
-    function admissionreport() {
+
+    function deletestudents()
+    {
+        if (!$this->rbac->hasPrivilege('user_status', 'can_delete')) {
+            access_denied();
+        }
+
+        $ids_raw = $this->input->post('ids');
+
+        if (!isset($ids_raw)) {
+            $response = array('status' => 1, 'msg' => 'There are have not any selected items');
+            echo json_encode($response);
+        } else {
+            $origin_rows = count($ids_raw);
+            $ids = array();
+            $error_ids = array();
+
+            foreach ($ids_raw as $id_single) {
+                $id = str_replace('student_', '', $id_single);
+
+                try {
+                    $r = $this->student_model->remove($id);
+                    array_push($ids, $id);
+                } catch (Exception $e) {
+                    array_push($error_ids, $id);
+                }
+            }
+
+            if ($origin_rows === count($ids)) {
+                $result = array('status' => 1, 'msg' => 'Remove Students successfully');
+                echo json_encode($result);
+            } else {
+                $result = array('status' => 0, 'msg' => 'Some Error occured');
+                echo json_encode($result);
+            }
+        }
+    }
+
+    function deletestaffs()
+    {
+        if (!$this->rbac->hasPrivilege('user_status', 'can_delete')) {
+            access_denied();
+        }
+
+        $ids_raw = $this->input->post('ids');
+
+        if (!isset($ids_raw)) {
+            $response = array('status' => 1, 'msg' => 'There are have not any selected items');
+            echo json_encode($response);
+        } else {
+            $origin_rows = count($ids_raw);
+            $ids = array();
+            $error_ids = array();
+
+            foreach ($ids_raw as $id_single) {
+                $id = str_replace('staff_', '', $id_single);
+
+                try {
+
+                    $r = $this->staff_model->remove($id);
+                    array_push($ids, $id);
+                } catch (Exception $e) {
+                    array_push($error_ids, $id);
+                }
+            }
+
+            if ($origin_rows === count($ids)) {
+                $result = array('status' => 1, 'msg' => 'Remove Staffs successfully');
+                echo json_encode($result);
+            } else {
+                $result = array('status' => 0, 'msg' => 'Something Error occured');
+                echo json_encode($result);
+            }
+        }
+    }
+
+
+    function admissionreport()
+    {
         if (!$this->rbac->hasPrivilege('student_history', 'can_view')) {
             access_denied();
         }
@@ -110,7 +199,8 @@ class Users extends Admin_Controller {
         $this->load->view("layout/footer", $data);
     }
 
-    function logindetailreport() {
+    function logindetailreport()
+    {
         if (!$this->rbac->hasPrivilege('student_login_credential', 'can_view')) {
             access_denied();
         }
@@ -146,7 +236,4 @@ class Users extends Admin_Controller {
         $this->load->view("admin/users/logindetailreport", $data);
         $this->load->view("layout/footer");
     }
-
 }
-
-?>

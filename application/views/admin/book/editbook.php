@@ -20,7 +20,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     </div><!-- /.box-header -->
                     <!-- form start -->
 
-                    <form id="form1" action="<?php echo site_url('admin/book/edit/' . $id) ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                    <form id="form1" action="<?php echo site_url('admin/book/edit/' . $id) ?>" id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                         <div class="box-body">
                             <?php if ($this->session->flashdata('msg')) { ?>
                                 <?php echo $this->session->flashdata('msg') ?>
@@ -29,65 +29,65 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             if (isset($error_message)) {
                                 echo "<div class='alert alert-danger'>" . $error_message . "</div>";
                             }
-                            ?>   
-                            <?php echo $this->customlib->getCSRF(); ?>                         
-                            <input  type="hidden" name="id" value="<?php echo set_value('id', $editbook['id']); ?>" >
+                            ?>
+                            <?php echo $this->customlib->getCSRF(); ?>
+                            <input type="hidden" name="id" value="<?php echo set_value('id', $editbook['id']); ?>">
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('book_title'); ?></label>
-                                <input autofocus="" id="book_title" name="book_title" placeholder="" type="text" class="form-control"  value="<?php echo set_value('book_title', $editbook['book_title']); ?>" />
+                                <input autofocus="" id="book_title" name="book_title" placeholder="" type="text" class="form-control" value="<?php echo set_value('book_title', $editbook['book_title']); ?>" />
                                 <span class="text-danger"><?php echo form_error('book_title'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('book_no'); ?></label>
-                                <input id="book_no" name="book_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('book_no', $editbook['book_no']); ?>" />
+                                <input id="book_no" name="book_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('book_no', $editbook['book_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('book_no'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('isbn_no'); ?></label>
-                                <input id="isbn_no" name="isbn_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('isbn_no', $editbook['isbn_no']); ?>" />
+                                <input id="isbn_no" name="isbn_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('isbn_no', $editbook['isbn_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('isbn_no'); ?></span>
                             </div>
 
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('publisher'); ?></label>
-                                <input id="amount" name="publish" placeholder="" type="text" class="form-control"  value="<?php echo set_value('publish', $editbook['publish']); ?>" />
-                                <span class="text-danger"><?php echo form_error('publish'); ?></span>
+                                <input id="amount" name="publisher" placeholder="" type="text" class="form-control" value="<?php echo set_value('publisher', $editbook['publisher']); ?>" />
+                                <span class="text-danger"><?php echo form_error('publisher'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('author'); ?></label>
-                                <input id="amount" name="author" placeholder="" type="text" class="form-control"  value="<?php echo set_value('author', $editbook['author']); ?>" />
+                                <input id="amount" name="author" placeholder="" type="text" class="form-control" value="<?php echo set_value('author', $editbook['author']); ?>" />
                                 <span class="text-danger"><?php echo form_error('author'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('subject'); ?></label>
-                                <input id="subject" name="subject" placeholder="" type="text" class="form-control"  value="<?php echo set_value('subject', $editbook['subject']); ?>" />
+                                <input id="subject" name="subject" placeholder="" type="text" class="form-control" value="<?php echo set_value('subject', $editbook['subject']); ?>" />
                                 <span class="text-danger"><?php echo form_error('subject'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('rack_no'); ?></label>
-                                <input id="rack_no" name="rack_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('rack_no', $editbook['rack_no']); ?>" />
+                                <input id="rack_no" name="rack_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('rack_no', $editbook['rack_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('rack_no'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('qty'); ?></label>
-                                <input id="amount" name="qty" placeholder="" type="text" class="form-control"  value="<?php echo set_value('qty', $editbook['qty']); ?>" />
+                                <input id="amount" name="qty" placeholder="" type="text" class="form-control" value="<?php echo set_value('qty', $editbook['qty']); ?>" />
                                 <span class="text-danger"><?php echo form_error('qty'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('bookprice'); ?></label>
-                                <input id="amount" name="perunitcost" placeholder="" type="text" class="form-control"  value="<?php echo set_value('perunitcost', $editbook['perunitcost']); ?>" />
-                                <span class="text-danger"><?php echo form_error('perunitcost'); ?></span>
+                                <input id="amount" name="bookprice" placeholder="" type="text" class="form-control" value="<?php echo set_value('bookprice', $editbook['bookprice']); ?>" />
+                                <span class="text-danger"><?php echo form_error('bookprice'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('postdate'); ?></label>
 
 
-                                <input id="postdate" name="postdate"  placeholder="" type="text" class="form-control"  value="<?php echo set_value('postdate', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($editbook['postdate']))); ?>" />
+                                <input id="postdate" name="postdate" placeholder="" type="text" class="form-control" value="<?php echo set_value('postdate', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($editbook['postdate']))); ?>" />
                                 <span class="text-danger"><?php echo form_error('postdate'); ?></span>
                             </div>
                             <div class="clearfix"></div>
@@ -105,7 +105,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     </form>
                 </div>
 
-            </div><!--/.col (right) -->
+            </div>
+            <!--/.col (right) -->
 
 
         </div>
@@ -113,12 +114,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             <!-- left column -->
             <!-- right column -->
             <div class="col-md-12">
-            </div><!--/.col (right) -->
-        </div>   <!-- /.row -->
+            </div>
+            <!--/.col (right) -->
+        </div> <!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
         $('#postdate').datepicker({
             //   format: "dd-mm-yyyy",
@@ -128,13 +130,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     });
 </script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.detail_popover').popover({
             placement: 'right',
             trigger: 'hover',
             container: 'body',
             html: true,
-            content: function () {
+            content: function() {
                 return $(this).closest('td').find('.fee_detail_popover').html();
             }
         });
