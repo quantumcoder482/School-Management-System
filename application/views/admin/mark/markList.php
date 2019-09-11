@@ -111,7 +111,7 @@
                                                         <?php echo $this->lang->line('admission_no'); ?>
                                                     </th>
                                                     <th>
-                                                        <?php echo $this->lang->line('roll_no'); ?>
+                                                        <?php echo $this->lang->line('hall_no'); ?>
                                                     </th>
                                                     <th>
                                                         <?php echo $this->lang->line('student'); ?>
@@ -184,7 +184,7 @@
                                                         <?php echo $student['admission_no'] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $student['roll_no'] ?>
+                                                        <?php echo $student['hall_no'] ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $student['firstname'] . " " . $student['lastname']; ?>

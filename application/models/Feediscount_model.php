@@ -99,7 +99,7 @@ class Feediscount_model extends CI_Model {
                 . "`classes`.`id` AS `class_id`, `student_session`.`id` as `student_session_id`,"
                 . " `students`.`id`, `classes`.`class`, `sections`.`id` AS `section_id`,"
                 . " `sections`.`section`, `students`.`id`, `students`.`admission_no`,"
-                . " `students`.`roll_no`, `students`.`admission_date`, `students`.`firstname`,"
+                . " `students`.`hall_no`, `students`.`admission_date`, `students`.`firstname`,"
                 . " `students`.`lastname`, `students`.`image`, `students`.`mobileno`,"
                 . " `students`.`email`, `students`.`state`, `students`.`city`, `students`.`pincode`,"
                 . " `students`.`religion`, `students`.`dob`, `students`.`current_address`,"

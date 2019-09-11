@@ -58,7 +58,7 @@ class Mark extends Admin_Controller {
                 foreach ($studentList as $stu_key => $stu_value) {
                     $array = array();
                     $array['student_id'] = $stu_value['id'];
-                    $array['roll_no'] = $stu_value['roll_no'];
+                    $array['hall_no'] = $stu_value['hall_no'];
                     $array['firstname'] = $stu_value['firstname'];
                     $array['lastname'] = $stu_value['lastname'];
                     $array['admission_no'] = $stu_value['admission_no'];
@@ -169,7 +169,7 @@ class Mark extends Admin_Controller {
                     $array = array();
                     $array['student_id'] = $stu_value['id'];
                     $array['admission_no'] = $stu_value['admission_no'];
-                    $array['roll_no'] = $stu_value['roll_no'];
+                    $array['hall_no'] = $stu_value['hall_no'];
                     $array['firstname'] = $stu_value['firstname'];
                     $array['lastname'] = $stu_value['lastname'];
                     $array['dob'] = $stu_value['dob'];

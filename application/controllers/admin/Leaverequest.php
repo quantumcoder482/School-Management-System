@@ -38,6 +38,9 @@ class Leaverequest extends Admin_Controller {
         $staffRole = $this->staff_model->getStaffRole();
         $data["staffrole"] = $staffRole;
         $data["status"] = $this->status;
+        
+        $sub_staff = $this->staff_model->getAll();
+        $data['sub_staff'] = $sub_staff;
 
         $this->load->view("layout/header", $data);
         $this->load->view("admin/staff/staffleaverequest", $data);
@@ -102,9 +105,9 @@ class Leaverequest extends Admin_Controller {
     }
 
     function leaveRecord() {
-// if(!$this->rbac->hasPrivilege('leave_request','can_view')){
-//         access_denied();
-//         }
+        // if(!$this->rbac->hasPrivilege('leave_request','can_view')){
+        //         access_denied();
+        //         }
         $id = $this->input->post("id");
 
         $result = $this->staff_model->getLeaveRecord($id);
@@ -127,9 +130,9 @@ class Leaverequest extends Admin_Controller {
 
     function addLeave() {
 
-// if(!$this->rbac->hasPrivilege('leave_request','can_add')){
-//         access_denied();
-//         }
+        // if(!$this->rbac->hasPrivilege('leave_request','can_add')){
+        //         access_denied();
+        //         }
 
         $role = $this->input->post("role");
         $empid = $this->input->post("empname");
@@ -140,6 +143,7 @@ class Leaverequest extends Admin_Controller {
         $remark = $this->input->post("remark");
         $status = $this->input->post("addstatus");
         $request_id = $this->input->post("leaverequestid");
+        $substitute_stuff_id = $this->input->post("sub_staff_id") ?: '';
 
         $this->form_validation->set_rules('role', 'Role', 'trim|required|xss_clean');
         $this->form_validation->set_rules('empname', 'Name', 'trim|required|xss_clean');
@@ -186,6 +190,7 @@ class Leaverequest extends Admin_Controller {
 
                 $data = array('id' => $request_id,
                     'staff_id' => $staff_id,
+                    'substitute_staff_id' => $substitute_stuff_id,
                     'date' => date('Y-m-d', $this->customlib->datetostrtotime($applied_date)),
                     'leave_type_id' => $leavetype,
                     'leave_days' => $leave_days,
@@ -193,7 +198,7 @@ class Leaverequest extends Admin_Controller {
                     'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
             } else {
 
-                $data = array('staff_id' => $staff_id, 'date' => date("Y-m-d", strtotime($applied_date)), 'leave_days' => $leave_days, 'leave_type_id' => $leavetype, 'leave_from' => $leavefrom, 'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
+                $data = array('staff_id' => $staff_id, 'substitute_staff_id' => $substitute_stuff_id, 'date' => date("Y-m-d", strtotime($applied_date)), 'leave_days' => $leave_days, 'leave_type_id' => $leavetype, 'leave_from' => $leavefrom, 'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
             }
 
 
@@ -215,6 +220,8 @@ class Leaverequest extends Admin_Controller {
         $remark = '';
         $status = 'pending';
         $request_id = $this->input->post("leaverequestid");
+        $substitute_stuff_id = $this->input->post("sub_staff_id")?:'';
+
 
 
         $this->form_validation->set_rules('applieddate', 'Applied Date', 'trim|required|xss_clean');
@@ -260,6 +267,7 @@ class Leaverequest extends Admin_Controller {
 
                 $data = array('id' => $request_id,
                     'staff_id' => $staff_id,
+                    'substitute_staff_id' => $substitute_stuff_id,
                     'date' => date('Y-m-d', $this->customlib->datetostrtotime($applied_date)),
                     'leave_type_id' => $leavetype,
                     'leave_days' => $leave_days,
@@ -267,7 +275,7 @@ class Leaverequest extends Admin_Controller {
                     'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
             } else {
 
-                $data = array('staff_id' => $staff_id, 'date' => date("Y-m-d", strtotime($applied_date)), 'leave_days' => $leave_days, 'leave_type_id' => $leavetype, 'leave_from' => $leavefrom, 'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
+                $data = array('staff_id' => $staff_id, 'substitute_staff_id' => $substitute_stuff_id, 'date' => date("Y-m-d", strtotime($applied_date)), 'leave_days' => $leave_days, 'leave_type_id' => $leavetype, 'leave_from' => $leavefrom, 'leave_to' => $leaveto, 'employee_remark' => $reason, 'status' => $status, 'admin_remark' => $remark, 'applied_by' => $applied_by, 'document_file' => $document);
             }
 
 

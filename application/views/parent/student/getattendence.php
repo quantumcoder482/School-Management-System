@@ -35,7 +35,7 @@
                                 <b><?php echo $this->lang->line('admission_no'); ?></b> <a class="pull-right"><?php echo $student['admission_no']; ?></a>
                             </li>
                             <li class="list-group-item">
-                                <b><?php echo $this->lang->line('roll_no'); ?></b> <a class="pull-right"><?php echo $student['roll_no']; ?></a>
+                                <b><?php echo $this->lang->line('hall_no'); ?></b> <a class="pull-right"><?php echo $student['hall_no']; ?></a>
                             </li>
                             <li class="list-group-item">
                                 <b><?php echo $this->lang->line('class'); ?></b> <a class="pull-right"><?php echo $student['class']; ?></a>

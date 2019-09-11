@@ -121,7 +121,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     <tr>
 
                                         <th><?php echo $this->lang->line('admission_no'); ?></th>
-                                        <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                        <th><?php echo $this->lang->line('hall_no'); ?></th>
                                         <th><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('name'); ?> </th>
                                         <th><?php echo $this->lang->line('date_of_birth'); ?></th>
 
@@ -150,7 +150,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
 
                                                 <td><?php echo $student['admission_no']; ?></td>
-                                                <td><?php echo $student['roll_no']; ?></td>
+                                                <td><?php echo $student['hall_no']; ?></td>
                                                 <td><?php echo $student['firstname'] . " " . $student['lastname']; ?></td>
                                                 <td><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['dob'])); ?></td><td><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['due_date'])); ?></td>
 

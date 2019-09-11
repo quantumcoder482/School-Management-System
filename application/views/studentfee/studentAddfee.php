@@ -113,8 +113,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <tr>
                                                         <th><?php echo $this->lang->line('mobile_no'); ?></th>
                                                         <td><?php echo $student['mobileno']; ?></td>
-                                                        <th><?php echo $this->lang->line('roll_no'); ?></th>
-                                                        <td> <?php echo $student['roll_no']; ?>
+                                                        <th><?php echo $this->lang->line('hall_no'); ?></th>
+                                                        <td> <?php echo $student['hall_no']; ?>
                                                         </td>
                                                     </tr>
                                                     <tr>

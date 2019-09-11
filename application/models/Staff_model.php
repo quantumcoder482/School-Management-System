@@ -357,7 +357,13 @@ class Staff_model extends CI_Model {
 
     function getLeaveRecord($id) {
 
-        $query = $this->db->select('leave_types.type,leave_types.id as lid,staff.name,staff.id as staff_id,staff.surname,roles.name as user_type,staff.employee_id,staff_leave_request.*')->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")->join("staff", "staff.id = staff_leave_request.staff_id")->join("staff_roles", "staff.id = staff_roles.staff_id")->join("roles", "staff_roles.role_id = roles.id")->where("staff_leave_request.id", $id)->get("staff_leave_request");
+        $query = $this->db->select('leave_types.type, leave_types.id as lid, mainstaff.name, mainstaff.id as staff_id, mainstaff.surname, roles.name as user_type, mainstaff.employee_id, substaff.name as sub_name, substaff.surname as sub_surname, substaff.id as sub_staff_id, substaff.employee_id as sub_employee_id, staff_leave_request.*')
+            ->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")
+            ->join("staff mainstaff", "mainstaff.id = staff_leave_request.staff_id")
+            ->join("staff substaff", "substaff.id = staff_leave_request.substitute_staff_id", "left")
+            ->join("staff_roles", "mainstaff.id = staff_roles.staff_id")
+            ->join("roles", "staff_roles.role_id = roles.id")
+            ->where("staff_leave_request.id", $id)->get("staff_leave_request");
 
         return $query->row();
     }

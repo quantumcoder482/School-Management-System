@@ -30,7 +30,7 @@
                                         <address>
                                             <strong><?php echo $student['class'] . "(" . $student['section'] . ")" ?></strong><br>
                                             <b><?php echo $this->lang->line('admission_no'); ?>: </b><?php echo $student['admission_no'] ?><br/>
-                                            <b><?php echo $this->lang->line('roll_no'); ?> : </b><?php echo $student['roll_no'] ?><br>
+                                            <b><?php echo $this->lang->line('hall_no'); ?> : </b><?php echo $student['hall_no'] ?><br>
                                             <b><?php echo $this->lang->line('date_of_birth'); ?> : </b> <?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['dob'])); ?>
                                             <br>
                                             <abbr title="Phone"><i class="fa fa-phone-square"></i>&nbsp;&nbsp;</abbr> <?php echo $student['mobileno'] ?>

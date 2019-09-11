@@ -72,7 +72,7 @@ class Transaction extends Admin_Controller {
                         $obj->class = $eachstudent['class'];
                         $obj->section = $eachstudent['section'];
                         $obj->admission_no = $eachstudent['admission_no'];
-                        $obj->roll_no = $eachstudent['roll_no'];
+                        $obj->hall_no = $eachstudent['hall_no'];
                         $obj->father_name = $eachstudent['father_name'];
                         $student_session_id = $eachstudent['student_session_id'];
                         $student_total_fees = $this->studentfeemaster_model->getStudentFees($student_session_id);

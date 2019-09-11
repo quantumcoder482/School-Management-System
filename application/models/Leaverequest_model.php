@@ -11,7 +11,13 @@ class Leaverequest_model extends CI_model {
             $this->db->where("staff_leave_request.staff_id", $id);
         }
 
-        $query = $this->db->select('staff.name,staff.surname,staff.employee_id,staff_leave_request.*,leave_types.type')->join("staff", "staff.id = staff_leave_request.staff_id")->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")->where("staff.is_active", "1")->order_by("staff_leave_request.id", "desc")->get("staff_leave_request");
+        $query = $this->db->select('mainstaff.name, mainstaff.surname, mainstaff.employee_id, substaff.name as sub_name, substaff.surname as sub_surname, substaff.employee_id as sub_employee_id, staff_leave_request.*,leave_types.type')
+            ->join("staff mainstaff", "mainstaff.id = staff_leave_request.staff_id")
+            ->join("staff substaff", "substaff.id = staff_leave_request.substitute_staff_id", "left")
+            ->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")
+            ->where("mainstaff.is_active", "1")
+            ->order_by("staff_leave_request.id", "desc")
+            ->get("staff_leave_request");
 
         return $query->result_array();
     }
@@ -19,7 +25,14 @@ class Leaverequest_model extends CI_model {
     public function user_leave_request($id = null) {
 
 
-        $query = $this->db->select('staff.name,staff.surname,staff.employee_id,staff_leave_request.*,leave_types.type')->join("staff", "staff.id = staff_leave_request.staff_id")->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")->where("staff.is_active", "1")->where("staff.id", $id)->order_by("staff_leave_request.id", "desc")->get("staff_leave_request");
+        $query = $this->db->select('mainstaff.name, mainstaff.surname, mainstaff.employee_id, substaff.name as sub_name, substaff.surname as sub_surname, substaff.employee_id as sub_employee_id, staff_leave_request.*, leave_types.type')
+            ->join("staff mainstaff", "mainstaff.id = staff_leave_request.staff_id")
+            ->join("staff substaff", "substaff.id = staff_leave_request.substitute_staff_id", "left")
+            ->join("leave_types", "leave_types.id = staff_leave_request.leave_type_id")
+            ->where("mainstaff.is_active", "1")
+            ->where("mainstaff.id", $id)
+            ->order_by("staff_leave_request.id", "desc")
+            ->get("staff_leave_request");
 
         return $query->result_array();
     }

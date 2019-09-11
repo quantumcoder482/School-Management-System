@@ -367,7 +367,8 @@
                               $this->rbac->hasPrivilege('subject', 'can_view') ||
                                $this->rbac->hasPrivilege('assign_class_teacher', 'can_view') ||
                                 $this->rbac->hasPrivilege('class', 'can_view') ||
-                                 $this->rbac->hasPrivilege('section', 'can_view'))) {
+                                 $this->rbac->hasPrivilege('section', 'can_view') ||
+                                  $this->rbac->hasPrivilege('batch', 'can_view')))   {
                                 ?>
                                 <li class="treeview <?php echo set_Topmenu('Academics'); ?>">
                                     <a href="#">
@@ -408,6 +409,11 @@
                                         if ($this->rbac->hasPrivilege('section', 'can_view')) {
                                             ?>
                                             <li class="<?php echo set_Submenu('sections/index'); ?>"><a href="<?php echo base_url(); ?>sections"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('sections'); ?></a></li>
+                                            <?php
+                                        }
+                                        if ($this->rbac->hasPrivilege('batch', 'can_view')) {
+                                            ?>
+                                            <li class="<?php echo set_Submenu('batches/index'); ?>"><a href="<?php echo base_url(); ?>batches"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('batches'); ?></a></li>
                                             <?php
                                         }
                                         ?>

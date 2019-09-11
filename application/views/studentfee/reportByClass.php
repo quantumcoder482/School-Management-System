@@ -69,7 +69,7 @@
                                 <div class="row invoice-info">
                                     <div class="col-sm-4 invoice-col">
                                         <b><?php echo form_error('id'); ?> <?php echo $this->lang->line('id'); ?> :</b> <?php echo $st_detail['id']; ?><br>
-                                        <b><?php echo form_error('roll_no'); ?> <?php echo $this->lang->line('roll_no'); ?> :</b> <?php echo $st_detail['roll_no']; ?><br>
+                                        <b><?php echo form_error('hall_no'); ?> <?php echo $this->lang->line('hall_no'); ?> :</b> <?php echo $st_detail['hall_no']; ?><br>
                                         <b><?php echo form_error('admission_no'); ?> <?php echo $this->lang->line('admission_no'); ?> :</b> <?php echo $st_detail['admission_no']; ?><br>
                                     </div>
                                     <div class="col-sm-4 invoice-col">

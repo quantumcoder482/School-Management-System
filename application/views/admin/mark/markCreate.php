@@ -103,7 +103,7 @@
                                                     <th>
                                                         <?php echo $this->lang->line('admission_no'); ?>
                                                     </th>
-                                                    <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                                    <th><?php echo $this->lang->line('hall_no'); ?></th>
                                                     <th>
                                                         <?php echo $this->lang->line('student'); ?>
                                                     </th>
@@ -172,7 +172,7 @@
 
                                                 <tr>
                                                     <td>     <?php echo $student['admission_no'] ?></td>
-                                                    <td>     <?php echo $student['roll_no'] ?></td>
+                                                    <td>     <?php echo $student['hall_no'] ?></td>
                                                     <td>        <?php echo $student['firstname'] . " " . $student['lastname']; ?> </td>
                                                     <?php
                                                     if (!empty($student['exam_array'])) {

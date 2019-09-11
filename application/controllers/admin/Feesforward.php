@@ -102,7 +102,7 @@ class Feesforward extends Admin_Controller {
                 $obj = new stdClass();
                 $obj->name = $student_list_value->firstname . " " . $student_list_value->lastname;
                 $obj->admission_no = $student_list_value->admission_no;
-                $obj->roll_no = $student_list_value->roll_no;
+                $obj->hall_no = $student_list_value->hall_no;
                 $obj->father_name = $student_list_value->father_name;
                 $obj->student_session_id = $student_list_value->current_student_session_id;
                 $obj->student_previous_session_id = $student_list_value->previous_student_session_id;

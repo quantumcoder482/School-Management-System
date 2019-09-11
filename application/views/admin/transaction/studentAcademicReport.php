@@ -68,7 +68,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
                                                 <th class="text text-left"><?php echo $this->lang->line('student_name'); ?></th>
                                                 <th class="text text-left"><?php echo $this->lang->line('admission_no'); ?></th>
-                                                <th class="text text-left"><?php echo $this->lang->line('roll_no'); ?></th>
+                                                <th class="text text-left"><?php echo $this->lang->line('hall_no'); ?></th>
                                                 <th class="text text-left"><?php echo $this->lang->line('father_name'); ?></th>
 
                                                 <th class="text text-right"><?php echo $this->lang->line('total_fees'); ?> <span><?php echo "(" . $currency_symbol . ")"; ?></span></th>
@@ -111,7 +111,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <tr>
                                                         <td><?php echo $student->name; ?>   </td>
                                                         <td><?php echo $student->admission_no; ?>   </td>
-                                                        <td><?php echo $student->roll_no; ?></td>
+                                                        <td><?php echo $student->hall_no; ?></td>
                                                         <td><?php echo $student->father_name; ?>   </td>
 
                                                         <td class="text text-right">

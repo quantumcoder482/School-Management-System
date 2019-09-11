@@ -37,7 +37,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <b><?php echo $this->lang->line('admission_no'); ?></b> <a class="pull-right text-aqua"><?php echo $student['admission_no']; ?></a>
                             </li>
                             <li class="list-group-item">
-                                <b><?php echo $this->lang->line('roll_no'); ?></b> <a class="pull-right text-aqua"><?php echo $student['roll_no']; ?></a>
+                                <b><?php echo $this->lang->line('hall_no'); ?></b> <a class="pull-right text-aqua"><?php echo $student['hall_no']; ?></a>
                             </li>
                             <li class="list-group-item">
                                 <b><?php echo $this->lang->line('class'); ?></b> <a class="pull-right text-aqua"><?php echo $student['class']; ?></a>
@@ -299,7 +299,7 @@ if ($student['hostel_room_id'] != 0) {
                                                 <td  class="col-md-5"><?php echo $student['previous_school']; ?></td>
                                             </tr>
                                             <tr>
-                                                <td  class="col-md-4"><?php echo $this->lang->line('national_identification_no'); ?></td>
+                                                <td  class="col-md-4"><?php echo $this->lang->line('adhar_no'); ?></td>
                                                 <td  class="col-md-5"><?php echo $student['adhar_no']; ?></td>
                                             </tr>
                                             <tr>

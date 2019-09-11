@@ -24,7 +24,7 @@
                         <div class="box-body">
                             <?php echo $this->customlib->getCSRF(); ?>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
                                         <select autofocus="" id="class_id" name="class_id" class="form-control" >
@@ -45,7 +45,7 @@
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
                                         <select  id="section_id" name="section_id" class="form-control" >
@@ -54,7 +54,16 @@
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('batch'); ?></label>
+                                        <select  id="batch_id" name="batch_id" class="form-control" >
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        </select>
+                                        <span class="text-danger"><?php echo form_error('batch_id'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('month'); ?></label><small class="req"> *</small>
                                         <select  id="month" name="month" class="form-control" >
@@ -75,7 +84,7 @@
                                         <span class="text-danger"><?php echo form_error('month'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('year'); ?></label>
                                         <select  id="year" name="year" class="form-control" >
@@ -323,7 +332,43 @@
 
                     var section_id_post = '<?php echo $section_id; ?>';
                     var class_id_post = '<?php echo $class_id; ?>';
+                    var batch_id_post = '<?php echo $batch_id; ?>';
+
+                    getBatchBySection(section_id_post, batch_id_post);
                     populateSection(section_id_post, class_id_post);
+
+                    function getBatchBySection(section_id, batch_id) {
+
+                        if (section_id != "" || section_id != 0) {
+                            $('#batch_id').html("");
+                            var base_url = '<?php echo base_url() ?>';
+                            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                            var url = 'getAll';
+                            $.ajax({
+                                type: "GET",
+                                url: base_url + "batches/" + url,
+                                dataType: "json",
+                                beforeSend: function() {
+                                    $('#batch_id').addClass('dropdownloading');
+                                },
+                                success: function(data) {
+                                    $.each(data, function(i, obj) {
+                                        var sel = "";
+                                        if (batch_id == obj.id) {
+                                            sel = "selected";
+                                        }
+                                        div_data += "<option value=" + obj.id + " " + sel + ">" + obj.batch + "</option>";
+                                    });
+                                    $('#batch_id').append(div_data);
+                                },
+                                complete: function() {
+                                    $('#batch_id').removeClass('dropdownloading');
+                                }
+                            });
+                        }
+                    }
+
+
                     function populateSection(section_id_post, class_id_post) {
                         $('#section_id').html("");
                         var base_url = '<?php echo base_url() ?>';
@@ -346,6 +391,7 @@
                             }
                         });
                     }
+
                     $(document).on('change', '#class_id', function (e) {
                         $('#section_id').html("");
                         var class_id = $(this).val();
@@ -365,6 +411,13 @@
                             }
                         });
                     });
+
+                    $(document).on('change', '#section_id', function(e) {
+                        $('#batch_id').html("");
+                        var section_id = $(this).val();
+                        getBatchBySection(section_id);
+                    });
+                    
                     var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
                     $('#date').datepicker({
                         format: date_format,

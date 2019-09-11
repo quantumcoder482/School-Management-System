@@ -224,8 +224,8 @@ if (isset($resultlist)) {
                     <table>
                         <thead>
                             <tr>
-                                <th class="no">  <th><?php echo $this->lang->line('enroll_no'); ?></th></th>
-                                <th class="no">  <th><?php echo $this->lang->line('roll_no'); ?></th></th>
+                                <th class="no">  <th><?php echo $this->lang->line('enhall_no'); ?></th></th>
+                                <th class="no">  <th><?php echo $this->lang->line('hall_no'); ?></th></th>
                                 <th class="no">  <th><?php echo $this->lang->line('name'); ?></th></th>
                                 <th class="no">  <th><?php echo $this->lang->line('guardian'); ?></th></th>
                                 <th class="no"><?php echo $this->lang->line('class'); ?></th>
@@ -241,7 +241,7 @@ if (isset($resultlist)) {
                             ?>
                             <tr>
                                 <td class="desc"><h3><?php echo $student['admission_no']; ?></h3></td>
-                                <td class="qty"  style="text-align: center;"><?php echo $student['roll_no']; ?></td>
+                                <td class="qty"  style="text-align: center;"><?php echo $student['hall_no']; ?></td>
                                 <td class="qty"><?php echo $student['firstname'] . " " . $student['lastname']; ?></td>
                                 <td class="qty"><?php echo $student['guardian_name']; ?></td>
                                 <td class="qty"  style="text-align: center;"><?php echo $student['class']; ?></td>

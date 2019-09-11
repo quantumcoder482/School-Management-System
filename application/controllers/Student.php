@@ -241,14 +241,16 @@ class Student extends Admin_Controller
         $this->form_validation->set_rules('dob', 'Date of Birth', 'trim|required|xss_clean');
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('batch_id', 'Batch', 'trim|required|xss_clean');
         $this->form_validation->set_rules('rte', 'RTE', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('physically_challenged', 'Physically Challenged', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_name', 'Guardian Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_phone', 'Guardian Phone', 'trim|required|xss_clean');
         $this->form_validation->set_rules('admission_no', 'Admission No', 'trim|required|xss_clean|is_unique[students.admission_no]');
         $this->form_validation->set_rules('file', 'Image', 'callback_handle_upload');
         $this->form_validation->set_rules(
-            'roll_no',
-            'Roll No.',
+            'hall_no',
+            'Hall Ticket Number',
             array(
                 'trim',
                 array('check_exists', array($this->student_model, 'valid_student_roll'))
@@ -265,6 +267,10 @@ class Student extends Admin_Controller
 
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
+            $batch_id = $this->input->post('batch_id');
+            if(empty($batch_id)){
+                $batch_id = 0;
+            }
 
             $fees_discount = $this->input->post('fees_discount');
 
@@ -278,12 +284,13 @@ class Student extends Admin_Controller
             }
             $data = array(
                 'admission_no' => $this->input->post('admission_no'),
-                'roll_no' => $this->input->post('roll_no'),
+                'hall_no' => $this->input->post('hall_no'),
                 'admission_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('admission_date'))),
                 'firstname' => $this->input->post('firstname'),
                 'lastname' => $this->input->post('lastname'),
                 'mobileno' => $this->input->post('mobileno'),
                 'rte' => $this->input->post('rte'),
+                'physically_challenged' => $this->input->post('physically_challenged'),
                 'email' => $this->input->post('email'),
                 'state' => $this->input->post('state'),
                 'city' => $this->input->post('city'),
@@ -331,6 +338,7 @@ class Student extends Admin_Controller
                 'student_id' => $insert_id,
                 'class_id' => $class_id,
                 'section_id' => $section_id,
+                'batch_id' => $batch_id,
                 'session_id' => $session,
                 'fees_discount' => $fees_discount
             );
@@ -432,6 +440,21 @@ class Student extends Admin_Controller
                 $this->student_model->adddoc($data_img);
             }
 
+            if (isset($_FILES["third_doc"]) && !empty($_FILES['third_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["third_doc"]["name"]);
+                $third_title = $this->input->post('third_title');
+                $file_name = $_FILES['third_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+                move_uploaded_file($_FILES["third_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $third_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
             if (isset($_FILES["fourth_doc"]) && !empty($_FILES['fourth_doc']['name'])) {
                 $uploaddir = './uploads/student_documents/' . $insert_id . '/';
                 if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
@@ -443,6 +466,7 @@ class Student extends Admin_Controller
                 $exp = explode(' ', $file_name);
                 $imp = implode('_', $exp);
                 $img_name = $uploaddir . $imp;
+
                 move_uploaded_file($_FILES["fourth_doc"]["tmp_name"], $img_name);
                 $data_img = array('student_id' => $insert_id, 'title' => $fourth_title, 'doc' => $imp);
                 $this->student_model->adddoc($data_img);
@@ -463,6 +487,88 @@ class Student extends Admin_Controller
                 $data_img = array('student_id' => $insert_id, 'title' => $fifth_title, 'doc' => $imp);
                 $this->student_model->adddoc($data_img);
             }
+            if (isset($_FILES["sixth_doc"]) && !empty($_FILES['sixth_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["sixth_doc"]["name"]);
+                $sixth_title = $this->input->post('sixth_title');
+                $file_name = $_FILES['sixth_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+
+                move_uploaded_file($_FILES["sixth_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $sixth_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
+            if (isset($_FILES["seventh_doc"]) && !empty($_FILES['seventh_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["seventh_doc"]["name"]);
+                $seventh_title = $this->input->post('seventh_title');
+                $file_name = $_FILES['seventh_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+
+                move_uploaded_file($_FILES["seventh_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $seventh_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
+            if (isset($_FILES["eighth_doc"]) && !empty($_FILES['eighth_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["eighth_doc"]["name"]);
+                $eighth_title = $this->input->post('eighth_title');
+                $file_name = $_FILES['eighth_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+
+                move_uploaded_file($_FILES["eighth_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $eighth_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
+            if (isset($_FILES["nineth_doc"]) && !empty($_FILES['nineth_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["nineth_doc"]["name"]);
+                $nineth_title = $this->input->post('nineth_title');
+                $file_name = $_FILES['nineth_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+
+                move_uploaded_file($_FILES["nineth_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $nineth_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
+            if (isset($_FILES["tenth_doc"]) && !empty($_FILES['tenth_doc']['name'])) {
+                $uploaddir = './uploads/student_documents/' . $insert_id . '/';
+                if (!is_dir($uploaddir) && !mkdir($uploaddir)) {
+                    die("Error creating folder $uploaddir");
+                }
+                $fileInfo = pathinfo($_FILES["tenth_doc"]["name"]);
+                $tenth_title = $this->input->post('tenth_title');
+                $file_name = $_FILES['tenth_doc']['name'];
+                $exp = explode(' ', $file_name);
+                $imp = implode('_', $exp);
+                $img_name = $uploaddir . $imp;
+
+                move_uploaded_file($_FILES["tenth_doc"]["tmp_name"], $img_name);
+                $data_img = array('student_id' => $insert_id, 'title' => $tenth_title, 'doc' => $imp);
+                $this->student_model->adddoc($data_img);
+            }
+
+
             $sender_details = array('student_id' => $insert_id, 'contact_no' => $this->input->post('guardian_phone'), 'email' => $this->input->post('guardian_email'), 'notification_to' => array('app_key'));
 
             $this->mailsmsconf->mailsms('student_admission', $sender_details);
@@ -550,13 +656,14 @@ class Student extends Admin_Controller
         $category = $this->category_model->get();
 
 
-        $fields = array('admission_no', 'roll_no', 'firstname', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note');
+        $fields = array('admission_no', 'hall_no', 'firstname', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note');
 
 
         $data["fields"] = $fields;
         $data['categorylist'] = $category;
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('batch_id', 'Batch', 'trim|required|xss_clean');
         $this->form_validation->set_rules('file', 'Image', 'callback_handle_csv_upload');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
@@ -575,6 +682,7 @@ class Student extends Admin_Controller
             }
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
+            $batch_id = $this->input->post('batch_id');
             $session = $this->setting_model->getCurrentSession();
             if (isset($_FILES["file"]) && !empty($_FILES['file']['name'])) {
                 $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
@@ -597,7 +705,7 @@ class Student extends Admin_Controller
                                 $n++;
                             }
 
-                            $roll_no = $student_data[$i]["roll_no"];
+                            $hall_no = $student_data[$i]["hall_no"];
                             $adm_no = $student_data[$i]["admission_no"];
                             $mobile_no = $student_data[$i]["mobileno"];
                             $email = $student_data[$i]["email"];
@@ -606,9 +714,9 @@ class Student extends Admin_Controller
 
                             if ($this->form_validation->is_unique($adm_no, 'students.admission_no')) {
 
-                                if (!empty($roll_no)) {
+                                if (!empty($hall_no)) {
 
-                                    if ($this->student_model->check_rollno_exists($roll_no, 0, $class_id, $section)) {
+                                    if ($this->student_model->check_rollno_exists($hall_no, 0, $class_id, $section)) {
 
                                         $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Record already exists.</div>');
                                         $insert_id = "";
@@ -629,6 +737,7 @@ class Student extends Admin_Controller
                                     'student_id' => $insert_id,
                                     'class_id' => $class_id,
                                     'section_id' => $section_id,
+                                    'batch_id' => $batch_id,
                                     'session_id' => $session
                                 );
                                 $this->student_model->add_student_session($data_new);
@@ -766,13 +875,15 @@ class Student extends Admin_Controller
         $this->form_validation->set_rules('dob', 'Date of Birth', 'trim|required|xss_clean');
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('batch_id', 'Batch', 'trim|required|xss_clean');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_name', 'Guardian Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('rte', 'RTE', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('physically_challenged', 'Physically Challenged', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_phone', 'Guardian Phone', 'trim|required|xss_clean');
         $this->form_validation->set_rules(
-            'roll_no',
-            'Roll No.',
+            'hall_no',
+            'Hall Ticket Number',
             array(
                 'trim',
                 array('check_exists', array($this->student_model, 'valid_student_roll'))
@@ -795,6 +906,7 @@ class Student extends Admin_Controller
 
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
+            $batch_id = $this->input->post('batch_id');
             $hostel_room_id = $this->input->post('hostel_room_id');
             $fees_discount = $this->input->post('fees_discount');
             $vehroute_id = $this->input->post('vehroute_id');
@@ -807,11 +919,12 @@ class Student extends Admin_Controller
             $data = array(
                 'id' => $id,
                 'admission_no' => $this->input->post('admission_no'),
-                'roll_no' => $this->input->post('roll_no'),
+                'hall_no' => $this->input->post('hall_no'),
                 'admission_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('admission_date'))),
                 'firstname' => $this->input->post('firstname'),
                 'lastname' => $this->input->post('lastname'),
                 'rte' => $this->input->post('rte'),
+                'physically_challenged' => $this->input->post('physically_challenged'),
                 'mobileno' => $this->input->post('mobileno'),
                 'email' => $this->input->post('email'),
                 'state' => $this->input->post('state'),
@@ -858,6 +971,7 @@ class Student extends Admin_Controller
                 'class_id' => $class_id,
                 'section_id' => $section_id,
                 'session_id' => $session,
+                'batch_id' => $batch_id,
                 'fees_discount' => $fees_discount
             );
             $insert_id = $this->student_model->add_student_session($data_new);

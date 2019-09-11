@@ -26,7 +26,7 @@
 
         $guardian_name = $resultlist[0]['guardian_name'];
         $admission_no = $resultlist[0]['admission_no'];
-        $roll_no = $resultlist[0]['roll_no'];
+        $hall_no = $resultlist[0]['hall_no'];
         $class = $resultlist[0]['class'];
         $section = $resultlist[0]['section'];
         $gender = $resultlist[0]['gender'];
@@ -70,8 +70,8 @@
                 $text = str_replace($matches[0][$i], $admission_no, $text);
             }
 
-            if ($matches[0][$i] == '[roll_no]') {
-                $text = str_replace($matches[0][$i], $roll_no, $text);
+            if ($matches[0][$i] == '[hall_no]') {
+                $text = str_replace($matches[0][$i], $hall_no, $text);
             }
 
             if ($matches[0][$i] == '[class]') {

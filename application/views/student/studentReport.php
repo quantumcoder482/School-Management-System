@@ -121,7 +121,7 @@
                                     <th><?php echo $this->lang->line('gender'); ?></th>
                                     <th><?php echo $this->lang->line('category'); ?></th>
                                     <th><?php echo $this->lang->line('mobile_no'); ?></th>
-                                    <th><?php echo $this->lang->line('national_identification_no'); ?></th>
+                                    <th><?php echo $this->lang->line('adhar_no'); ?></th>
                                     <th><?php echo $this->lang->line('local_identification_no'); ?></th>
                                     <th><?php echo $this->lang->line('rte'); ?></th>
                                 </tr>

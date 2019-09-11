@@ -20,7 +20,7 @@ class Studentfeemaster_model extends CI_Model {
         $sql = "SELECT IFNULL(`student_fees_master`.`id`, '0') as `student_fees_master_id`,`classes`.`id` AS `class_id`,"
                 . " `student_session`.`id` as `student_session_id`, `students`.`id`, "
                 . "`classes`.`class`, `sections`.`id` AS `section_id`, `sections`.`section`, "
-                . "`students`.`id`, `students`.`admission_no`, `students`.`roll_no`,"
+                . "`students`.`id`, `students`.`admission_no`, `students`.`hall_no`,"
                 . " `students`.`admission_date`, `students`.`firstname`, `students`.`lastname`,"
                 . " `students`.`image`, `students`.`mobileno`, `students`.`email`, `students`.`state`,"
                 . " `students`.`city`, `students`.`pincode`, `students`.`religion`, `students`.`dob`, "
@@ -207,7 +207,7 @@ class Studentfeemaster_model extends CI_Model {
 
 
         public function getStudentDetailByStudentSession($id) {
-    $sql = "SELECT student_fees_master.*,`student_session`.`student_id`,`students`.`admission_no` , `students`.`roll_no`,`students`.`admission_date`,`students`.`firstname`,  `students`.`lastname`,`students`.`image`,    `students`.`mobileno`, `students`.`email`,`students`.`state` ,   `students`.`city` , `students`.`pincode` ,     `students`.`religion`,     `students`.`dob`,`students`.`current_address`,    `students`.`permanent_address`,`students`.`app_key`,`students`.`parent_app_key` FROM `student_fees_master` INNER JOIN `student_session` on `student_session`.id=student_fees_master.student_session_id INNER JOIN `students` on `students`.id=`student_session`.student_id WHERE `student_fees_master`.`id`=".$id;
+    $sql = "SELECT student_fees_master.*,`student_session`.`student_id`,`students`.`admission_no` , `students`.`hall_no`,`students`.`admission_date`,`students`.`firstname`,  `students`.`lastname`,`students`.`image`,    `students`.`mobileno`, `students`.`email`,`students`.`state` ,   `students`.`city` , `students`.`pincode` ,     `students`.`religion`,     `students`.`dob`,`students`.`current_address`,    `students`.`permanent_address`,`students`.`app_key`,`students`.`parent_app_key` FROM `student_fees_master` INNER JOIN `student_session` on `student_session`.id=student_fees_master.student_session_id INNER JOIN `students` on `students`.id=`student_session`.student_id WHERE `student_fees_master`.`id`=".$id;
         $query = $this->db->query($sql);
         $result = $query->row();
         

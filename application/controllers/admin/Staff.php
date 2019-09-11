@@ -570,8 +570,7 @@ class Staff extends Admin_Controller {
     }
 
 
-    public function username_check($str)
-    {
+    public function username_check($str){
         if(empty($str)){
         $this->form_validation->set_message('username_check', 'Staff ID field is required');
         return false;
@@ -738,16 +737,17 @@ class Staff extends Admin_Controller {
                 'linkedin' => $linkedin,
                 'instagram' => $instagram,
             );
-              if($date_of_joining != ""){
-            $data1['date_of_joining'] = date('Y-m-d', $this->customlib->datetostrtotime($date_of_joining));
+            
+            if($date_of_joining != ""){
+                $data1['date_of_joining'] = date('Y-m-d', $this->customlib->datetostrtotime($date_of_joining));
             }else{
-            $data1['date_of_joining'] = "";
+                $data1['date_of_joining'] = "";
             }
 
-               if($date_of_leaving != ""){
-            $data1['date_of_leaving'] = date('Y-m-d', $this->customlib->datetostrtotime($date_of_leaving));
+            if($date_of_leaving != ""){
+                $data1['date_of_leaving'] = date('Y-m-d', $this->customlib->datetostrtotime($date_of_leaving));
             }else{
-$data1['date_of_leaving'] = "";
+                $data1['date_of_leaving'] = "";
             }
             
             $insert_id = $this->staff_model->add($data1);
@@ -1011,7 +1011,6 @@ $data1['date_of_leaving'] = "";
         $this->session->set_userdata('top_menu', 'HR');
         $this->session->set_userdata('sub_menu', 'admin/staff/leaverequest');
         $userdata = $this->customlib->getUserData();
-
         $leave_request = $this->leaverequest_model->user_leave_request($userdata["id"]);
 
         $data["leave_request"] = $leave_request;
@@ -1025,6 +1024,8 @@ $data1['date_of_leaving'] = "";
         $data["staffrole"] = $staffRole;
         $data["status"] = $this->status;
 
+        $sub_staff = $this->staff_model->getAll();
+        $data['sub_staff'] = $sub_staff;
 
         $this->load->view("layout/header", $data);
         $this->load->view("admin/staff/leaverequest", $data);

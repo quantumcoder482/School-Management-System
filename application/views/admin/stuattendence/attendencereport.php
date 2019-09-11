@@ -1,12 +1,15 @@
-
 <style type="text/css">
     .radio {
-        padding-left: 20px; }
+        padding-left: 20px;
+    }
+
     .radio label {
         display: inline-block;
         vertical-align: middle;
         position: relative;
-        padding-left: 5px; }
+        padding-left: 5px;
+    }
+
     .radio label::before {
         content: "";
         display: inline-block;
@@ -20,7 +23,9 @@
         background-color: #fff;
         -webkit-transition: border 0.15s ease-in-out;
         -o-transition: border 0.15s ease-in-out;
-        transition: border 0.15s ease-in-out; }
+        transition: border 0.15s ease-in-out;
+    }
+
     .radio label::after {
         display: inline-block;
         position: absolute;
@@ -39,46 +44,77 @@
         -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
         -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
         -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
-        transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); }
+        transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+    }
+
     .radio input[type="radio"] {
         opacity: 0;
-        z-index: 1; }
-    .radio input[type="radio"]:focus + label::before {
+        z-index: 1;
+    }
+
+    .radio input[type="radio"]:focus+label::before {
         outline: thin dotted;
         outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px; }
-    .radio input[type="radio"]:checked + label::after {
+        outline-offset: -2px;
+    }
+
+    .radio input[type="radio"]:checked+label::after {
         -webkit-transform: scale(1, 1);
         -ms-transform: scale(1, 1);
         -o-transform: scale(1, 1);
-        transform: scale(1, 1); }
-    .radio input[type="radio"]:disabled + label {
-        opacity: 0.65; }
-    .radio input[type="radio"]:disabled + label::before {
-        cursor: not-allowed; }
-    .radio.radio-inline {
-        margin-top: 0; }
-    .radio-primary input[type="radio"] + label::after {
-        background-color: #337ab7; }
-    .radio-primary input[type="radio"]:checked + label::before {
-        border-color: #337ab7; }
-    .radio-primary input[type="radio"]:checked + label::after {
-        background-color: #337ab7; }
-    .radio-danger input[type="radio"] + label::after {
-        background-color: #d9534f; }
-    .radio-danger input[type="radio"]:checked + label::before {
-        border-color: #d9534f; }
-    .radio-danger input[type="radio"]:checked + label::after {
-        background-color: #d9534f; }
-    .radio-info input[type="radio"] + label::after {
-        background-color: #5bc0de; }
-    .radio-info input[type="radio"]:checked + label::before {
-        border-color: #5bc0de; }
-    .radio-info input[type="radio"]:checked + label::after {
-        background-color: #5bc0de; }
-    </style>
+        transform: scale(1, 1);
+    }
 
-    <div class="content-wrapper" style="min-height: 946px;">
+    .radio input[type="radio"]:disabled+label {
+        opacity: 0.65;
+    }
+
+    .radio input[type="radio"]:disabled+label::before {
+        cursor: not-allowed;
+    }
+
+    .radio.radio-inline {
+        margin-top: 0;
+    }
+
+    .radio-primary input[type="radio"]+label::after {
+        background-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked+label::before {
+        border-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked+label::after {
+        background-color: #337ab7;
+    }
+
+    .radio-danger input[type="radio"]+label::after {
+        background-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked+label::before {
+        border-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked+label::after {
+        background-color: #d9534f;
+    }
+
+    .radio-info input[type="radio"]+label::after {
+        background-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked+label::before {
+        border-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked+label::after {
+        background-color: #5bc0de;
+    }
+</style>
+
+<div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -86,53 +122,62 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="row">  
+        <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
                     </div>
-                    <form id='form1' action="<?php echo site_url('admin/stuattendence/attendencereport') ?>"  method="post" accept-charset="utf-8">
+                    <form id='form1' action="<?php echo site_url('admin/stuattendence/attendencereport') ?>" method="post" accept-charset="utf-8">
                         <div class="box-body">
                             <?php echo $this->customlib->getCSRF(); ?>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                        <select autofocus="" id="class_id" name="class_id" class="form-control" >
+                                        <select autofocus="" id="class_id" name="class_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
                                             foreach ($classlist as $class) {
                                                 ?>
                                                 <option value="<?php echo $class['id'] ?>" <?php
-                                                if ($class_id == $class['id']) {
-                                                    echo "selected =selected";
-                                                }
-                                                ?>><?php echo $class['class'] ?></option>
-                                                        <?php
-                                                        $count++;
-                                                    }
-                                                    ?>
+                                                                                                if ($class_id == $class['id']) {
+                                                                                                    echo "selected =selected";
+                                                                                                }
+                                                                                                ?>><?php echo $class['class'] ?></option>
+                                            <?php
+                                                $count++;
+                                            }
+                                            ?>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
-                                        <select  id="section_id" name="section_id" class="form-control" >
+                                        <select id="section_id" name="section_id" class="form-control">
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         </select>
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('batch'); ?></label>
+                                        <select id="batch_id" name="batch_id" class="form-control">
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        </select>
+                                        <span class="text-danger"><?php echo form_error('batch_id'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">
                                             <?php echo $this->lang->line('attendance'); ?>
                                             <?php echo $this->lang->line('date'); ?>
                                         </label>
-                                        <input id="date" name="date" placeholder="" type="text" class="form-control"  value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly"/>
+                                        <input id="date" name="date" placeholder="" type="text" class="form-control" value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
                                         <span class="text-danger"><?php echo form_error('date'); ?></span>
                                     </div>
                                 </div>
@@ -155,8 +200,8 @@
                         </div>
                         <div class="box-body">
                             <?php
-                            if (!empty($resultlist)) {
-                                ?>
+                                if (!empty($resultlist)) {
+                                    ?>
                                 <div class="mailbox-controls">
                                     <div class="pull-right">
                                     </div>
@@ -165,171 +210,217 @@
                                 <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
                                 <input type="hidden" name="date" value="<?php echo $date; ?>">
                                 <div class="download_label"><?php echo $this->lang->line('attendance'); ?> <?php echo $this->lang->line('list'); ?></div>
-                                <div class="table-responsive">    
+                                <div class="table-responsive">
                                     <table class="table table-hover table-striped example">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th><?php echo $this->lang->line('admission_no'); ?></th>
-                                                <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                                <th><?php echo $this->lang->line('hall_no'); ?></th>
                                                 <th><?php echo $this->lang->line('name'); ?></th>
                                                 <th class="text-right"><?php echo $this->lang->line('attendance'); ?></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $row_count = 1;
-                                            foreach ($resultlist as $key => $value) {
-                                                ?>
+                                                    $row_count = 1;
+                                                    foreach ($resultlist as $key => $value) {
+                                                        ?>
                                                 <tr>
-                                                <!--   <td>
+                                                    <!--   <td>
                                                   <input type="hidden" name="student_session[]" value="<?php echo $value['student_session_id']; ?>">
                                                   <input  type="hidden" value="<?php echo $value['attendence_id']; ?>"  name="attendendence_id<?php echo $value['student_session_id']; ?>">
 
                                                   </td> -->
                                                     <td> <?php echo $row_count; ?></td>
-                                                    <td>     <?php echo $value['admission_no']; ?>   </td>
-                                                    <td>     <?php echo $value['roll_no']; ?>   </td>
+                                                    <td> <?php echo $value['admission_no']; ?> </td>
+                                                    <td> <?php echo $value['hall_no']; ?> </td>
                                                     <td>
                                                         <?php echo $value['firstname'] . " " . $value['lastname']; ?>
                                                     </td>
                                                     <td class="pull-right">
                                                         <?php
-                                                        $c = 1;
-                                                        foreach ($attendencetypeslist as $key => $type) {
-                                                            $att_type = str_replace(" ", "_", strtolower($type['type']));
-                                                            if ($value['date'] != "xxx") {
-                                                                if ($value['attendence_type_id'] == $type['id']) {
+                                                                    $c = 1;
+                                                                    foreach ($attendencetypeslist as $key => $type) {
+                                                                        $att_type = str_replace(" ", "_", strtolower($type['type']));
+                                                                        if ($value['date'] != "xxx") {
+                                                                            if ($value['attendence_type_id'] == $type['id']) {
 
-                                                                    if ($type['id'] == "1") {
-                                                                        ?>
+                                                                                if ($type['id'] == "1") {
+                                                                                    ?>
                                                                         <small class="label label-success">
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    } elseif ($type['id'] == "3") {
-                                                                        ?>
+                                                                    <?php
+                                                                                            } elseif ($type['id'] == "3") {
+                                                                                                ?>
                                                                         <small class="label label-warning">
 
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    } elseif ($type['id'] == "2") {
-                                                                        ?>
+                                                                    <?php
+                                                                                            } elseif ($type['id'] == "2") {
+                                                                                                ?>
                                                                         <small class="label label-warning">
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    } elseif ($type['id'] == "6") {
-                                                                        ?>
+                                                                    <?php
+                                                                                            } elseif ($type['id'] == "6") {
+                                                                                                ?>
                                                                         <small class="label label-warning">
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    } elseif ($type['id'] == "5") {
-                                                                        ?>
+                                                                    <?php
+                                                                                            } elseif ($type['id'] == "5") {
+                                                                                                ?>
                                                                         <small class="label label-default">
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    } else {
-                                                                        ?>
+                                                                    <?php
+                                                                                            } else {
+                                                                                                ?>
                                                                         <small class="label label-danger">
                                                                             <?php echo $this->lang->line($att_type) ?>
                                                                         </small>
-                                                                        <?php
-                                                                    }
-                                                                }
-                                                                ?>
                                                                 <?php
-                                                            } else {
-                                                                ?>
+                                                                                        }
+                                                                                    }
+                                                                                    ?>
+                                                            <?php
+                                                                            } else {
+                                                                                ?>
                                                                 <div class="radio radio-info radio-inline">
                                                                     <input <?php if ($c == 1) echo "checked"; ?> type="radio" id="attendencetype<?php echo $value['student_session_id']; ?>" value="<?php echo $type['id'] ?>" name="attendencetype<?php echo $value['student_session_id']; ?>">
                                                                     <label for="inlineRadio1"> <?php echo $this->lang->line($att_type) ?> </label>
                                                                 </div>
-                                                                <?php
-                                                            }
-                                                            $c++;
-                                                        }
-                                                        ?>
+                                                        <?php
+                                                                        }
+                                                                        $c++;
+                                                                    }
+                                                                    ?>
 
                                                     </td>
                                                 </tr>
-                                                <?php
-                                                $row_count++;
-                                            }
-                                            ?>
+                                            <?php
+                                                        $row_count++;
+                                                    }
+                                                    ?>
                                         </tbody>
                                     </table>
 
-                                    <?php
-                                }else {
-                                    ?>
+                                <?php
+                                    } else {
+                                        ?>
                                     <div class="alert alert-info">
                                         <?php echo $this->lang->line('no_attendance_prepare'); ?>
                                     </div>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        </div></div> 
-                    <?php
+                                <?php
+                                    }
+                                    ?>
+                                </div>
+                        </div>
+                    </div>
+                <?php
                 }
                 ?>
-                </section>
-            </div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    var section_id_post = '<?php echo $section_id; ?>';
-                    var class_id_post = '<?php echo $class_id; ?>';
-                    populateSection(section_id_post, class_id_post);
-                    function populateSection(section_id_post, class_id_post) {
-                        $('#section_id').html("");
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id_post},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    var select = "";
-                                    if (section_id_post == obj.section_id) {
-                                        var select = "selected=selected";
-                                    }
-                                    div_data += "<option value=" + obj.section_id + " " + select + ">" + obj.section + "</option>";
-                                });
+    </section>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var section_id_post = '<?php echo $section_id; ?>';
+        var class_id_post = '<?php echo $class_id; ?>';
+        var batch_id_post = '<?php echo $batch_id; ?>';
 
-                                $('#section_id').append(div_data);
+        getBatchBySection(section_id_post, batch_id_post);
+        populateSection(section_id_post, class_id_post);
+
+
+        function getBatchBySection(section_id, batch_id) {
+
+            if (section_id != "" || section_id != 0) {
+                $('#batch_id').html("");
+                var base_url = '<?php echo base_url() ?>';
+                var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                var url = 'getAll';
+                $.ajax({
+                    type: "GET",
+                    url: base_url + "batches/" + url,
+                    dataType: "json",
+                    beforeSend: function() {
+                        $('#batch_id').addClass('dropdownloading');
+                    },
+                    success: function(data) {
+                        $.each(data, function(i, obj) {
+                            var sel = "";
+                            if (batch_id == obj.id) {
+                                sel = "selected";
                             }
+                            div_data += "<option value=" + obj.id + " " + sel + ">" + obj.batch + "</option>";
                         });
+                        $('#batch_id').append(div_data);
+                    },
+                    complete: function() {
+                        $('#batch_id').removeClass('dropdownloading');
                     }
-                    $(document).on('change', '#class_id', function (e) {
-                        $('#section_id').html("");
-                        var class_id = $(this).val();
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
-                                });
-                                $('#section_id').append(div_data);
-                            }
-                        });
-                    });
-                    var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
-                    $('#date').datepicker({
-                        format: date_format,
-                        autoclose: true
-                    });
                 });
-            </script>
+            }
+        }
+
+        function populateSection(section_id_post, class_id_post) {
+            $('#section_id').html("");
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {
+                    'class_id': class_id_post
+                },
+                dataType: "json",
+                success: function(data) {
+                    $.each(data, function(i, obj) {
+                        var select = "";
+                        if (section_id_post == obj.section_id) {
+                            var select = "selected=selected";
+                        }
+                        div_data += "<option value=" + obj.section_id + " " + select + ">" + obj.section + "</option>";
+                    });
+
+                    $('#section_id').append(div_data);
+                }
+            });
+        }
+        $(document).on('change', '#class_id', function(e) {
+            $('#section_id').html("");
+            var class_id = $(this).val();
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {
+                    'class_id': class_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $.each(data, function(i, obj) {
+                        div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
+                    });
+                    $('#section_id').append(div_data);
+                }
+            });
+        });
+
+        $(document).on('change', '#section_id', function(e) {
+            $('#batch_id').html("");
+            var section_id = $(this).val();
+            getBatchBySection(section_id);
+        });
+        
+        var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
+        $('#date').datepicker({
+            format: date_format,
+            autoclose: true
+        });
+    });
+</script>
