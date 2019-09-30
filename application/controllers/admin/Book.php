@@ -58,6 +58,12 @@ class Book extends Admin_Controller
         $data['title'] = 'Add Book';
         $data['title_list'] = 'Book Details';
         $this->form_validation->set_rules('book_title', 'Book Title', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('author', 'Author', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('publisher', 'Publisher', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('from_acc_no', 'From Acc. No.', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('to_acc_no', 'To Acc. No', 'trim|required|xss_clean');
+
+
         if ($this->form_validation->run() == FALSE) {
             $listbook = $this->book_model->listbook();
             $data['listbook'] = $listbook;
@@ -67,15 +73,27 @@ class Book extends Admin_Controller
         } else {
             $data = array(
                 'book_title' => $this->input->post('book_title'),
-                'book_no' => $this->input->post('book_no'),
-                'isbn_no' => $this->input->post('isbn_no'),
-                'subject' => $this->input->post('subject'),
-                'rack_no' => $this->input->post('rack_no'),
-                'publisher' => $this->input->post('publisher'),
                 'author' => $this->input->post('author'),
-                'qty' => $this->input->post('qty'),
+                'publisher' => $this->input->post('publisher'),
+                'isbn_no' => $this->input->post('isbn_no'),
+                'book_no' => $this->input->post('book_no'),
+                'from_acc_no' => $this->input->post('from_acc_no'),
+                'to_acc_no' => $this->input->post('to_acc_no'),
+                'edition' => $this->input->post('edition'),
+                'volume' => $this->input->post('volume'),
+                'year' => $this->input->post('year'),
                 'bookprice' => $this->input->post('bookprice'),
-                'postdate' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('postdate'))),
+                'no_of_pages' => $this->input->post('no_of_pages'),
+                'department' => $this->input->post('department'),
+                'book_type' => $this->input->post('book_type'),
+                'category' => $this->input->post('category'),
+                'rack_no' => $this->input->post('rack_no'),
+                'qty' => $this->input->post('qty'),
+                'issue_book' => $this->input->post('issue_book'),
+                'reference_book' => $this->input->post('reference_book'),
+                'supplier' => $this->input->post('supplier'),
+                'invoice_no' => $this->input->post('invoice_no'),
+                'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('invoice_date'))),
                 'description' => $this->input->post('description')
             );
             $this->book_model->addbooks($data);
@@ -97,7 +115,7 @@ class Book extends Admin_Controller
 
         $userdata = $this->customlib->getUserData();
 
-        $fields = array('book_title', 'book_no', 'isbn_no', 'subject', 'rack_no', 'publisher', 'author', 'qty', 'bookprice', 'postdate', 'description');
+        $fields = array('book_title','author', 'publisher','isbn_no','book_no','from_acc_no','to_acc_no','edition','volume','year','bookprice','no_of_pages','department','book_type','category','rack_no','qty','issue_book','reference_book','supplier','invoice_no','invoice_date','description');
 
         $data["fields"] = $fields;
 
@@ -133,29 +151,54 @@ class Book extends Admin_Controller
                             }
 
                             $book_title = $book_data[$i]["book_title"];
-                            $book_no = $book_data[$i]["book_no"];
-                            $isbn_no = $book_data[$i]["isbn_no"];
-                            $subject = $book_data[$i]["subject"];
-                            $rack_no = $book_data[$i]["rack_no"];
-                            $publisher = $book_data[$i]["publisher"];
                             $author = $book_data[$i]["author"];
-                            $qty = $book_data[$i]["qty"];
+                            $publisher = $book_data[$i]["publisher"];
+                            $isbn_no = $book_data[$i]["isbn_no"];
+                            $book_no = $book_data[$i]["book_no"];
+                            $from_acc_no = $book_data[$i]["from_acc_no"];
+                            $to_acc_no = $book_data[$i]["to_acc_no"];
+                            $edition = $book_data[$i]["edition"];
+                            $volume = $book_data[$i]["volume"];
+                            $year = $book_data[$i]["year"];
                             $bookprice = $book_data[$i]["bookprice"];
-                            $postdate = $book_data[$i]["postdate"];
+                            $no_of_pages = $book_data[$i]["no_of_pages"];
+                            $department = $book_data[$i]["department"];
+                            $book_type = $book_data[$i]["book_type"];
+                            $category = $book_data[$i]["category"];
+                            $rack_no = $book_data[$i]["rack_no"];
+                            $qty = $book_data[$i]["qty"];
+                            $issue_book = $book_data[$i]["issue_book"];
+                            $reference_book = $book_data[$i]["reference_book"];
+                            $supplier = $book_data[$i]["supplier"];
+                            $invoice_no = $book_data[$i]["invoice_no"];
+                            $invoice_date = $book_data[$i]["invoice_date"];
                             $description = $book_data[$i]["description"];
 
                             $insert_data = array(
                                 'book_title' => $book_title,
-                                'book_no' => $book_no,
-                                'isbn_no' => $isbn_no,
-                                'subject' => $subject,
-                                'rack_no' => $rack_no,
-                                'publisher' => $publisher,
                                 'author' => $author,
-                                'qty' => $qty,
+                                'publisher' => $publisher,
+                                'isbn_no' => $isbn_no,
+                                'book_no' => $book_no,
+                                'from_acc_no' => $from_acc_no,
+                                'to_acc_no' => $to_acc_no,
+                                'edition' => $edition,
+                                'volume' => $volume,
+                                'year' => $year,
                                 'bookprice' => $bookprice,
-                                'postdate' => date('Y-m-d', $this->customlib->datetostrtotime($postdate)),
+                                'no_of_pages' => $no_of_pages,
+                                'department' => $department,
+                                'book_type' => $book_type,
+                                'category' => $category,
+                                'rack_no' => $rack_no,
+                                'qty' => $qty,
+                                'issue_book' => $issue_book,
+                                'reference_book' => $reference_book,
+                                'supplier' => $supplier,
+                                'invoice_no' => $invoice_no,
+                                'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($invoice_date)),
                                 'description' => $description
+
                             );
                             if ($this->book_model->addbooks($insert_data)) {
                                 $rowcount++;
@@ -244,6 +287,11 @@ class Book extends Admin_Controller
         $editbook = $this->book_model->get($id);
         $data['editbook'] = $editbook;
         $this->form_validation->set_rules('book_title', 'Book Title', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('author', 'Author', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('publisher', 'Publisher', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('from_acc_no', 'From Acc. No.', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('to_acc_no', 'To Acc. No', 'trim|required|xss_clean');
+
         if ($this->form_validation->run() == FALSE) {
             $listbook = $this->book_model->listbook();
             $data['listbook'] = $listbook;
@@ -254,15 +302,27 @@ class Book extends Admin_Controller
             $data = array(
                 'id' => $this->input->post('id'),
                 'book_title' => $this->input->post('book_title'),
-                'book_no' => $this->input->post('book_no'),
-                'isbn_no' => $this->input->post('isbn_no'),
-                'subject' => $this->input->post('subject'),
-                'rack_no' => $this->input->post('rack_no'),
-                'publisher' => $this->input->post('publisher'),
                 'author' => $this->input->post('author'),
-                'qty' => $this->input->post('qty'),
+                'publisher' => $this->input->post('publisher'),
+                'isbn_no' => $this->input->post('isbn_no'),
+                'book_no' => $this->input->post('book_no'),
+                'from_acc_no' => $this->input->post('from_acc_no'),
+                'to_acc_no' => $this->input->post('to_acc_no'),
+                'edition' => $this->input->post('edition'),
+                'volume' => $this->input->post('volume'),
+                'year' => $this->input->post('year'),
                 'bookprice' => $this->input->post('bookprice'),
-                'postdate' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('postdate'))),
+                'no_of_pages' => $this->input->post('no_of_pages'),
+                'department' => $this->input->post('department'),
+                'book_type' => $this->input->post('book_type'),
+                'category' => $this->input->post('category'),
+                'rack_no' => $this->input->post('rack_no'),
+                'qty' => $this->input->post('qty'),
+                'issue_book' => $this->input->post('issue_book'),
+                'reference_book' => $this->input->post('reference_book'),
+                'supplier' => $this->input->post('supplier'),
+                'invoice_no' => $this->input->post('invoice_no'),
+                'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('invoice_date'))),
                 'description' => $this->input->post('description')
             );
             $this->book_model->addbooks($data);

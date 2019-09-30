@@ -63,7 +63,7 @@
                                     <span class="text-danger"><?php echo form_error('item_id'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('supplier'); ?></label>
+                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('supplier'); ?></label><small class="req"> *</small>
 
                                     <select  id="supplier_id" name="supplier_id" class="form-control" >
                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
@@ -83,7 +83,7 @@
                                     <span class="text-danger"><?php echo form_error('supplier_id'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('store'); ?></label>
+                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('store'); ?></label><small class="req"> *</small>
 
                                     <select  id="store_id" name="store_id" class="form-control" >
                                         <option value=""><?php echo $this->lang->line('select'); ?></option>

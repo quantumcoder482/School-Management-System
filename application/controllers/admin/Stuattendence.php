@@ -39,9 +39,12 @@ class Stuattendence extends Admin_Controller {
         $data['class_id'] = "";
         $data['section_id'] = "";
         $data['batch_id'] = "";
+        $data['subject_id'] = "";
         $data['date'] = "";
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('subject_id', 'Subject', 'trim|required|xss_clean');
+
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
             $this->load->view('admin/stuattendence/attendenceList', $data);
@@ -50,12 +53,14 @@ class Stuattendence extends Admin_Controller {
             $class = $this->input->post('class_id');
             $section = $this->input->post('section_id');
             $batch = $this->input->post('batch_id');
+            $subject = $this->input->post('subject_id');
             $date = $this->input->post('date');
             $student_list = $this->stuattendence_model->get();
             $data['studentlist'] = $student_list;
             $data['class_id'] = $class;
             $data['section_id'] = $section;
             $data['batch_id'] = $batch;
+            $data['subject_id'] = $subject;
             $data['date'] = $date;
             $search = $this->input->post('search');
             $holiday = $this->input->post('holiday');
@@ -69,6 +74,7 @@ class Stuattendence extends Admin_Controller {
                             $arr = array(
                                 'id' => $checkForUpdate,
                                 'student_session_id' => $value,
+                                'subject_id' => $subject,
                                 'attendence_type_id' => 5,
                                 'remark' => $this->input->post("remark" . $value),
                                 'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
@@ -77,6 +83,7 @@ class Stuattendence extends Admin_Controller {
                             $arr = array(
                                 'id' => $checkForUpdate,
                                 'student_session_id' => $value,
+                                'subject_id' => $subject,
                                 'attendence_type_id' => $this->input->post('attendencetype' . $value),
                                 'remark' => $this->input->post("remark" . $value),
                                 'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
@@ -87,6 +94,7 @@ class Stuattendence extends Admin_Controller {
                         if (isset($holiday)) {
                             $arr = array(
                                 'student_session_id' => $value,
+                                'subject_id' => $subject,
                                 'attendence_type_id' => 5,
                                 'remark' => $this->input->post("remark" . $value),
                                 'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
@@ -96,6 +104,7 @@ class Stuattendence extends Admin_Controller {
 
                             $arr = array(
                                 'student_session_id' => $value,
+                                'subject_id' => $subject,
                                 'attendence_type_id' => $this->input->post('attendencetype' . $value),
                                 'remark' => $this->input->post("remark" . $value),
                                 'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
@@ -120,9 +129,9 @@ class Stuattendence extends Admin_Controller {
             $data['attendencetypeslist'] = $attendencetypes;
             
             if($batch){
-                $resultlist = $this->stuattendence_model->searchAttendenceClassSection($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $batch);    
+                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionSubject($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $subject, $batch);
             }else{
-                $resultlist = $this->stuattendence_model->searchAttendenceClassSection($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
+                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionSubject($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $subject);
             }
             
             $data['resultlist'] = $resultlist;
@@ -146,9 +155,11 @@ class Stuattendence extends Admin_Controller {
         $data['class_id'] = "";
         $data['section_id'] = "";
         $data['batch_id'] = "";
+        $data['subject_id'] = "";
         $data['date'] = "";
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('subject_id', 'Subject', 'trim|required|xss_clean');
         $this->form_validation->set_rules('date', 'Date', 'trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
@@ -158,12 +169,14 @@ class Stuattendence extends Admin_Controller {
             $class = $this->input->post('class_id');
             $section = $this->input->post('section_id');
             $batch = $this->input->post('batch_id');
+            $subject = $this->input->post('subject_id');
             $date = $this->input->post('date');
             $student_list = $this->stuattendence_model->get();
             $data['studentlist'] = $student_list;
             $data['class_id'] = $class;
             $data['section_id'] = $section;
             $data['batch_id'] = $batch;
+            $data['subject_id'] = $subject;
             $data['date'] = $date;
             $search = $this->input->post('search');
             if ($search == "saveattendence") {
@@ -174,6 +187,7 @@ class Stuattendence extends Admin_Controller {
                         $arr = array(
                             'id' => $checkForUpdate,
                             'student_session_id' => $value,
+                            'subject_id' => $subject,
                             'attendence_type_id' => $this->input->post('attendencetype' . $value),
                             'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
                         );
@@ -181,6 +195,7 @@ class Stuattendence extends Admin_Controller {
                     } else {
                         $arr = array(
                             'student_session_id' => $value,
+                            'subject_id' => $subject,
                             'attendence_type_id' => $this->input->post('attendencetype' . $value),
                             'date' => date('Y-m-d', $this->customlib->datetostrtotime($date))
                         );
@@ -191,9 +206,9 @@ class Stuattendence extends Admin_Controller {
             $attendencetypes = $this->attendencetype_model->get();
             $data['attendencetypeslist'] = $attendencetypes;
             if($batch){
-                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $batch);
+                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $subject, $batch);
             }else{
-                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)));
+                $resultlist = $this->stuattendence_model->searchAttendenceClassSectionPrepare($class, $section, date('Y-m-d', $this->customlib->datetostrtotime($date)), $subject);
             }
             
             $data['resultlist'] = $resultlist;
@@ -226,11 +241,13 @@ class Stuattendence extends Admin_Controller {
         $data['class_id'] = "";
         $data['section_id'] = "";
         $data['batch_id'] = "";
+        $data['subject_id'] ="";
         $data['date'] = "";
         $data['month_selected'] = "";
         $data['year_selected'] = "";
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
         $this->form_validation->set_rules('section_id', 'Section', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('subject_id', 'Subject', 'trim|required|xss_clean');
         $this->form_validation->set_rules('month', 'Month', 'trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
@@ -241,9 +258,11 @@ class Stuattendence extends Admin_Controller {
             $class = $this->input->post('class_id');
             $section = $this->input->post('section_id');
             $batch = $this->input->post('batch_id');
+            $subject = $this->input->post('subject_id');
             $month = $this->input->post('month');
             $data['class_id'] = $class;
             $data['section_id'] = $section;
+            $data['subject_id'] = $subject;
             $data['batch_id'] = $batch;
             $data['month_selected'] = $month;
             if($batch){
@@ -283,7 +302,7 @@ class Stuattendence extends Admin_Controller {
                 $att_date = $year . "-" . $month_number . "-" . sprintf("%02d", $i);
                 $attendence_array[] = $att_date;
 
-                $res = $this->stuattendence_model->searchAttendenceReport($class, $section, $att_date, $batch);
+                $res = $this->stuattendence_model->searchAttendenceReportSubject($class, $section, $att_date, $subject, $batch);
                 $student_result = $res;
                 $s = array();
                 foreach ($res as $result_k => $result_v) {
@@ -298,7 +317,7 @@ class Stuattendence extends Admin_Controller {
 
                 $date = $year . "-" . $month;
                 $newdate = date('Y-m-d', strtotime($date));
-                $monthAttendance[] = $this->monthAttendance($newdate, 1, $result_v['student_session_id']);
+                $monthAttendance[] = $this->monthAttendance($newdate, 1, $result_v['student_session_id'], $subject);
             }
             $data['monthAttendance'] = $monthAttendance;
 
@@ -312,7 +331,7 @@ class Stuattendence extends Admin_Controller {
         }
     }
 
-    function monthAttendance($st_month, $no_of_months, $student_id) {
+    function monthAttendance($st_month, $no_of_months, $student_id, $subject_id) {
 
         $record = array();
 
@@ -322,7 +341,7 @@ class Stuattendence extends Admin_Controller {
 
         foreach ($this->config_attendance as $att_key => $att_value) {
 
-            $s = $this->stuattendence_model->count_attendance_obj($month, $year, $student_id, $att_value);
+            $s = $this->stuattendence_model->count_attendance_obj($month, $year, $student_id, $att_value, $subject_id);
 
 
             $attendance_key = $att_key;

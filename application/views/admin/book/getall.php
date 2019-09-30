@@ -35,18 +35,28 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <thead>
                                     <tr>
                                         <th><?php echo $this->lang->line('book_title'); ?></th>
-                                        <th><?php echo $this->lang->line('book_no'); ?></th>
+                                        <th><?php echo $this->lang->line('author'); ?></th>
+                                        <th><?php echo $this->lang->line('publisher'); ?></th>
                                         <th><?php echo $this->lang->line('isbn_no'); ?></th>
-                                        <th><?php echo $this->lang->line('publisher'); ?>
-                                        </th>
-                                        <th><?php echo $this->lang->line('author'); ?>
-                                        </th>
-                                        <th><?php echo $this->lang->line('subject'); ?></th>
+                                        <th><?php echo $this->lang->line('book_no'); ?></th>
+                                        <th><?php echo $this->lang->line('from_acc_no'); ?></th>
+                                        <th><?php echo $this->lang->line('to_acc_no'); ?></th>
+                                        <th><?php echo $this->lang->line('edition'); ?></th>
+                                        <th><?php echo $this->lang->line('volume'); ?></th>
+                                        <th><?php echo $this->lang->line('year'); ?></th>
+                                        <th><?php echo $this->lang->line('bookprice'); ?></th>
+                                        <th><?php echo $this->lang->line('no_of_pages'); ?></th>
+                                        <th><?php echo $this->lang->line('department'); ?></th>
+                                        <th><?php echo $this->lang->line('book_type'); ?></th>
+                                        <th><?php echo $this->lang->line('category'); ?></th>
                                         <th><?php echo $this->lang->line('rack_no'); ?></th>
                                         <th><?php echo $this->lang->line('qty'); ?></th>
                                         <th><?php echo $this->lang->line('available'); ?></th>
-                                        <th><?php echo $this->lang->line('bookprice'); ?></th>
-                                        <th><?php echo $this->lang->line('postdate'); ?></th>
+                                        <th><?php echo $this->lang->line('issue_book'); ?></th>
+                                        <th><?php echo $this->lang->line('reference_book'); ?></th>
+                                        <th><?php echo $this->lang->line('supplier'); ?></th>
+                                        <th><?php echo $this->lang->line('invoice_no'); ?></th>
+                                        <th><?php echo $this->lang->line('invoice_date'); ?></th>
                                         <th class="no-print text text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
@@ -54,7 +64,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     <?php
                                     $count = 1;
                                     if (!empty($listbook)) {
-
 
                                         foreach ($listbook as $book) {
 
@@ -76,16 +85,32 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     ?>
                                                     </div>
                                                 </td>
-                                                <td class="mailbox-name"> <?php echo $book['book_no'] ?></td>
-                                                <td class="mailbox-name"> <?php echo $book['isbn_no'] ?></td>
-                                                <td class="mailbox-name"> <?php echo $book['publisher'] ?></td>
+
                                                 <td class="mailbox-name"> <?php echo $book['author'] ?></td>
-                                                <td class="mailbox-name"><?php echo $book['subject'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $book['publisher'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $book['isbn_no'] ?></td>
+                                                <td class="mailbox-name"> <?php echo $book['book_no'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['from_acc_no'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['to_acc_no'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['edition'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['volume'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['year'] ?></td>
+                                                <td class="mailbox-name"><?php echo ($currency_symbol . $book['bookprice']); ?></td>
+                                                <td class="mailbox-name"><?php echo $book['no_of_pages'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['department'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['book_type'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['category'] ?></td>
                                                 <td class="mailbox-name"><?php echo $book['rack_no'] ?></td>
                                                 <td class="mailbox-name"> <?php echo $book['qty'] ?></td>
                                                 <td class="mailbox-name"> <?php echo $book['qty'] - $book['total_issue'] ?></td>
-                                                <td class="mailbox-name"> <?php echo ($currency_symbol . $book['bookprice']); ?></td>
-                                                <td class="mailbox-name"> <?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($book['postdate'])); ?></td>
+                                                <td class="mailbox-name"><?php echo $book['issue_book'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['reference_book'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['supplier'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['invoice_no'] ?></td>
+                                                <td class="mailbox-name"> <?php
+                                                        if($book['invoice_date'] != '1970-01-01') echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($book['invoice_date']));
+                                                    ?>
+                                                </td>
                                                 <td class="mailbox-date no-print text text-right">
                                                     <?php if ($this->rbac->hasPrivilege('books', 'can_edit')) { ?>
                                                         <a href="<?php echo base_url(); ?>admin/book/edit/<?php echo $book['id'] ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">

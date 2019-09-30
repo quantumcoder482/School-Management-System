@@ -147,7 +147,7 @@
 
                             <?php echo $this->customlib->getCSRF(); ?>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
                                         <select autofocus="" id="class_id" name="class_id" class="form-control">
@@ -168,7 +168,7 @@
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
                                         <select id="section_id" name="section_id" class="form-control">
@@ -177,7 +177,7 @@
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('batch'); ?></label>
                                         <select id="batch_id" name="batch_id" class="form-control">
@@ -186,7 +186,16 @@
                                         <span class="text-danger"><?php echo form_error('batch_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('subject'); ?></label></label><small class="req"> *</small>
+                                        <select id="subject_id" name="subject_id" class="form-control">
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        </select>
+                                        <span class="text-danger"><?php echo form_error('subject_id'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">
                                             <?php echo $this->lang->line('attendance'); ?>
@@ -196,6 +205,7 @@
                                         <span class="text-danger"><?php echo form_error('date'); ?></span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="box-footer">
@@ -255,6 +265,7 @@
                                     <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
                                     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
                                     <input type="hidden" name="batch_id" value="<?php echo $batch_id; ?>">
+                                    <input type="hidden" name="subject_id" value="<?php echo $subject_id; ?>">
                                     <input type="hidden" name="date" value="<?php echo $date; ?>">
                                     <div class="table-responsive ptt10">
                                         <table class="table table-hover table-striped example">
@@ -366,9 +377,11 @@
         var section_id_post = '<?php echo $section_id; ?>';
         var class_id_post = '<?php echo $class_id; ?>';
         var batch_id_post = '<?php echo $batch_id; ?>';
+        var subject_id_post = '<?php echo $subject_id; ?>';
 
         populateSection(section_id_post, class_id_post);
         getBatchBySection(section_id_post, batch_id_post);
+        getSubjectByClassandSection(class_id_post, section_id_post, subject_id_post);
 
         function getBatchBySection(section_id, batch_id) {
 
@@ -425,6 +438,36 @@
             });
         }
 
+        function getSubjectByClassandSection(class_id, section_id, subject_id) {
+
+            if (class_id != "" && section_id != "" && subject_id != "") {
+                $('#subject_id').html("");
+                var class_id = $('#class_id').val();
+                var base_url = '<?php echo base_url() ?>';
+                var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "admin/teacher/getSubjctByClassandSection",
+                    data: {
+                        'class_id': class_id,
+                        'section_id': section_id
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data, function(i, obj) {
+                            var sel = "";
+                            if (subject_id == obj.id) {
+                                sel = "selected";
+                            }
+                            div_data += "<option value=" + obj.id + " " + sel + ">" + obj.name + " (" + obj.type + ")" + "</option>";
+                        });
+
+                        $('#subject_id').append(div_data);
+                    }
+                });
+            }
+        }
+
         $(document).on('change', '#class_id', function(e) {
             $('#section_id').html("");
             var class_id = $(this).val();
@@ -456,8 +499,29 @@
 
         $(document).on('change', '#section_id', function(e) {
             $('#batch_id').html("");
+            $('#subject_id').html("");
             var section_id = $(this).val();
+            var class_id = $('#class_id').val();
+            var base_url = '<?php echo base_url() ?>'
             getBatchBySection(section_id);
+
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "POST",
+                url: base_url + "admin/teacher/getSubjctByClassandSection",
+                data: {
+                    'class_id': class_id,
+                    'section_id': section_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $.each(data, function(i, obj) {
+                        div_data += "<option value=" + obj.id + ">" + obj.name + " (" + obj.type + ")" + "</option>";
+                    });
+
+                    $('#subject_id').append(div_data);
+                }
+            });
         });
 
         var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';

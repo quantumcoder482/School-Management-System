@@ -38,62 +38,137 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <span class="text-danger"><?php echo form_error('book_title'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('book_no'); ?></label>
-                                <input id="book_no" name="book_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('book_no', $editbook['book_no']); ?>" />
-                                <span class="text-danger"><?php echo form_error('book_no'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('author'); ?></label><small class="req"> *</small>
+                                <input id="author" name="author" placeholder="" type="text" class="form-control" value="<?php echo set_value('author', $editbook['author']); ?>" />
+                                <span class="text-danger"><?php echo form_error('author'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('isbn_no'); ?></label>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('publisher'); ?></label><small class="req"> *</small>
+                                <input id="publisher" name="publisher" placeholder="" type="text" class="form-control" value="<?php echo set_value('publisher', $editbook['publisher']); ?>" />
+                                <span class="text-danger"><?php echo form_error('publisher'); ?></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('isbn_no'); ?></label><small class="req"> *</small>
                                 <input id="isbn_no" name="isbn_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('isbn_no', $editbook['isbn_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('isbn_no'); ?></span>
                             </div>
-
-
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('publisher'); ?></label>
-                                <input id="amount" name="publisher" placeholder="" type="text" class="form-control" value="<?php echo set_value('publisher', $editbook['publisher']); ?>" />
-                                <span class="text-danger"><?php echo form_error('publisher'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('book_no'); ?></label><small class="req"> *</small>
+                                <input id="book_no" name="book_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('book_no', $editbook['book_no']); ?>" />
+                                <span class="text-danger"><?php echo form_error('book_no'); ?></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('from_acc_no'); ?></label><small class="req"> *</small>
+                                <input id="from_acc_no" name="from_acc_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('from_acc_no', $editbook['from_acc_no']); ?>" />
+                                <span class="text-danger"><?php echo form_error('from_acc_no'); ?></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('author'); ?></label>
-                                <input id="amount" name="author" placeholder="" type="text" class="form-control" value="<?php echo set_value('author', $editbook['author']); ?>" />
-                                <span class="text-danger"><?php echo form_error('author'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('to_acc_no'); ?></label><small class="req"> *</small>
+                                <input id="to_acc_no" name="to_acc_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('to_acc_no', $editbook['to_acc_no']); ?>" />
+                                <span class="text-danger"><?php echo form_error('to_acc_no'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('subject'); ?></label>
-                                <input id="subject" name="subject" placeholder="" type="text" class="form-control" value="<?php echo set_value('subject', $editbook['subject']); ?>" />
-                                <span class="text-danger"><?php echo form_error('subject'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('edition'); ?></label>
+                                <input id="edition" name="edition" placeholder="" type="text" class="form-control" value="<?php echo set_value('edition', $editbook['edition']); ?>" />
+                                <span class="text-danger"><?php echo form_error('edition'); ?></span>
                             </div>
                             <div class="clearfix"></div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('volume'); ?></label>
+                                <input id="volume" name="volume" placeholder="" type="text" class="form-control" value="<?php echo set_value('volume', $editbook['volume']); ?>" />
+                                <span class="text-danger"><?php echo form_error('volume'); ?></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('year'); ?></label>
+                                <input id="year" name="year" placeholder="" type="text" class="form-control" value="<?php echo set_value('year', $editbook['year']); ?>" />
+                                <span class="text-danger"><?php echo form_error('year'); ?></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('bookprice'); ?></label>
+                                <input id="bookprice" name="bookprice" placeholder="" type="text" class="form-control" value="<?php echo set_value('bookprice', $editbook['bookprice']); ?>" />
+                                <span class="text-danger"><?php echo form_error('bookprice'); ?></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('no_of_pages'); ?></label>
+                                <input id="no_of_pages" name="no_of_pages" placeholder="" type="text" class="form-control" value="<?php echo set_value('no_of_pages', $editbook['no_of_pages']); ?>" />
+                                <span class="text-danger"><?php echo form_error('no_of_pages'); ?></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('department'); ?></label>
+                                <input id="department" name="department" placeholder="" type="text" class="form-control" value="<?php echo set_value('department', $editbook['department']); ?>" />
+                                <span class="text-danger"><?php echo form_error('department'); ?></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('book_type'); ?></label>
+                                <input id="book_type" name="book_type" placeholder="" type="text" class="form-control" value="<?php echo set_value('book_type', $editbook['book_type']); ?>" />
+                                <span class="text-danger"><?php echo form_error('book_type'); ?></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
+                                <input id="category" name="category" placeholder="" type="text" class="form-control" value="<?php echo set_value('category', $editbook['category']); ?>" />
+                                <span class="text-danger"><?php echo form_error('category'); ?></span>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('rack_no'); ?></label>
                                 <input id="rack_no" name="rack_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('rack_no', $editbook['rack_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('rack_no'); ?></span>
                             </div>
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('qty'); ?></label>
-                                <input id="amount" name="qty" placeholder="" type="text" class="form-control" value="<?php echo set_value('qty', $editbook['qty']); ?>" />
+                                <input id="qty" name="qty" placeholder="" type="text" class="form-control" value="<?php echo set_value('qty', $editbook['qty']); ?>" />
                                 <span class="text-danger"><?php echo form_error('qty'); ?></span>
                             </div>
+                            <div class="col-md-offset-1 col-md-2">
+                                <label><?php echo $this->lang->line('issue_book'); ?></label>
+                                <div class="radio" style="margin-top: 2px;">
+                                    <label><input class="radio-inline" type="radio" name="issue_book" value="Yes" <?php
+                                        echo set_value('issue_book', $editbook['issue_book']) == "Yes" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('yes'); ?></label>
+                                    <label><input class="radio-inline" checked="checked" type="radio" name="issue_book" value="No" <?php
+                                        echo set_value('issue_book', $editbook['issue_book']) == "No" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('no'); ?></label>
+                                </div>
+                                <span class="text-danger"><?php echo form_error('issue_book'); ?></span>
+                            </div>
+                            <div class="col-md-offset-1 col-md-2">
+                                <label><?php echo $this->lang->line('reference_book'); ?></label>
+                                <div class="radio" style="margin-top: 2px;">
+                                    <label><input class="radio-inline" type="radio" name="reference_book" value="Yes" <?php
+                                        echo set_value('reference_book', $editbook['reference_book']) == "Yes" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('yes'); ?></label>
+                                    <label><input class="radio-inline" checked="checked" type="radio" name="reference_book" value="No" <?php
+                                        echo set_value('reference_book', $editbook['reference_book']) == "No" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('no'); ?></label>
+                                </div>
+                                <span class="text-danger"><?php echo form_error('reference_book'); ?></span>
+                            </div>
                             <div class="clearfix"></div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('bookprice'); ?></label>
-                                <input id="amount" name="bookprice" placeholder="" type="text" class="form-control" value="<?php echo set_value('bookprice', $editbook['bookprice']); ?>" />
-                                <span class="text-danger"><?php echo form_error('bookprice'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('invoice_no'); ?></label>
+                                <input id="invoice_no" name="invoice_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('invoice_no', $editbook['invoice_no']); ?>" />
+                                <span class="text-danger"><?php echo form_error('invoice_no'); ?></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('postdate'); ?></label>
-
-
-                                <input id="postdate" name="postdate" placeholder="" type="text" class="form-control" value="<?php echo set_value('postdate', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($editbook['postdate']))); ?>" />
-                                <span class="text-danger"><?php echo form_error('postdate'); ?></span>
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('invoice_date'); ?></label>
+                                <input id="invoice_date" name="invoice_date" placeholder="" type="text" class="form-control" value="<?php echo set_value('invoice_date', $editbook['invoice_date']); ?>" />
+                                <span class="text-danger"><?php echo form_error('invoice_date'); ?></span>
                             </div>
                             <div class="clearfix"></div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('supplier'); ?></label>
+                                <input id="supplier" name="supplier" placeholder="" type="text" class="form-control" value="<?php echo set_value('supplier', $editbook['supplier']); ?>" />
+                                <span class="text-danger"><?php echo form_error('supplier'); ?></span>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('description'); ?></label>
-                                <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder=""><?php echo set_value('description', $editbook['description']); ?></textarea>
+                                <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder="Enter ..."><?php echo set_value('description', $editbook['description']); ?></textarea>
                                 <span class="text-danger"><?php echo form_error('description'); ?></span>
                             </div>
                         </div><!-- /.box-body -->

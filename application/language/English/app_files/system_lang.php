@@ -1,7 +1,7 @@
 <?php
 
 #Version 3.0.1
-
+$lang = array();
 $lang['absent'] = 'Absent';
 $lang['absent_student'] = 'Absent Student';
 $lang['academic_fees_detail'] = 'Academic Fees Detail';
@@ -111,7 +111,7 @@ $lang['journals_details'] = 'Journal Details';
 $lang['book_issued'] = 'Book Issued';
 $lang['book_list'] = 'Book List';
 $lang['journals_list'] = 'Journal List';
-$lang['book_no'] = 'Book Number';
+$lang['book_no'] = 'Call No';
 $lang['book_title'] = 'Book Title';
 $lang['bookprice'] = 'Book Price';
 $lang['books'] = 'Books';
@@ -954,3 +954,41 @@ $lang['substitute_staff'] = 'Substitute Staff';
 $lang['hall_no'] = 'Hall Ticket Number';
 $lang['adhar_no'] = 'Aadhaar Number';
 $lang['physically_challenged'] = 'Physically Challenged';
+
+#Activites Menu
+
+$lang['activities'] = 'Activities';
+$lang['committee'] = 'Committee';
+$lang['committee_name'] = 'Committee Name';
+$lang['in_charge'] = 'In-charge';
+$lang['add_committee'] = 'Add Committee';
+$lang['committee_list'] = 'Committee List';
+
+$lang['add_events'] = 'Add Events';
+$lang['event_name'] = 'Event Name';
+$lang['event_list'] = 'Event List';
+$lang['date_of_the_event_from_to'] = 'Date of the Event from to';
+
+
+$lang['add_meetings'] = 'Add Meetings';
+$lang['add_meeting'] = 'Add Meeting';
+$lang['meeting'] = 'Meeting';
+$lang['meeting_name'] = 'Meeting Name';
+$lang['meeting_list'] = 'Meeting List';
+$lang['meeting_no'] = 'Meeting No.';
+$lang['date_of_meeting'] = 'Date of Meeting';
+
+
+#Book
+$lang['from_acc_no'] = 'From Acc. No.';
+$lang['to_acc_no'] = 'To Acc. No.';
+$lang['edition'] = 'Edition';
+$lang['volume'] = 'Volume';
+$lang['no_of_pages'] = 'No. of Pages';
+$lang['book_type'] = 'Book Type';
+$lang['category'] = 'Category';
+$lang['reference_book'] = 'Reference Book';
+$lang['invoice_no'] = 'Invoice No.';
+$lang['invoice_date'] = 'Invoice Date';
+
+

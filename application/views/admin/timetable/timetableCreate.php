@@ -297,7 +297,7 @@
     }
 
     function getSubjectByClassandSection(class_id, section_id, subject_id) {
-        console.log("rrrr");
+
         if (class_id != "" && section_id != "" && subject_id != "") {
             $('#subject_id').html("");
             var class_id = $('#class_id').val();

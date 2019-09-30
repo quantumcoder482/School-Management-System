@@ -1,2 +1,2 @@
-journal_title,journal_no,issn_no,subject,rack_no,publisher,author,qty,bookprice,postdate,description
-Learn AngularJS in 1 Day: Complete Angular JS Guide with Examples,112512,23232,Software,134,Independently published ,Krishna Rungta,9,689,19-06-2018,dsddsd
+book_title,author,publisher,isbn_no,book_no,from_acc_no,to_acc_no,edition,volume,year,bookprice,no_of_pages,department,book_type,category,rack_no,qty,issue_book,reference_book,supplier,invoice_no,invoice_date,description
+Learn AngularJS in 1 Day: Complete Angular JS Guide with Examples,112512,23232,Software,134,Independently published ,Krishna Rungta,9,689,19-06-2018,dsddsd,,,,,,,,,,,,
