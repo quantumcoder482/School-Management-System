@@ -68,10 +68,16 @@
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_the_event_from_to'); ?></label>
-                                    <input id="date" name="date" placeholder="" type="text" class="form-control"  value="<?php echo set_value('date'); ?>" readonly="readonly" />
-                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                    <label><?php echo $this->lang->line('date_of_the_event_from_to'); ?></label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" autocomplete="off" name="event_date" class="form-control pull-right" id="event_date">
+                                    </div>
+                                    <span class="text-danger"><?php echo form_error('event_date'); ?></span>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('attach_document'); ?></label>
                                     <input id="attachment_file" name="attachment_file" placeholder="" type="file" class="filestyle form-control" data-height="40"  value="<?php echo set_value('attachment_file'); ?>" />
@@ -112,7 +118,8 @@
                                         <th><?php echo $this->lang->line('event_name'); ?></th>
                                         <th><?php echo $this->lang->line('event'); ?> <?php echo $this->lang->line('in_charge'); ?></th>
                                         <th><?php echo $this->lang->line('committee'); ?></th>
-                                        <th><?php echo $this->lang->line('date'); ?></th>
+                                        <th><?php echo $this->lang->line('from'); ?></th>
+                                        <th><?php echo $this->lang->line('to'); ?></th>
                                         <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
@@ -145,7 +152,8 @@
                                                 </td>
                                                 <td class="mailbox-name"><?php echo $event['in_charge']; ?></td>
                                                 <td class="mailbox-name"><?php echo $event['committee_name']; ?></td>
-                                                <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($event['date'])); ?></td>
+                                                <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($event['date_from'])); ?></td>
+                                                <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($event['date_to'])); ?></td>
 
                                                 <td class="mailbox-date pull-right"">
                                                     <?php if ($event['attachment']) {
@@ -203,6 +211,23 @@
             //  format: "dd-mm-yyyy",
             format: date_format,
             autoclose: true
+        });
+
+        $('#event_date').daterangepicker({
+            autoUpdateInput: false,
+            format: date_format,
+            autoclose: true,
+            locale: {
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('#event_date').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('#event_date').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
         });
 
         $("#btnreset").click(function () {

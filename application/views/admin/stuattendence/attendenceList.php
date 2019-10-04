@@ -456,10 +456,10 @@
                     success: function(data) {
                         $.each(data, function(i, obj) {
                             var sel = "";
-                            if (subject_id == obj.id) {
+                            if (subject_id == obj.subject_id) {
                                 sel = "selected";
                             }
-                            div_data += "<option value=" + obj.id + " " + sel + ">" + obj.name + " (" + obj.type + ")" + "</option>";
+                            div_data += "<option value=" + obj.subject_id + " " + sel + ">" + obj.name + " (" + obj.type + ")" + "</option>";
                         });
 
                         $('#subject_id').append(div_data);
@@ -516,7 +516,7 @@
                 dataType: "json",
                 success: function(data) {
                     $.each(data, function(i, obj) {
-                        div_data += "<option value=" + obj.id + ">" + obj.name + " (" + obj.type + ")" + "</option>";
+                        div_data += "<option value=" + obj.subject_id + ">" + obj.name + " (" + obj.type + ")" + "</option>";
                     });
 
                     $('#subject_id').append(div_data);

@@ -165,7 +165,7 @@
                                         </div>
                                     </div>
                                     <div class="download_label"><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('attendance'); ?> <?php echo $this->lang->line('report'); ?></div>
-                                    <table class="table table-striped table-bordered table-hover example xyz">
+                                    <table class="table table-striped table-bordered table-hover report-table xyz">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -228,12 +228,12 @@
 
 
                                                 foreach ($student_array as $student_key => $student_value) {
-                                                    //echo $i;
+
                                                     ?>
                                                     <tr>
                                                         <th class="tdclsname">
+                                                            <div class="fee_detail_popover" style="display: none"><?php echo $student_value['admission_no']; ?></div>
                                                             <span data-toggle="popover" class="detail_popover" data-original-title="" title=""><a href="#" style="color:#333"><?php echo $student_value['firstname'] . " " . $student_value['lastname']; ?></a></span>
-                                                            <div class="fee_detail_popover" style="display: none"><?php echo "Admission No: " . $student_value['admission_no']; ?></div> 
                                                         </th>
                                                         <th><?php
                                                             $total_present = ($monthAttendance[$i][$student_value['student_session_id']]['present'] + $monthAttendance[$i][$student_value['student_session_id']]['late_with_excuse'] + $monthAttendance[$i][$student_value['student_session_id']]['half_day'] + $monthAttendance[$i][$student_value['student_session_id']]['late']);
@@ -338,6 +338,88 @@
                             return $(this).closest('th').find('.fee_detail_popover').html();
                         }
                     });
+                    var tbl = $('.report-table');
+
+                    var table = $('.report-table').DataTable({
+                        "aaSorting": [],
+
+                        rowReorder: {
+                            selector: 'td:nth-child(2)'
+                        },
+                        dom: "Bfrtip",
+                        buttons: [
+
+                            {
+                                extend: 'copyHtml5',
+                                text: '<i class="fa fa-files-o"></i>',
+                                titleAttr: 'Copy',
+                                title: $('.download_label').html(),
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+
+                            {
+                                extend: 'excelHtml5',
+                                text: '<i class="fa fa-file-excel-o"></i>',
+                                titleAttr: 'Excel',
+
+                                title: $('.download_label').html(),
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+
+                            {
+                                extend: 'csvHtml5',
+                                text: '<i class="fa fa-file-text-o"></i>',
+                                titleAttr: 'CSV',
+                                title: $('.download_label').html(),
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+
+                            {
+                                extend: 'pdfHtml5',
+                                text: '<i class="fa fa-file-pdf-o"></i>',
+                                titleAttr: 'PDF',
+                                title: $('.download_label').html(),
+                                orientation:'landscape',
+                                pageSize: 'A2',
+                                alignment: "center",
+                                exportOptions: {
+                                    columns: ':visible',
+                                }
+                            },
+
+                            {
+                                extend: 'print',
+                                text: '<i class="fa fa-print"></i>',
+                                titleAttr: 'Print',
+                                title: $('.download_label').html(),
+                                customize: function ( win ) {
+                                    $(win.document.body)
+                                        .css( 'font-size', '10pt' );
+
+                                    $(win.document.body).find( 'table' )
+                                        .addClass( 'compact' )
+                                        .css( 'font-size', 'inherit' );
+                                },
+                                exportOptions: {
+                                    columns: ':visible',
+                                }
+                            },
+
+                            {
+                                extend: 'colvis',
+                                text: '<i class="fa fa-columns"></i>',
+                                titleAttr: 'Columns',
+                                title: $('.download_label').html(),
+                                postfixButtons: ['colvisRestore']
+                            },
+                        ]
+                    });
 
                     var section_id_post = '<?php echo $section_id; ?>';
                     var class_id_post = '<?php echo $class_id; ?>';
@@ -378,7 +460,6 @@
                             });
                         }
                     }
-
                     function populateSection(section_id_post, class_id_post) {
                         $('#section_id').html("");
                         var base_url = '<?php echo base_url() ?>';
@@ -401,7 +482,6 @@
                             }
                         });
                     }
-
                     function getSubjectByClassandSection(class_id, section_id, subject_id) {
 
                         if (class_id != "" && section_id != "" && subject_id != "") {
@@ -431,7 +511,6 @@
                             });
                         }
                     }
-
                     $(document).on('change', '#class_id', function (e) {
                         $('#section_id').html("");
                         var class_id = $(this).val();
@@ -451,7 +530,6 @@
                             }
                         });
                     });
-
                     $(document).on('change', '#section_id', function(e) {
                         $('#batch_id').html("");
                         $('#subject_id').html("");
@@ -478,7 +556,7 @@
                             }
                         });
                     });
-                    
+
                     var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy',]) ?>';
                     $('#date').datepicker({
                         format: date_format,

@@ -27,11 +27,22 @@ class Event extends Admin_Controller {
         if ($this->form_validation->run() == FALSE) {
             
         } else {
+            $event_date = $this->input->post('event_date');
+            if (!empty($event_date)){
+                $exp = explode("-", $event_date);
+                $date_from = date("Y-m-d", strtotime($exp[0]));
+                $date_to = date("Y-m-d", strtotime($exp[1]));
+            } else {
+                $date_from = "";
+                $date_to = "";
+            }
+
             $data = array(
                 'event_name' => $this->input->post('event_name'),
                 'in_charge' => $this->input->post('in_charge'),
                 'committee_id' => $this->input->post('committee_id'),
-                'date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date'))),
+                'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($date_from)),
+                'date_to' => date('Y-m-d', $this->customlib->datetostrtotime($date_to)),
                 'description' => $this->input->post('description'),
             );
             $insert_id = $this->Event_model->add($data);
@@ -140,12 +151,23 @@ class Event extends Admin_Controller {
             $this->load->view('layout/footer', $data);
         } else {
             $committee_id = ($this->input->post('committee_id')) ? $this->input->post('committee_id') : NULL;
+            $event_date = $this->input->post('event_date');
+            if (!empty($event_date)){
+                $exp = explode("-", $event_date);
+                $date_from = date("Y-m-d", strtotime($exp[0]));
+                $date_to = date("Y-m-d", strtotime($exp[1]));
+            } else {
+                $date_from = "";
+                $date_to = "";
+            }
+
             $data = array(
                 'id' => $id,
                 'event_name' => $this->input->post('event_name'),
                 'in_charge' => $this->input->post('in_charge'),
                 'committee_id' => $this->input->post('committee_id'),
-                'date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date'))),
+                'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($date_from)),
+                'date_to' => date('Y-m-d', $this->customlib->datetostrtotime($date_to)),
                 'description' => $this->input->post('description'),
             );
 

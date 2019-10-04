@@ -963,13 +963,10 @@ $lang['committee_name'] = 'Committee Name';
 $lang['in_charge'] = 'In-charge';
 $lang['add_committee'] = 'Add Committee';
 $lang['committee_list'] = 'Committee List';
-
 $lang['add_events'] = 'Add Events';
 $lang['event_name'] = 'Event Name';
 $lang['event_list'] = 'Event List';
 $lang['date_of_the_event_from_to'] = 'Date of the Event from to';
-
-
 $lang['add_meetings'] = 'Add Meetings';
 $lang['add_meeting'] = 'Add Meeting';
 $lang['meeting'] = 'Meeting';
@@ -977,7 +974,7 @@ $lang['meeting_name'] = 'Meeting Name';
 $lang['meeting_list'] = 'Meeting List';
 $lang['meeting_no'] = 'Meeting No.';
 $lang['date_of_meeting'] = 'Date of Meeting';
-
+$lang['from'] = 'From';
 
 #Book
 $lang['from_acc_no'] = 'From Acc. No.';
