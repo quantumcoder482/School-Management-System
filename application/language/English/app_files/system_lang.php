@@ -934,6 +934,7 @@ $lang['mobile_app_logo'] = "Mobile App Logo";
 $lang['mobile_app'] = "Mobile App";
 
 #New update
+
 $lang['book_information'] = 'Book Information';
 $lang['edit_journal'] = 'Edit Journal';
 $lang['import_book'] = 'Import Book';
@@ -957,24 +958,32 @@ $lang['physically_challenged'] = 'Physically Challenged';
 
 #Activites Menu
 
-$lang['activities'] = 'Activities';
-$lang['committee'] = 'Committee';
-$lang['committee_name'] = 'Committee Name';
+$lang['administration'] = 'Administration';
+$lang['category'] = 'Category';
+$lang['category_name'] = 'Category Name';
 $lang['in_charge'] = 'In-charge';
-$lang['add_committee'] = 'Add Committee';
-$lang['committee_list'] = 'Committee List';
+$lang['add_category'] = 'Add Category';
+$lang['category_list'] = 'Category List';
 $lang['add_events'] = 'Add Events';
 $lang['event_name'] = 'Event Name';
 $lang['event_list'] = 'Event List';
 $lang['date_of_the_event_from_to'] = 'Date of the Event from to';
 $lang['add_meetings'] = 'Add Meetings';
 $lang['add_meeting'] = 'Add Meeting';
+$lang['edit_meeting'] = 'Edit Meeting';
 $lang['meeting'] = 'Meeting';
 $lang['meeting_name'] = 'Meeting Name';
 $lang['meeting_list'] = 'Meeting List';
 $lang['meeting_no'] = 'Meeting No.';
 $lang['date_of_meeting'] = 'Date of Meeting';
 $lang['from'] = 'From';
+$lang['add_documents'] = 'Add Documents';
+$lang['add_document'] = 'Add Document';
+$lang['edit_document'] = 'Edit Document';
+$lang['document_list'] = 'Document List';
+$lang['document_title'] = 'Document Title';
+$lang['document_no'] = 'Document No.';
+
 
 #Book
 $lang['from_acc_no'] = 'From Acc. No.';

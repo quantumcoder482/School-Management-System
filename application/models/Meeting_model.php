@@ -14,8 +14,8 @@ class Meeting_model extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('meeting.*, committee.committee_name')->from('meeting');       
-        $this->db->join('committee', 'meeting.committee_id = committee.id');
+        $this->db->select('meeting.*, admin_categories.category_name')->from('meeting');
+        $this->db->join('admin_categories', 'meeting.category_id = admin_categories.id');
         if ($id != null) {
             $this->db->where('meeting.id', $id);
         } else {

@@ -10,16 +10,16 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <?php if ($this->rbac->hasPrivilege('add_meeting', 'can_add')) { ?>
+            <?php if ($this->rbac->hasPrivilege('admin_document', 'can_add')) { ?>
                 <div class="col-md-4">
 
                     <!-- Horizontal Form -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('add_meeting'); ?></h3>
+                            <h3 class="box-title"><?php echo $this->lang->line('add_document'); ?></h3>
                         </div><!-- /.box-header -->
 
-                        <form id="form1" action="<?php echo base_url() ?>admin/meeting"  id="meetingform" name="meetingform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form id="form1" action="<?php echo base_url() ?>admin/admindocument"  id="documentform" name="documentform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
                             <div class="box-body">
                                 <?php if ($this->session->flashdata('msg')) { ?>
@@ -33,14 +33,14 @@
                                 <?php echo $this->customlib->getCSRF(); ?>
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('meeting_name'); ?></label><small class="req"> *</small>
-                                    <input autofocus="" id="meeting_name" name="meeting_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('meeting_name'); ?>" />
-                                    <span class="text-danger"><?php echo form_error('meeting_name'); ?></span>
+                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('document_title'); ?></label><small class="req"> *</small>
+                                    <input autofocus="" id="document_title" name="document_title" placeholder="" type="text" class="form-control"  value="<?php echo set_value('document_title'); ?>" />
+                                    <span class="text-danger"><?php echo form_error('document_title'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('meeting_no'); ?></label><small class="req"> *</small>
-                                    <input autofocus="" id="meeting_no" name="meeting_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('meeting_no'); ?>" />
-                                    <span class="text-danger"><?php echo form_error('meeting_no'); ?></span>
+                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('document_no'); ?></label><small class="req"> *</small>
+                                    <input autofocus="" id="document_no" name="document_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('document_no'); ?>" />
+                                    <span class="text-danger"><?php echo form_error('document_no'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="category_id"><?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('category'); ?></label><small class="req"> *</small>
@@ -67,11 +67,7 @@
                                     <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder="Enter ..."><?php echo set_value('description'); ?></textarea>
                                     <span class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_meeting'); ?></label>
-                                    <input id="date" name="date" placeholder="" type="text" class="form-control"  value="<?php echo set_value('date'); ?>" readonly="readonly" />
-                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
-                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('attach_document'); ?></label>
                                     <input id="attachment_file" name="attachment_file" placeholder="" type="file" class="filestyle form-control" data-height="40"  value="<?php echo set_value('attachment_file'); ?>" />
@@ -90,7 +86,7 @@
             <?php } ?>
 
             <div class="col-md-<?php
-            if ($this->rbac->hasPrivilege('add_meeting', 'can_add')) {
+            if ($this->rbac->hasPrivilege('admin_document', 'can_add')) {
                 echo "8";
             } else {
                 echo "12";
@@ -99,68 +95,66 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"> <?php echo $this->lang->line('meeting_list'); ?></h3>
+                        <h3 class="box-title titlefix"> <?php echo $this->lang->line('document_list'); ?></h3>
                         <div class="box-tools pull-right">
                         </div><!-- /.box-tools -->
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive mailbox-messages">
-                            <div class="download_label"><?php echo $this->lang->line('meeting_list'); ?></div>
+                            <div class="download_label"><?php echo $this->lang->line('document_list'); ?></div>
                             <table class="table table-hover table-striped table-bordered example">
                                 <thead>
                                     <tr>
-                                        <th><?php echo $this->lang->line('meeting_name'); ?></th>
-                                        <th><?php echo $this->lang->line('meeting_no'); ?></th>
+                                        <th><?php echo $this->lang->line('document_title'); ?></th>
+                                        <th><?php echo $this->lang->line('document_no'); ?></th>
                                         <th><?php echo $this->lang->line('category'); ?></th>
-                                        <th><?php echo $this->lang->line('date'); ?></th>
                                         <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if (empty($meetinglist)) {
+                                    if (empty($documentlist)) {
                                         ?>
 
                                         <?php
                                     } else {
-                                        foreach ($meetinglist as $meeting) {
+                                        foreach ($documentlist as $document) {
                                             ?>
                                             <tr>
                                                 <td class="mailbox-name">
-                                                    <a href="#" data-toggle="popover" class="detail_popover"><?php echo $meeting['meeting_name'] ?></a>
+                                                    <a href="#" data-toggle="popover" class="detail_popover"><?php echo $document['document_title'] ?></a>
 
                                                     <div class="fee_detail_popover" style="display: none">
                                                         <?php
-                                                        if ($meeting['description'] == "") {
+                                                        if ($document['description'] == "") {
                                                             ?>
                                                             <p class="text text-danger"><?php echo $this->lang->line('no_description'); ?></p>
                                                             <?php
                                                         } else {
                                                             ?>
-                                                            <p class="text text-info"><?php echo $meeting['description']; ?></p>
+                                                            <p class="text text-info"><?php echo $document['description']; ?></p>
                                                             <?php
                                                         }
                                                         ?>
                                                     </div>
                                                 </td>
-                                                <td class="mailbox-name"><?php echo $meeting['meeting_no']; ?></td>
-                                                <td class="mailbox-name"><?php echo $meeting['category_name']; ?></td>
-                                                <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($meeting['date'])); ?></td>
+                                                <td class="mailbox-name"><?php echo $document['document_no']; ?></td>
+                                                <td class="mailbox-name"><?php echo $document['category_name']; ?></td>
 
                                                 <td class="mailbox-date pull-right"">
-                                                    <?php if ($meeting['attachment']) {
+                                                    <?php if ($document['attachment']) {
                                                         ?>
-                                                        <a href="<?php echo base_url(); ?>admin/meeting/download/<?php echo $meeting['attachment'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('download'); ?>">
+                                                        <a href="<?php echo base_url(); ?>admin/admindocument/download/<?php echo $document['attachment'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('download'); ?>">
                                                             <i class="fa fa-download"></i>
                                                         </a>
                                                     <?php }
                                                     ?>
-        <?php if ($this->rbac->hasPrivilege('add_meeting', 'can_edit')) { ?>
-                                                        <a href="<?php echo base_url(); ?>admin/meeting/edit/<?php echo $meeting['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
+        <?php if ($this->rbac->hasPrivilege('admin_document', 'can_edit')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/admindocument/edit/<?php echo $document['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-        <?php } if ($this->rbac->hasPrivilege('add_meeting', 'can_delete')) { ?>
-                                                        <a href="<?php echo base_url(); ?>admin/meeting/delete/<?php echo $meeting['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
+        <?php } if ($this->rbac->hasPrivilege('admin_document', 'can_delete')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/admindocument/delete/<?php echo $document['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
                                                             <i class="fa fa-remove"></i>
                                                         </a>
         <?php } ?>

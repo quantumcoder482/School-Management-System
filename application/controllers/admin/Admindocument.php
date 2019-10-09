@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Meeting extends Admin_Controller {
+class Admindocument extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
@@ -11,72 +11,66 @@ class Meeting extends Admin_Controller {
     }
 
     function index() {
-        if (!$this->rbac->hasPrivilege('add_meeting', 'can_view')) {
+        if (!$this->rbac->hasPrivilege('admin_document', 'can_view')) {
             access_denied();
         }
         $this->session->set_userdata('top_menu', 'Administration');
-        $this->session->set_userdata('sub_menu', 'admin/meeting');
-        $data['title'] = 'Add Meeting';
-        $data['title_list'] = 'Meeting List';
+        $this->session->set_userdata('sub_menu', 'admin/admindocument');
+        $data['title'] = 'Add Document';
+        $data['title_list'] = 'Document List';
 
-        $this->form_validation->set_rules('meeting_name', 'Meeting Name', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('meeting_no', 'Meeting No.', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('document_title', 'Document Title', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('document_no', 'Document No.', 'trim|required|xss_clean');
         $this->form_validation->set_rules('category_id', 'Category', 'trim|required|xss_clean');
 
 
         if ($this->form_validation->run() == FALSE) {
-            
+
         } else {
 
             $data = array(
-                'meeting_name' => $this->input->post('meeting_name'),
-                'meeting_no' => $this->input->post('meeting_no'),
+                'document_title' => $this->input->post('document_title'),
+                'document_no' => $this->input->post('document_no'),
                 'category_id' => $this->input->post('category_id'),
-                'date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date'))),
                 'description' => $this->input->post('description'),
             );
-            $insert_id = $this->Meeting_model->add($data);
+            $insert_id = $this->Admindocument_model->add($data);
             if (isset($_FILES["attachment_file"]) && !empty($_FILES['attachment_file']['name'])) {
                 $fileInfo = pathinfo($_FILES["attachment_file"]["name"]);
                 $attachment = $insert_id . '.' . $fileInfo['extension'];
-                move_uploaded_file($_FILES["attachment_file"]["tmp_name"], "./uploads/meeting_documents/" . $attachment);
-                $data = array('id' => $insert_id, 'attachment' => 'uploads/meeting_documents/' . $attachment);
-                $this->Meeting_model->add($data);
+                move_uploaded_file($_FILES["attachment_file"]["tmp_name"], "./uploads/admin_documents/" . $attachment);
+                $data = array('id' => $insert_id, 'attachment' => 'uploads/admin_documents/' . $attachment);
+                $this->Admindocument_model->add($data);
             }
 
             $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">Meeting added successfully</div>');
-            redirect('admin/meeting');
+            redirect('admin/admindocument');
         }
-        $meeting_result = $this->Meeting_model->get();
-        $data['meetinglist'] = $meeting_result;
+        $document_result = $this->Admindocument_model->get();
+        $data['documentlist'] = $document_result;
         $category_list = $this->Admincategory_model->get();
         $data['categorylist'] = $category_list;
         $this->load->view('layout/header', $data);
-        $this->load->view('admin/meeting/meetingList', $data);
+        $this->load->view('admin/admindocument/documentList', $data);
         $this->load->view('layout/footer', $data);
     }
 
     public function download($file) {
         $this->load->helper('download');
-        $filepath = "./uploads/meeting_documents/" . $this->uri->segment(6);
+        $filepath = "./uploads/admin_documents/" . $this->uri->segment(6);
         $data = file_get_contents($filepath);
         $name = $this->uri->segment(6);
         force_download($name, $data);
     }
 
-    function getMeetingByCategory() {
-        $category_id = $this->input->get('category_id');
-        $data = $this->Meeting_model->getMeetingByCategory($category_id);
-        echo json_encode($data);
-    }
 
     function delete($id) {
-        if (!$this->rbac->hasPrivilege('add_meeting', 'can_delete')) {
+        if (!$this->rbac->hasPrivilege('admin_document', 'can_delete')) {
             access_denied();
         }
-        $data['title'] = 'Meeting List';
-        $this->Meeting_model->remove($id);
-        redirect('admin/meeting');
+        $data['title'] = 'Document List';
+        $this->Admindocument_model->remove($id);
+        redirect('admin/admindocument');
     }
 
     function handle_upload() {
@@ -118,52 +112,51 @@ class Meeting extends Admin_Controller {
     }
 
     function edit($id) {
-        if (!$this->rbac->hasPrivilege('add_meeting', 'can_edit')) {
+        if (!$this->rbac->hasPrivilege('admin_document', 'can_edit')) {
             access_denied();
         }
-        $data['title'] = 'Edit Meeting';
+        $data['title'] = 'Edit Document';
         $data['id'] = $id;
-        $meeting = $this->Meeting_model->get($id);
-        $data['meeting'] = $meeting;
-        $meeting_result = $this->Meeting_model->get();
-        $data['meetinglist'] = $meeting_result;
+        $document = $this->Admindocument_model->get($id);
+        $data['document'] = $document;
+        $document_result = $this->Admindocument_model->get();
+        $data['documentlist'] = $document_result;
         $category_list = $this->Admincategory_model->get();
         $data['categorylist'] = $category_list;
 
 
-        $this->form_validation->set_rules('meeting_name', 'Meeting Name', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('meeting_no', 'Meeting No.', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('document_title', 'Document Title', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('document_no', 'Document No.', 'trim|required|xss_clean');
         $this->form_validation->set_rules('category_id', 'Category', 'trim|required|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
-            $this->load->view('admin/meeting/meetingEdit', $data);
+            $this->load->view('admin/admindocument/documentEdit', $data);
             $this->load->view('layout/footer', $data);
         } else {
 
             $data = array(
                 'id' => $id,
-                'meeting_name' => $this->input->post('meeting_name'),
-                'meeting_no' => $this->input->post('meeting_no'),
+                'document_title' => $this->input->post('document_title'),
+                'document_no' => $this->input->post('document_no'),
                 'category_id' => $this->input->post('category_id'),
-                'date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date'))),
                 'description' => $this->input->post('description'),
             );
 
-            $this->Meeting_model->add($data);
+            $this->Admindocument_model->add($data);
 
 
             if (isset($_FILES["attachment_file"]) && !empty($_FILES['attachment_file']['name'])) {
                 $fileInfo = pathinfo($_FILES["attachment_file"]["name"]);
                 $attachment = $id . '.' . $fileInfo['extension'];
-                move_uploaded_file($_FILES["attachment_file"]["tmp_name"], "./uploads/meeting_documents/" . $attachment);
-                $data_img = array('id' => $id, 'attachment' => 'uploads/meeting_documents/' . $attachment);
+                move_uploaded_file($_FILES["attachment_file"]["tmp_name"], "./uploads/admin_documents/" . $attachment);
+                $data_img = array('id' => $id, 'attachment' => 'uploads/admin_documents/' . $attachment);
 
-                $this->Meeting_model->add($data_img);
+                $this->Admindocument_model->add($data_img);
             }
 
-            $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">Meeting updated successfully</div>');
-            redirect('admin/meeting');
+            $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">Document updated successfully</div>');
+            redirect('admin/admindocument');
         }
     }
 

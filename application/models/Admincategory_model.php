@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Committee_model extends CI_Model
+class Admincategory_model extends CI_Model
 {
 
     public function __construct()
@@ -14,7 +14,7 @@ class Committee_model extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select()->from('committee');
+        $this->db->select()->from('admin_categories');
         if ($id != null) {
             $this->db->where('id', $id);
         } else {
@@ -36,7 +36,7 @@ class Committee_model extends CI_Model
     public function remove($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('committee');
+        $this->db->delete('admin_categories');
     }
 
     /**
@@ -49,9 +49,9 @@ class Committee_model extends CI_Model
     {
         if (isset($data['id'])) {
             $this->db->where('id', $data['id']);
-            $this->db->update('committee', $data);
+            $this->db->update('admin_categories', $data);
         } else {
-            $this->db->insert('committee', $data);
+            $this->db->insert('admin_categories', $data);
             return $this->db->insert_id();
         }
     }

@@ -14,14 +14,14 @@ class Event extends Admin_Controller {
         if (!$this->rbac->hasPrivilege('add_event', 'can_view')) {
             access_denied();
         }
-        $this->session->set_userdata('top_menu', 'Activities');
+        $this->session->set_userdata('top_menu', 'Administration');
         $this->session->set_userdata('sub_menu', 'admin/event');
         $data['title'] = 'Add Event';
         $data['title_list'] = 'Recent Events';
 
         $this->form_validation->set_rules('event_name', 'Event Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('in_charge', 'Event In-charge', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('committee_id', 'Select Committee', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('category_id', 'Category', 'trim|required|xss_clean');
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -40,7 +40,7 @@ class Event extends Admin_Controller {
             $data = array(
                 'event_name' => $this->input->post('event_name'),
                 'in_charge' => $this->input->post('in_charge'),
-                'committee_id' => $this->input->post('committee_id'),
+                'category_id' => $this->input->post('category_id'),
                 'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($date_from)),
                 'date_to' => date('Y-m-d', $this->customlib->datetostrtotime($date_to)),
                 'description' => $this->input->post('description'),
@@ -59,8 +59,8 @@ class Event extends Admin_Controller {
         }
         $event_result = $this->Event_model->get();
         $data['eventlist'] = $event_result;
-        $committee_list = $this->Committee_model->get();
-        $data['committeelist'] = $committee_list;
+        $category_list = $this->Admincategory_model->get();
+        $data['categorylist'] = $category_list;
         $this->load->view('layout/header', $data);
         $this->load->view('admin/event/eventList', $data);
         $this->load->view('layout/footer', $data);
@@ -75,8 +75,8 @@ class Event extends Admin_Controller {
     }
 
     function getEventByCommittee() {
-        $committee_id = $this->input->get('committee_id');
-        $data = $this->Event_model->getEventByCommittee($committee_id);
+        $category_id = $this->input->get('category_id');
+        $data = $this->Event_model->getEventByCommittee($category_id);
         echo json_encode($data);
     }
 
@@ -138,19 +138,19 @@ class Event extends Admin_Controller {
         $data['title_list'] = 'Event List';
         $event_result = $this->Event_model->get();
         $data['eventlist'] = $event_result;
-        $committee_list = $this->Committee_model->get();
-        $data['committeelist'] = $committee_list;
+        $category_list = $this->Admincategory_model->get();
+        $data['categorylist'] = $category_list;
 
         $this->form_validation->set_rules('event_name', 'Event Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('in_charge', 'Event In-charge', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('committee_id', 'Committee', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('category_id', 'Category', 'trim|required|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header', $data);
             $this->load->view('admin/event/eventEdit', $data);
             $this->load->view('layout/footer', $data);
         } else {
-            $committee_id = ($this->input->post('committee_id')) ? $this->input->post('committee_id') : NULL;
+            $category_id = ($this->input->post('category_id')) ? $this->input->post('category_id') : NULL;
             $event_date = $this->input->post('event_date');
             if (!empty($event_date)){
                 $exp = explode("-", $event_date);
@@ -165,7 +165,7 @@ class Event extends Admin_Controller {
                 'id' => $id,
                 'event_name' => $this->input->post('event_name'),
                 'in_charge' => $this->input->post('in_charge'),
-                'committee_id' => $this->input->post('committee_id'),
+                'category_id' => $this->input->post('category_id'),
                 'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($date_from)),
                 'date_to' => date('Y-m-d', $this->customlib->datetostrtotime($date_to)),
                 'description' => $this->input->post('description'),

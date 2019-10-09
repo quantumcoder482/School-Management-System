@@ -4,7 +4,7 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('activities'); ?></h1>
+            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('administration'); ?></h1>
     </section>
 
     <!-- Main content -->
@@ -15,7 +15,7 @@
                     <!-- Horizontal Form -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('add_meeting'); ?></h3>
+                            <h3 class="box-title"><?php echo $this->lang->line('edit_meeting'); ?></h3>
                         </div><!-- /.box-header -->
                         <form id="form1" action="<?php echo base_url() ?>admin/meeting/edit/<?php echo $meeting['id'] ?>"  id="meetingform" name="meetingform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
@@ -41,24 +41,24 @@
                                     <span class="text-danger"><?php echo form_error('meeting_no'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="committee_id"><?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('committee'); ?></label><small class="req"> *</small>
+                                    <label for="category_id"><?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('category'); ?></label><small class="req"> *</small>
 
-                                    <select autofocus="" id="committee_id" name="committee_id" class="form-control" >
+                                    <select autofocus="" id="category_id" name="category_id" class="form-control" >
                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         <?php
-                                        foreach ($committeelist as $committee) {
+                                        foreach ($categorylist as $category) {
                                             ?>
-                                            <option value="<?php echo $committee['id'] ?>"<?php
-                                            if (set_value('committee_id', $meeting['committee_id']) == $committee['id']) {
+                                            <option value="<?php echo $category['id'] ?>"<?php
+                                            if (set_value('category_id', $meeting['category_id']) == $category['id']) {
                                                 echo "selected = selected";
                                             }
-                                            ?>><?php echo $committee['committee_name'] ?></option>
+                                            ?>><?php echo $category['category_name'] ?></option>
 
                                             <?php
                                         }
                                         ?>
                                     </select>
-                                    <span class="text-danger"><?php echo form_error('committee_id'); ?></span>
+                                    <span class="text-danger"><?php echo form_error('category_id'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('description'); ?></label>
@@ -109,7 +109,7 @@
                                     <tr>
                                         <th><?php echo $this->lang->line('meeting_name'); ?></th>
                                         <th><?php echo $this->lang->line('meeting_no'); ?></th>
-                                        <th><?php echo $this->lang->line('committee'); ?></th>
+                                        <th><?php echo $this->lang->line('category'); ?></th>
                                         <th><?php echo $this->lang->line('date'); ?></th>
                                         <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
@@ -142,7 +142,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="mailbox-name"><?php echo $meeting['meeting_no']; ?></td>
-                                                <td class="mailbox-name"><?php echo $meeting['committee_name']; ?></td>
+                                                <td class="mailbox-name"><?php echo $meeting['category_name']; ?></td>
                                                 <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($meeting['date'])); ?></td>
 
                                                 <td class="mailbox-date pull-right"">

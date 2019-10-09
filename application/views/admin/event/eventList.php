@@ -4,7 +4,7 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('activities'); ?></h1>
+            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('administration'); ?></h1>
     </section>
 
     <!-- Main content -->
@@ -43,24 +43,24 @@
                                     <span class="text-danger"><?php echo form_error('in_charge'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="committee_id"><?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('committee'); ?></label><small class="req"> *</small>
+                                    <label for="category_id"><?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('category'); ?></label><small class="req"> *</small>
 
-                                    <select autofocus="" id="committee_id" name="committee_id" class="form-control" >
+                                    <select autofocus="" id="category_id" name="category_id" class="form-control" >
                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         <?php
-                                        foreach ($committeelist as $committee) {
+                                        foreach ($categorylist as $category) {
                                             ?>
-                                            <option value="<?php echo $committee['id'] ?>"<?php
-                                            if (set_value('committee_id') == $committee['id']) {
+                                            <option value="<?php echo $category['id'] ?>"<?php
+                                            if (set_value('category_id') == $category['id']) {
                                                 echo "selected = selected";
                                             }
-                                            ?>><?php echo $committee['committee_name'] ?></option>
+                                            ?>><?php echo $category['category_name'] ?></option>
 
                                             <?php
                                         }
                                         ?>
                                     </select>
-                                    <span class="text-danger"><?php echo form_error('committee_id'); ?></span>
+                                    <span class="text-danger"><?php echo form_error('category_id'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('description'); ?></label>
@@ -117,7 +117,7 @@
                                     <tr>
                                         <th><?php echo $this->lang->line('event_name'); ?></th>
                                         <th><?php echo $this->lang->line('event'); ?> <?php echo $this->lang->line('in_charge'); ?></th>
-                                        <th><?php echo $this->lang->line('committee'); ?></th>
+                                        <th><?php echo $this->lang->line('category'); ?></th>
                                         <th><?php echo $this->lang->line('from'); ?></th>
                                         <th><?php echo $this->lang->line('to'); ?></th>
                                         <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
@@ -151,7 +151,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="mailbox-name"><?php echo $event['in_charge']; ?></td>
-                                                <td class="mailbox-name"><?php echo $event['committee_name']; ?></td>
+                                                <td class="mailbox-name"><?php echo $event['category_name']; ?></td>
                                                 <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($event['date_from'])); ?></td>
                                                 <td class="mailbox-name"><?php echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($event['date_to'])); ?></td>
 

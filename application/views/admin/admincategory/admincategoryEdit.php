@@ -3,36 +3,36 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('activities'); ?></h1>
-    </section>s
+            <i class="fa fa-object-group"></i> <?php echo $this->lang->line('administration'); ?></h1>
+    </section>
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <?php if ($this->rbac->hasPrivilege('add_committee', 'can_add') || $this->rbac->hasPrivilege('add_committee', 'can_edit')) { ?>
+            <?php if ($this->rbac->hasPrivilege('add_admincategory', 'can_add') || $this->rbac->hasPrivilege('add_admincategory', 'can_edit')) { ?>
                 <div class="col-md-4">
                     <!-- Horizontal Form -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('edit_committee'); ?></h3>
+                            <h3 class="box-title"><?php echo $this->lang->line('edit_category'); ?></h3>
                         </div><!-- /.box-header -->
                         <!-- form start -->
-                        <form action="<?php echo site_url("admin/committee/edit/" . $id) ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                        <form action="<?php echo site_url("admin/admincategory/edit/" . $id) ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                             <div class="box-body">
                                 <?php echo validation_errors(); ?>
                                 <?php echo $this->customlib->getCSRF(); ?>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> <?php echo $this->lang->line('committee_name'); ?></label><small class="req"> *</small>
-                                    <input autofocus="" id="committee_name" name="committee_name" placeholder="Committee Name" type="text" class="form-control"  value="<?php echo set_value('committee name', $committee['committee_name']); ?>" />
-                                    <span class="text-danger"><?php echo form_error('committee_name'); ?></span>
+                                    <label for="exampleInputEmail1"> <?php echo $this->lang->line('category_name'); ?></label><small class="req"> *</small>
+                                    <input autofocus="" id="category_name" name="category_name" placeholder="Category Name" type="text" class="form-control"  value="<?php echo set_value('category name', $category['category_name']); ?>" />
+                                    <span class="text-danger"><?php echo form_error('category_name'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> <?php echo $this->lang->line('committee'); ?> <?php echo $this->lang->line('in_charge'); ?></label><small class="req"> *</small>
-                                    <input autofocus="" id="in_charge" name="in_charge" placeholder="Committee In-charge " type="text" class="form-control"  value="<?php echo set_value('committee In-charge', $committee['in_charge']); ?>" />
+                                    <label for="exampleInputEmail1"> <?php echo $this->lang->line('category'); ?> <?php echo $this->lang->line('in_charge'); ?></label><small class="req"> *</small>
+                                    <input autofocus="" id="in_charge" name="in_charge" placeholder="Category In-charge " type="text" class="form-control"  value="<?php echo set_value('category In-charge', $category['in_charge']); ?>" />
                                     <span class="text-danger"><?php echo form_error('in_charge'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('description'); ?></label>
-                                    <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder="Enter ..."><?php echo set_value('description', $committee['description']); ?></textarea>
+                                    <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder="Enter ..."><?php echo set_value('description', $category['description']); ?></textarea>
                                     <span class="text-danger"><?php echo form_error('description'); ?></span>
                                 </div>
                             </div><!-- /.box-body -->
@@ -45,7 +45,7 @@
                 </div><!--/.col (right) -->
             <?php } ?>
             <div class="col-md-<?php
-            if ($this->rbac->hasPrivilege('add_committee', 'can_add') || $this->rbac->hasPrivilege('add_committee', 'can_edit')) {
+            if ($this->rbac->hasPrivilege('add_admincategory', 'can_add') || $this->rbac->hasPrivilege('add_admincategory', 'can_edit')) {
                 echo "8";
             } else {
                 echo "12";
@@ -54,56 +54,56 @@
                 <!-- general form elements -->
                 <div class="box box-primary" id="exphead">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('committee_list'); ?></h3>
+                        <h3 class="box-title titlefix"><?php echo $this->lang->line('category_list'); ?></h3>
                     </div><!-- /.box-header -->
                     <div class="box-body  ">
                         <div class="table-responsive mailbox-messages">
-                            <div class="download_label"><?php echo $this->lang->line('committee_list'); ?></div>
+                            <div class="download_label"><?php echo $this->lang->line('category_list'); ?></div>
                             <table class="table table-striped table-bordered table-hover example">
                                 <thead>
                                     <tr>
-                                        <th><?php echo $this->lang->line('committee_name'); ?></th>
-                                        <th><?php echo $this->lang->line('committee'); ?> <?php echo $this->lang->line('in_charge'); ?></th>
+                                        <th><?php echo $this->lang->line('category_name'); ?></th>
+                                        <th><?php echo $this->lang->line('category'); ?> <?php echo $this->lang->line('in_charge'); ?></th>
                                         <th class="text-right no-print"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (empty($committeelist)) {
+                                    <?php if (empty($categorylist)) {
                                         ?>
 
                                         <?php
                                     } else {
                                         $count = 1;
-                                        foreach ($committeelist as $committee) {
+                                        foreach ($categorylist as $category) {
                                             ?>
                                             <tr>                                               
                                                 <td class="mailbox-name">
                                                     <a href="#" data-toggle="popover" class="detail_popover" >
-        <?php echo $committee['committee_name'] ?>
+        <?php echo $category['category_name'] ?>
                                                     </a>
 
                                                     <div class="fee_detail_popover" style="display: none">
                                                         <?php
-                                                        if ($committee['description'] == "") {
+                                                        if ($category['description'] == "") {
                                                             ?>
                                                             <p class="text text-danger"><?php echo $this->lang->line('no_description'); ?></p>
                                                             <?php
                                                         } else {
                                                             ?>
-                                                            <p class="text text-info"><?php echo $committee['description']; ?></p>
+                                                            <p class="text text-info"><?php echo $category['description']; ?></p>
                                                             <?php
                                                         }
                                                         ?>
                                                     </div>
                                                 </td>
-                                                <td class="mailbox-name"><?php echo $committee['in_charge']; ?></td>
+                                                <td class="mailbox-name"><?php echo $category['in_charge']; ?></td>
                                                 <td class="mailbox-date pull-right no-print">
-        <?php if ($this->rbac->hasPrivilege('add_commitee', 'can_edit')) { ?>
-                                                        <a href="<?php echo base_url(); ?>admin/committee/edit/<?php echo $committee['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
+        <?php if ($this->rbac->hasPrivilege('add_admincategory', 'can_edit')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/admincategory/edit/<?php echo $category['id'] ?>" class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-        <?php } if ($this->rbac->hasPrivilege('add_committee', 'can_delete')) { ?>
-                                                        <a href="<?php echo base_url(); ?>admin/committee/delete/<?php echo $committee['id'] ?>"class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
+        <?php } if ($this->rbac->hasPrivilege('add_admincategory', 'can_delete')) { ?>
+                                                        <a href="<?php echo base_url(); ?>admin/admincategory/delete/<?php echo $category['id'] ?>"class="btn btn-default btn-xs"  data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line('delete_confirm') ?>');">
                                                             <i class="fa fa-remove"></i>
                                                         </a>
         <?php } ?>

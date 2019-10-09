@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Event_model extends CI_Model
+class Admindocument_model extends CI_Model
 {
 
     public function __construct()
@@ -14,12 +14,12 @@ class Event_model extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('event.*, admin_categories.category_name')->from('event');
-        $this->db->join('admin_categories', 'event.category_id = admin_categories.id');
+        $this->db->select('admin_document.*, admin_categories.category_name')->from('admin_document');
+        $this->db->join('admin_categories', 'admin_document.category_id = admin_categories.id');
         if ($id != null) {
-            $this->db->where('event.id', $id);
+            $this->db->where('admin_document.id', $id);
         } else {
-            $this->db->order_by('event.id');
+            $this->db->order_by('admin_document.id');
         }
 
         $query = $this->db->get();
@@ -37,7 +37,7 @@ class Event_model extends CI_Model
     public function remove($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('event');
+        $this->db->delete('admin_document');
     }
 
     /**
@@ -50,9 +50,9 @@ class Event_model extends CI_Model
     {
         if (isset($data['id'])) {
             $this->db->where('id', $data['id']);
-            $this->db->update('event', $data);
+            $this->db->update('admin_document', $data);
         } else {
-            $this->db->insert('event', $data);
+            $this->db->insert('admin_document', $data);
             return $this->db->insert_id();
         }
     }

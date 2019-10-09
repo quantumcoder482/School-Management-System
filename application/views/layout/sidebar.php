@@ -80,6 +80,44 @@
                                 <?php
                             }
                         }
+
+                        if($this->module_lib->hasActive('administration')) {
+                            if(($this->rbac->hasPrivilege('add_event', 'can_view') ||
+                              $this->rbac->hasPrivilege('add_admincategory', 'can_view') ||
+                              $this->rbac->hasPrivilege('add_meeting', 'can_view') ||
+                                $this->rbac->hasPrivilege('admin_document', 'can_view'))){
+                                ?>
+                                <li class="treeview <?php echo set_Topmenu('Administration'); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-users"></i> <span><?php echo $this->lang->line('administration'); ?></span> <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <?php if($this->rbac->hasPrivilege('add_admincategory', 'can_view')) { ?>
+                                            <li class="<?php echo set_Submenu('admin/admincategory'); ?>"><a href="<?php echo base_url(); ?>admin/admincategory"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_category'); ?></a></li>
+
+                                            <?php
+                                        }
+                                        if($this->rbac->hasPrivilege('add_event', 'can_view')) { ?>
+                                            <li class="<?php echo set_Submenu('admin/event'); ?>"><a href="<?php echo base_url(); ?>admin/event"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_events'); ?></a></li>
+                                            <?php
+                                        }
+                                        if($this->rbac->hasPrivilege('add_meeting', 'can_view')) { ?>
+                                            <li class="<?php echo set_Submenu('admin/meeting'); ?>"><a href="<?php echo base_url(); ?>admin/meeting"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_meetings'); ?></a></li>
+
+                                            <?php
+                                        }
+                                        if($this->rbac->hasPrivilege('admin_document', 'can_view')) { ?>
+                                            <li class="<?php echo set_Submenu('admin/admindocument'); ?>"><a href="<?php echo base_url(); ?>admin/admindocument"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_documents'); ?></a></li>
+
+                                            <?php
+                                        }?>
+
+                                    </ul>
+                                </li>
+                                <?php
+                            }
+                        }
+
                         if ($this->module_lib->hasActive('student_information')) {
                         if (($this->rbac->hasPrivilege('student', 'can_view') ||
                                $this->rbac->hasPrivilege('student', 'can_add') ||                            
@@ -422,36 +460,7 @@
                                 <?php
                             }
                         }
-                        if($this->module_lib->hasActive('activities')) {
-                            if(($this->rbac->hasPrivilege('add_event', 'can_view') ||
-                              $this->rbac->hasPrivilege('add_committee', 'can_view') ||
-                                $this->rbac->hasPrivilege('add_meeting', 'can_view'))){
-                                ?>
-                                <li class="treeview <?php echo set_Topmenu('Activities'); ?>">
-                                    <a href="#">
-                                        <i class="fa fa-users"></i> <span><?php echo $this->lang->line('activities'); ?></span> <i class="fa fa-angle-left pull-right"></i>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <?php if($this->rbac->hasPrivilege('add_committee', 'can_view')) { ?>
-                                            <li class="<?php echo set_Submenu('admin/committee'); ?>"><a href="<?php echo base_url(); ?>admin/committee"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_committee'); ?></a></li> 
 
-                                            <?php 
-                                        }
-                                        if($this->rbac->hasPrivilege('add_event', 'can_view')) { ?>
-                                            <li class="<?php echo set_Submenu('admin/event'); ?>"><a href="<?php echo base_url(); ?>admin/event"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_events'); ?></a></li>
-                                            <?php 
-                                        }
-                                        if($this->rbac->hasPrivilege('add_meeting', 'can_view')) { ?>
-                                            <li class="<?php echo set_Submenu('admin/meeting'); ?>"><a href="<?php echo base_url(); ?>admin/meeting"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_meetings'); ?></a></li>
-
-                                            <?php 
-                                        }?>
-
-                                    </ul>
-                                </li>
-                                <?php 
-                            }
-                        }
 
                         if ($this->module_lib->hasActive('human_resource')) {
                             if (($this->rbac->hasPrivilege('staff', 'can_view') ||
