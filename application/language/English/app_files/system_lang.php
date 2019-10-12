@@ -983,6 +983,9 @@ $lang['edit_document'] = 'Edit Document';
 $lang['document_list'] = 'Document List';
 $lang['document_title'] = 'Document Title';
 $lang['document_no'] = 'Document No.';
+$lang['mentor_list'] = 'Mentor List';
+$lang['select_mentor'] = 'Select Mentor';
+$lang['mentor'] = 'Mentor';
 
 
 #Book

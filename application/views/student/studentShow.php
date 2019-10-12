@@ -444,6 +444,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     <table class="table table-hover table-striped tmb0">
                                         <tbody>
                                             <tr>
+                                                <td  class="col-md-4"><?php echo $this->lang->line('mentor'); ?></td>
+                                                <td  class="col-md-5"><?php echo $student['mentor_name'].' '.$student['mentor_surname']; ?></td>
+                                            </tr>
+                                            <tr>
                                                 <td  class="col-md-4"><?php echo $this->lang->line('blood_group'); ?></td>
                                                 <td  class="col-md-5"><?php echo $student['blood_group']; ?></td>
                                             </tr>

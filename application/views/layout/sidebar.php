@@ -85,7 +85,8 @@
                             if(($this->rbac->hasPrivilege('add_event', 'can_view') ||
                               $this->rbac->hasPrivilege('add_admincategory', 'can_view') ||
                               $this->rbac->hasPrivilege('add_meeting', 'can_view') ||
-                                $this->rbac->hasPrivilege('admin_document', 'can_view'))){
+                              $this->rbac->hasPrivilege('admin_document', 'can_view') ||
+                              $this->rbac->hasPrivilege('mentor_list', 'can_view'))){
                                 ?>
                                 <li class="treeview <?php echo set_Topmenu('Administration'); ?>">
                                     <a href="#">
@@ -110,6 +111,11 @@
                                             <li class="<?php echo set_Submenu('admin/admindocument'); ?>"><a href="<?php echo base_url(); ?>admin/admindocument"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('add_documents'); ?></a></li>
 
                                             <?php
+                                        }
+                                        if($this->rbac->hasPrivilege('mentor_list', 'can_view')) { ?>
+                                        <li class="<?php echo set_Submenu('admin/mentorlist'); ?>"><a href="<?php echo base_url(); ?>admin/mentorlist"><i class="fa fa-angle-double-right"></i><?php echo $this->lang->line('mentor_list'); ?></a></li>
+
+                                        <?php
                                         }?>
 
                                     </ul>

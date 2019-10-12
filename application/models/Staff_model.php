@@ -34,9 +34,6 @@ class Staff_model extends CI_Model {
         $this->db->join('roles', "roles.id = staff_roles.role_id", "left");
         $this->db->join('department', "department.id = staff.department", "left");
 
-
-
-
         if ($id != null) {
             $this->db->where('staff.id', $id);
         } else {

@@ -658,6 +658,30 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('mentor'); ?></label>
+
+                                                        <select class="form-control" id="mentor" name="mentor">
+
+                                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                            <?php
+
+                                                            foreach ($mentorlist as $key => $mentor_value) {
+                                                                ?>
+
+                                                                <option value="<?php echo $mentor_value['id'] ?>" <?php echo set_select('mentor', $mentor_value['id']); ?>>
+                                                                    <?php
+
+                                                                    echo $mentor_value['name'].' '.$mentor_value['surname']; ?>
+                                                                </option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <span class="text-danger"><?php echo form_error('mentor'); ?></span>
+                                                    </div>
+                                                </div>
 
 
                                             </div>

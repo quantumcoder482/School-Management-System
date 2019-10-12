@@ -235,6 +235,9 @@ class Student extends Admin_Controller
         $data['hostelList'] = $hostelList;
         $vehroute_result = $this->vehroute_model->get();
         $data['vehroutelist'] = $vehroute_result;
+
+        $data['mentorlist'] = $this->staff_model->get();
+
         $this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_is', 'Guardian', 'trim|required|xss_clean');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required|xss_clean');
@@ -308,6 +311,7 @@ class Student extends Admin_Controller
                 'samagra_id' => $this->input->post('samagra_id'),
                 'bank_account_no' => $this->input->post('bank_account_no'),
                 'bank_name' => $this->input->post('bank_name'),
+                'mentor' => $this->input->post('mentor'),
                 'ifsc_code' => $this->input->post('ifsc_code'),
                 'father_name' => $this->input->post('father_name'),
                 'father_phone' => $this->input->post('father_phone'),
@@ -656,7 +660,7 @@ class Student extends Admin_Controller
         $category = $this->category_model->get();
 
 
-        $fields = array('admission_no', 'hall_no', 'firstname', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note');
+        $fields = array('admission_no', 'hall_no', 'firstname', 'lastname', 'gender', 'dob', 'category_id', 'religion', 'cast', 'mobileno', 'email', 'admission_date', 'blood_group', 'school_house_id', 'height', 'weight', 'measurement_date', 'father_name', 'father_phone', 'father_occupation', 'mother_name', 'mother_phone', 'mother_occupation', 'guardian_is', 'guardian_name', 'guardian_relation', 'guardian_email', 'guardian_phone', 'guardian_occupation', 'guardian_address', 'current_address', 'permanent_address', 'bank_account_no', 'bank_name', 'mentor', 'ifsc_code', 'adhar_no', 'samagra_id', 'rte', 'previous_school', 'note');
 
 
         $data["fields"] = $fields;
@@ -869,8 +873,10 @@ class Student extends Admin_Controller
         $siblings = $this->student_model->getMySiblings($student['parent_id'], $student['id']);
         $data['siblings'] = $siblings;
         $data['siblings_counts'] = count($siblings);
-        $this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
 
+        $data['mentorlist'] = $this->staff_model->get();
+
+        $this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('guardian_is', 'Guardian', 'trim|required|xss_clean');
         $this->form_validation->set_rules('dob', 'Date of Birth', 'trim|required|xss_clean');
         $this->form_validation->set_rules('class_id', 'Class', 'trim|required|xss_clean');
@@ -941,6 +947,7 @@ class Student extends Admin_Controller
                 'samagra_id' => $this->input->post('samagra_id'),
                 'bank_account_no' => $this->input->post('bank_account_no'),
                 'bank_name' => $this->input->post('bank_name'),
+                'mentor' => $this->input->post('mentor'),
                 'ifsc_code' => $this->input->post('ifsc_code'),
                 'cast' => $this->input->post('cast'),
                 'father_name' => $this->input->post('father_name'),
