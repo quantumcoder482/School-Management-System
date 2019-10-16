@@ -43,7 +43,7 @@ class Admindocument extends Admin_Controller {
                 $this->Admindocument_model->add($data);
             }
 
-            $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">Meeting added successfully</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">Document added successfully</div>');
             redirect('admin/admindocument');
         }
         $document_result = $this->Admindocument_model->get();

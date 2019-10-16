@@ -7,6 +7,7 @@ class Subject_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        $this->current_session = $this->setting_model->getCurrentSession();
     }
 
     public function get($id = null) {
@@ -57,6 +58,14 @@ class Subject_model extends CI_Model {
         } else {
             return FALSE;
         }
+    }
+
+    public function getByStudentId($student_id){
+
+        $sql = "SELECT subjects.* FROM subjects INNER JOIN teacher_subjects ON teacher_subjects.subject_id=subjects.id INNER JOIN class_sections ON class_sections.id=teacher_subjects.class_section_id INNER JOIN student_session ON student_session.class_id=class_sections.class_id AND student_session.section_id=class_sections.section_id WHERE teacher_subjects.session_id=".$this->db->escape($this->current_session)." AND student_session.student_id=".$this->db->escape($student_id);
+        $query = $this->db->query($sql);
+        return $query->result_array();
+
     }
 
 }

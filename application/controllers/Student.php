@@ -15,6 +15,8 @@ class Student extends Admin_Controller
         $this->load->library('encoding_lib');
         $this->load->model("classteacher_model");
         $this->load->model("timeline_model");
+        $this->load->model("subject_model");
+        $this->load->model("stuattendence_model");
         $this->blood_group = $this->config->item('bloodgroup');
         $this->role;
     }
@@ -166,8 +168,14 @@ class Student extends Admin_Controller
         $data['student'] = $student;
         $data['siblings'] = $siblings;
         $class_section = $this->student_model->getClassSection($student["class_id"]);
-        $data["class_section"] = $class_section;
+        $data['class_section'] = $class_section;
         $session = $this->setting_model->getCurrentSession();
+
+        //for attendance tab
+
+        $attendencetypes = $this->attendencetype_model->getAttType();
+        $data['attendencetypeslist'] = $attendencetypes;
+
 
         $studentlistbysection = $this->student_model->getStudentClassSection($student["class_id"], $session);
         $data["studentlistbysection"] = $studentlistbysection;

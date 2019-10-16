@@ -1,6 +1,12 @@
 <?php
 $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
+<style type="text/css">
+    td {
+        /*max-width:100%;*/
+        white-space:nowrap;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,9 +35,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         </div>
                         <div class="table-responsive mailbox-messages">
 
-
                             <div class="download_label"><?php echo $this->lang->line('book_list'); ?></div>
-                            <table id="" class="table table-striped table-bordered table-hover example" cellspacing="0" width="100%">
+                            <table id="" class="table table-striped table-bordered table-hover report-table" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th><?php echo $this->lang->line('book_title'); ?></th>
@@ -54,6 +59,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <th><?php echo $this->lang->line('available'); ?></th>
                                         <th><?php echo $this->lang->line('issue_book'); ?></th>
                                         <th><?php echo $this->lang->line('reference_book'); ?></th>
+                                        <th><?php echo $this->lang->line('damaged'); ?></th>
+                                        <th><?php echo $this->lang->line('missed'); ?></th>
                                         <th><?php echo $this->lang->line('supplier'); ?></th>
                                         <th><?php echo $this->lang->line('invoice_no'); ?></th>
                                         <th><?php echo $this->lang->line('invoice_date'); ?></th>
@@ -105,6 +112,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <td class="mailbox-name"> <?php echo $book['qty'] - $book['total_issue'] ?></td>
                                                 <td class="mailbox-name"><?php echo $book['issue_book'] ?></td>
                                                 <td class="mailbox-name"><?php echo $book['reference_book'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['damaged'] ?></td>
+                                                <td class="mailbox-name"><?php echo $book['missed'] ?></td>
                                                 <td class="mailbox-name"><?php echo $book['supplier'] ?></td>
                                                 <td class="mailbox-name"><?php echo $book['invoice_no'] ?></td>
                                                 <td class="mailbox-name"> <?php
@@ -167,6 +176,92 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         $("#btnreset").click(function() {
             /* Single line Reset function executes on click of Reset Button */
             $("#form1")[0].reset();
+        });
+
+        var tbl = $('.report-table');
+
+
+        var table = $('.report-table').DataTable({
+            "aaSorting": [],
+            scrollX: true,
+            scrollY: true,
+            autoWidth: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            dom: "Bfrtip",
+            buttons: [
+
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy',
+                    title: $('.download_label').html(),
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel',
+
+                    title: $('.download_label').html(),
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV',
+                    title: $('.download_label').html(),
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF',
+                    title: $('.download_label').html(),
+                    orientation:'landscape',
+                    pageSize: 'A2',
+                    alignment: "center",
+                    exportOptions: {
+                        columns: ':visible',
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    text: '<i class="fa fa-print"></i>',
+                    titleAttr: 'Print',
+                    title: $('.download_label').html(),
+                    customize: function ( win ) {
+                        $(win.document.body)
+                            .css( 'font-size', '10pt' );
+
+                        $(win.document.body).find( 'table' )
+                            .addClass( 'compact' )
+                            .css( 'font-size', 'inherit' );
+                    },
+                    exportOptions: {
+                        columns: ':visible',
+                    }
+                },
+
+                {
+                    extend: 'colvis',
+                    text: '<i class="fa fa-columns"></i>',
+                    titleAttr: 'Columns',
+                    title: $('.download_label').html(),
+                    postfixButtons: ['colvisRestore']
+                },
+            ]
         });
 
     });

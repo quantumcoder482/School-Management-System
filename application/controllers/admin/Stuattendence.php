@@ -12,6 +12,8 @@ class Stuattendence extends Admin_Controller {
         $this->load->library('mailsmsconf');
         $this->config_attendance = $this->config->item('attendence');
         $this->load->model("classteacher_model");
+        $this->load->model("student_model");
+        $this->load->model("attendencetype_model");
     }
 
     function index() {
@@ -261,7 +263,7 @@ class Stuattendence extends Admin_Controller {
             $data['batch_id'] = $batch;
             $data['month_selected'] = $month;
             if($batch){
-                $studentlist = $this->student_model->searchByClassSection($class, $section, $batch);    
+                $studentlist = $this->student_model->searchByClassSection($class, $section, $batch);
             }else{
                 $studentlist = $this->student_model->searchByClassSection($class, $section);
             }
@@ -350,6 +352,97 @@ class Stuattendence extends Admin_Controller {
         return $record;
     }
 
+    public function ajaxAttendanceList(){
+
+        $student_id = $this->input->post('student_id');
+
+        if($this->input->post('from_date') != ""){
+            $from_date = date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('from_date')));
+        }else {
+            $from_date = "0000-00-00";
+        }
+        if($this->input->post('to_date') != ""){
+            $to_date = date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('to_date')));
+        }else {
+            $to_date = "0000-00-00";
+        }
+
+        $subjects = $this->subject_model->getByStudentId($student_id);
+        $attendencetypes = $this->attendencetype_model->getAttType();
+
+        $records = array();
+
+        foreach($subjects as $key=>$subject){
+
+            $tmp_attendance_days = array();
+            $total_days = 0;
+            $present_day = 0;
+            $print_percentage_data = "";
+
+            $tmp_attendance = $this->stuattendence_model->getAttendanceStudentSubjectDate($student_id, $subject['id'], $from_date, $to_date);
+            $total_days  = count($tmp_attendance);
+
+
+            foreach($attendencetypes as $attendencetype){
+
+                $tmp_days = 0;
+
+                foreach($tmp_attendance as $t){
+                    if($t['attendence_type_id'] == $attendencetype['id']){
+                        $tmp_days += 1;
+                    }
+                }
+
+                $tmp_attendance_days[strtolower(str_replace(' ', '_',$attendencetype['type']))] = $tmp_days;
+
+                if(strtolower($attendencetype['type']) != 'absent') {
+                    $present_day += $tmp_days;
+                }
+            }
+
+
+
+            if ($total_days == 0) {
+                $percentage = -1;
+                $print_percentage = "-";
+            } else  {
+                 $percentage = ($present_day/$total_days) * 100;
+                 $print_percentage = round($percentage, 0);
+            }
+
+            if (($percentage < 75) && ($percentage >= 0)) {
+                $label = "class='label label-danger'";
+            } else if ($percentage > 75) {
+
+                $label = "class='label label-success'";
+            } else {
+
+                $label = "class='label label-default'";
+            }
+            $print_percentage_data = "<label $label>" . $print_percentage . "</label>";
+
+            $records["data"][] = array(
+                0 => $key+1,
+                1 => $subject['name'],
+                2 => $print_percentage_data,
+                3 => $tmp_attendance_days['present'],
+                4 => $tmp_attendance_days['late'],
+                5 => $tmp_attendance_days['absent'],
+                6 => $tmp_attendance_days['holiday'],
+                7 => $tmp_attendance_days['half_day'],
+
+                "DT_RowId" => 'row_'.$attendencetype['id']
+            );
+
+        }
+
+      //$records["draw"] =  intval($_REQUEST['draw']);
+        $records["recordsTotal"] = count($subjects);
+        $records["recordsFiltered"] = count($subjects);
+
+        echo json_encode($records);
+
+    }
 }
 
 ?>

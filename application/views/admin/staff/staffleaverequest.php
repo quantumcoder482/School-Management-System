@@ -231,15 +231,15 @@
                         <div class="form-group  col-xs-12 col-sm-12 col-md-12 col-lg-6">
                             <label><?php echo $this->lang->line('apply'); ?> <?php echo $this->lang->line('date'); ?></label>
                             <input type="text" id="applieddate" name="applieddate" value="<?php echo date("d/m/Y") ?>" class="form-control">
-
+                            selected
                         </div>
 
                         <div class="form-group  col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                             <label>
-                                <?php echo $this->lang->line('leave_type'); ?></label>
+                                <?php echo $this->lang->line('leave_type'); ?></label><small class="req"> *</small>
                             <div id="leavetypeddl">
                                 <select name="leave_type" id="leave_type" class="form-control">
-                                    <option value=""><?php echo $this->lang->line('select') ?></option>
+                                    <option value="" ><?php echo $this->lang->line('select') ?></option>
                                     <?php foreach ($leavetype as $leave_key => $leave_value) {
                                         ?>
                                     <option value="<?php echo $leave_value["id"] ?>"><?php echo $leave_value["type"] ?></option>
@@ -254,18 +254,18 @@
                         <div class="form-group  col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                             <label>
                                 <?php echo $this->lang->line('substitute_staff'); ?></label>
-                            <div id="leavetypeddl">
-                                <select name="sub_staff_id" id="sub_staff_id" class="form-control">
-                                    <option value="">Select</option>
-                                    <?php
-                                    foreach ($sub_staff as $key => $value) {
-                                        ?>
-                                    <option value="<?php echo $value["id"] ?>"><?php echo $value["name"] . " " . $value["surname"] ?></option>
-                                    <?php
-                                    }
+
+                            <select name="sub_staff_id" id="sub_staff_id" class="form-control">
+                                <option value="">Select</option>
+                                <?php
+                                foreach ($sub_staff as $key => $value) {
                                     ?>
-                                </select>
-                            </div>
+                                <option value="<?php echo $value["id"] ?>"><?php echo $value["name"] . " " . $value["surname"] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+
                             <span class="text-danger"><?php echo form_error('sub_staff_id'); ?></span>
                         </div>
 

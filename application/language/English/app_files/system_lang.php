@@ -999,5 +999,15 @@ $lang['category'] = 'Category';
 $lang['reference_book'] = 'Reference Book';
 $lang['invoice_no'] = 'Invoice No.';
 $lang['invoice_date'] = 'Invoice Date';
+$lang['damaged'] = 'Damaged';
+$lang['missed'] = 'Missed';
+
+
+#E_resource
+$lang['e_resources'] = 'e-Resources';
+$lang['e_resource_list'] = 'e-Resources List';
+$lang['add_e_resource'] = 'Add e-Resource';
+$lang['edit_e_resource'] = 'Edit e-Resource';
+
 
 

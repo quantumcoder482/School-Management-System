@@ -97,7 +97,7 @@
                                     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
                                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table class="table table-striped table-bordered table-hover mark-table">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -373,4 +373,14 @@
             });
         }
     }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".mark-table").dataTable({
+            scrollX: true,
+            dom: "",
+            info: false,
+        });
+    })
 </script>

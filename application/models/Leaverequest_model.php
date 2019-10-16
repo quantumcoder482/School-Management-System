@@ -75,6 +75,13 @@ class Leaverequest_model extends CI_model {
         }
     }
 
+    function pendingStaffLeave(){
+
+        $query = $this->db->select('*')->where('status', 'pending')->get("staff_leave_request");
+        return $query->num_rows();
+
+    }
+
 }
 
 ?>

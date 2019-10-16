@@ -125,14 +125,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <input id="qty" name="qty" placeholder="" type="text" class="form-control" value="<?php echo set_value('qty', $editbook['qty']); ?>" />
                                 <span class="text-danger"><?php echo form_error('qty'); ?></span>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1"><?php echo $this->lang->line('supplier'); ?></label>
+                                <input id="supplier" name="supplier" placeholder="" type="text" class="form-control" value="<?php echo set_value('supplier', $editbook['supplier']); ?>" />
+                                <span class="text-danger"><?php echo form_error('supplier'); ?></span>
+                            </div>
+                            <div class="clearfix"></div>
+
                             <div class="col-md-offset-1 col-md-2">
                                 <label><?php echo $this->lang->line('issue_book'); ?></label>
                                 <div class="radio" style="margin-top: 2px;">
-                                    <label><input class="radio-inline" type="radio" name="issue_book" value="Yes" <?php
-                                        echo set_value('issue_book', $editbook['issue_book']) == "Yes" ? "checked" : "";
+                                    <label><input class="radio-inline" type="radio" name="issue_book" value="yes" <?php
+                                        echo set_value('issue_book', $editbook['issue_book']) == "yes" ? "checked" : "";
                                         ?>><?php echo $this->lang->line('yes'); ?></label>
-                                    <label><input class="radio-inline" checked="checked" type="radio" name="issue_book" value="No" <?php
-                                        echo set_value('issue_book', $editbook['issue_book']) == "No" ? "checked" : "";
+                                    <label><input class="radio-inline" type="radio" name="issue_book" value="no" <?php
+                                        echo set_value('issue_book', $editbook['issue_book']) == "no" ? "checked" : "";
                                         ?>><?php echo $this->lang->line('no'); ?></label>
                                 </div>
                                 <span class="text-danger"><?php echo form_error('issue_book'); ?></span>
@@ -140,16 +147,42 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <div class="col-md-offset-1 col-md-2">
                                 <label><?php echo $this->lang->line('reference_book'); ?></label>
                                 <div class="radio" style="margin-top: 2px;">
-                                    <label><input class="radio-inline" type="radio" name="reference_book" value="Yes" <?php
-                                        echo set_value('reference_book', $editbook['reference_book']) == "Yes" ? "checked" : "";
+                                    <label><input class="radio-inline" type="radio" name="reference_book" value="yes" <?php
+                                        echo set_value('reference_book', $editbook['reference_book']) == "yes" ? "checked" : "";
                                         ?>><?php echo $this->lang->line('yes'); ?></label>
-                                    <label><input class="radio-inline" checked="checked" type="radio" name="reference_book" value="No" <?php
-                                        echo set_value('reference_book', $editbook['reference_book']) == "No" ? "checked" : "";
+                                    <label><input class="radio-inline" type="radio" name="reference_book" value="no" <?php
+                                        echo set_value('reference_book', $editbook['reference_book']) == "no" ? "checked" : "";
                                         ?>><?php echo $this->lang->line('no'); ?></label>
                                 </div>
                                 <span class="text-danger"><?php echo form_error('reference_book'); ?></span>
                             </div>
+                            <div class="col-md-offset-1 col-md-2">
+                                <label><?php echo $this->lang->line('damaged'); ?></label>
+                                <div class="radio" style="margin-top: 2px;">
+                                    <label><input class="radio-inline" type="radio" name="damaged" value="yes" <?php
+                                        echo set_value('damaged',$editbook['damaged']) == "yes" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('yes'); ?></label>
+                                    <label><input class="radio-inline" type="radio" name="damaged" value="no" <?php
+                                        echo set_value('damaged',$editbook['damaged']) == "no" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('no'); ?></label>
+                                </div>
+                                <span class="text-danger"><?php echo form_error('damaged'); ?></span>
+                            </div>
+                            <div class="col-md-offset-1 col-md-2">
+                                <label><?php echo $this->lang->line('missed'); ?></label>
+                                <div class="radio" style="margin-top: 2px;">
+                                    <label><input class="radio-inline" type="radio" name="missed" value="yes" <?php
+                                        echo set_value('missed', $editbook['missed']) == "yes" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('yes'); ?></label>
+
+                                    <label><input class="radio-inline" type="radio" name="missed" value="no" <?php
+                                        echo set_value('missed',$editbook['missed']) == "no" ? "checked" : "";
+                                        ?>><?php echo $this->lang->line('no'); ?></label>
+                                </div>
+                                <span class="text-danger"><?php echo form_error('missed'); ?></span>
+                            </div>
                             <div class="clearfix"></div>
+
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('invoice_no'); ?></label>
                                 <input id="invoice_no" name="invoice_no" placeholder="" type="text" class="form-control" value="<?php echo set_value('invoice_no', $editbook['invoice_no']); ?>" />
@@ -161,11 +194,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <span class="text-danger"><?php echo form_error('invoice_date'); ?></span>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1"><?php echo $this->lang->line('supplier'); ?></label>
-                                <input id="supplier" name="supplier" placeholder="" type="text" class="form-control" value="<?php echo set_value('supplier', $editbook['supplier']); ?>" />
-                                <span class="text-danger"><?php echo form_error('supplier'); ?></span>
-                            </div>
+
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('description'); ?></label>
                                 <textarea class="form-control" id="description" name="description" placeholder="" rows="3" placeholder="Enter ..."><?php echo set_value('description', $editbook['description']); ?></textarea>

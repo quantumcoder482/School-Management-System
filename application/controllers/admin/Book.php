@@ -91,6 +91,8 @@ class Book extends Admin_Controller
                 'qty' => $this->input->post('qty'),
                 'issue_book' => $this->input->post('issue_book'),
                 'reference_book' => $this->input->post('reference_book'),
+                'damaged' => $this->input->post('damaged'),
+                'missed' => $this->input->post('missed'),
                 'supplier' => $this->input->post('supplier'),
                 'invoice_no' => $this->input->post('invoice_no'),
                 'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('invoice_date'))),
@@ -115,7 +117,7 @@ class Book extends Admin_Controller
 
         $userdata = $this->customlib->getUserData();
 
-        $fields = array('book_title','author', 'publisher','isbn_no','book_no','from_acc_no','to_acc_no','edition','volume','year','bookprice','no_of_pages','department','book_type','category','rack_no','qty','issue_book','reference_book','supplier','invoice_no','invoice_date','description');
+        $fields = array('book_title','author', 'publisher','isbn_no','book_no','from_acc_no','to_acc_no','edition','volume','year','bookprice','no_of_pages','department','book_type','category','rack_no','qty','issue_book','reference_book','damaged','missed','supplier','invoice_no','invoice_date','description');
 
         $data["fields"] = $fields;
 
@@ -169,6 +171,8 @@ class Book extends Admin_Controller
                             $qty = $book_data[$i]["qty"];
                             $issue_book = $book_data[$i]["issue_book"];
                             $reference_book = $book_data[$i]["reference_book"];
+                            $damaged = $book_data[$i]["damaged"];
+                            $missed = $book_data[$i]["missed"];
                             $supplier = $book_data[$i]["supplier"];
                             $invoice_no = $book_data[$i]["invoice_no"];
                             $invoice_date = $book_data[$i]["invoice_date"];
@@ -194,6 +198,8 @@ class Book extends Admin_Controller
                                 'qty' => $qty,
                                 'issue_book' => $issue_book,
                                 'reference_book' => $reference_book,
+                                'damaged' => $damaged,
+                                'missed' => $missed,
                                 'supplier' => $supplier,
                                 'invoice_no' => $invoice_no,
                                 'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($invoice_date)),
@@ -320,6 +326,8 @@ class Book extends Admin_Controller
                 'qty' => $this->input->post('qty'),
                 'issue_book' => $this->input->post('issue_book'),
                 'reference_book' => $this->input->post('reference_book'),
+                'damaged' => $this->input->post('damaged'),
+                'missed' => $this->input->post('missed'),
                 'supplier' => $this->input->post('supplier'),
                 'invoice_no' => $this->input->post('invoice_no'),
                 'invoice_date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('invoice_date'))),

@@ -183,9 +183,19 @@
                                     <span class="info-box-number"><?php echo $value; ?></span>
                                 </div>
                             </a>
-                        </div>     
+                        </div>
 
                 <?php } ?>
+
+                    <div class="info-box">
+                        <a href="#">
+                            <span class="info-box-icon bg-yellow"><i class="fa fa-user-secret"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Approve Staff Leave</span>
+                                <span class="info-box-number">Pending <?php echo $pending_leaves; ?></span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 <?php } ?>
 

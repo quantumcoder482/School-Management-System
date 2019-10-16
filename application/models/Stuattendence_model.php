@@ -71,6 +71,29 @@ class Stuattendence_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getAttendanceStudentSubjectDate($student_id, $subject_id, $from_date="0000-00-00", $to_date="0000-00-00"){
+
+        $sql = "SELECT student_attendences.* FROM student_attendences
+            INNER JOIN (SELECT subjects.* FROM subjects
+            INNER JOIN teacher_subjects ON teacher_subjects.subject_id=subjects.id
+            INNER JOIN class_sections ON class_sections.id=teacher_subjects.class_section_id
+            INNER JOIN student_session ON student_session.class_id=class_sections.class_id AND student_session.section_id=class_sections.section_id
+            WHERE student_session.student_id=".$this->db->escape($student_id)." AND teacher_subjects.session_id=".$this->db->escape($this->current_session).") AS sub ON sub.id=student_attendences.subject_id
+            WHERE student_attendences.student_session_id = ".$this->db->escape($student_id)." AND student_attendences.subject_id=".$this->db->escape($subject_id);
+
+        if($from_date != "0000-00-00" || $to_date != "0000-00-00"){
+            $where = " AND student_attendences.date>=".$this->db->escape($from_date)." AND student_attendences.date<=".$this->db->escape($to_date);
+        } else {
+            $where = "";
+        }
+
+        $sql.=$where;
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+
+    }
+
     function count_attendance_obj($month, $year, $student_id, $attendance_type = 1, $subject_id) {
 
 

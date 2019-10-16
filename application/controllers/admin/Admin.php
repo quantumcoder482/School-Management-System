@@ -8,6 +8,7 @@ class Admin extends Admin_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("classteacher_model");
+        $this->load->model("leaverequest_model");
         $this->load->library('Enc_lib');
 
     }
@@ -77,6 +78,10 @@ class Admin extends Admin_Controller {
             }
         }
         $data["roles"] = $count_roles;
+
+        $pending_leaves = $this->leaverequest_model->pendingStaffLeave();
+        $data["pending_leaves"] = $pending_leaves;
+
 
         //======================== get collection by month ==========================
         $start_month = strtotime($year_str_month);

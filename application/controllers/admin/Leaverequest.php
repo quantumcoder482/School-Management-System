@@ -52,7 +52,7 @@ class Leaverequest extends Admin_Controller {
         $alloted_leavetype = $this->leaverequest_model->allotedLeaveType($id);
 
         $i = 0;
-        $html = "<select value='' name='leave_type' id='leave_type' class='form-control'><option>Select</option>";
+        $html = "<select name='leave_type' id='leave_type' class='form-control'><option value=''>Select</option>";
         $data = array();
         if (!empty($alloted_leavetype[0]["alloted_leave"])) {
             foreach ($alloted_leavetype as $key => $value) {
@@ -149,6 +149,7 @@ class Leaverequest extends Admin_Controller {
         $this->form_validation->set_rules('empname', 'Name', 'trim|required|xss_clean');
         $this->form_validation->set_rules('applieddate', 'Applied Date', 'trim|required|xss_clean');
         $this->form_validation->set_rules('leavedates', 'Leave from Date', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('leave_type', 'Leave Type', 'trim|required|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
 
@@ -157,6 +158,7 @@ class Leaverequest extends Admin_Controller {
                 'empname' => form_error('empname'),
                 'applieddate' => form_error('applieddate'),
                 'leavedates' => form_error('leavedates'),
+                'leave_type' => form_error('leave_type')
             );
 
             $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
