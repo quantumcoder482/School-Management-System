@@ -424,12 +424,14 @@ class Stuattendence extends Admin_Controller {
             $records["data"][] = array(
                 0 => $key+1,
                 1 => $subject['name'],
-                2 => $print_percentage_data,
-                3 => $tmp_attendance_days['present'],
-                4 => $tmp_attendance_days['late'],
-                5 => $tmp_attendance_days['absent'],
-                6 => $tmp_attendance_days['holiday'],
-                7 => $tmp_attendance_days['half_day'],
+                2 => $total_days,
+                3 => $present_day,
+                4 => $print_percentage_data,
+//                5 => $tmp_attendance_days['present'],
+//                6 => $tmp_attendance_days['late'],
+//                7 => $tmp_attendance_days['absent'],
+//                8 => $tmp_attendance_days['holiday'],
+//                9 => $tmp_attendance_days['half_day'],
 
                 "DT_RowId" => 'row_'.$attendencetype['id']
             );

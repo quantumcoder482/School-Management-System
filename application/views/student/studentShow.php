@@ -879,7 +879,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                                     $att_type = str_replace(" ", "_", strtolower($value_type['type']));
                                                                     if (strip_tags($value_type["key_value"]) != "E") {
 
-                                                                        echo $this->lang->line($att_type) . ": " . $value_type['key_value'] . "";
+                                                                        // echo $this->lang->line($att_type) . ": " . $value_type['key_value'] . "";
                                                                     }
                                                                     ?>
                                                             </b>
@@ -903,24 +903,26 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                         <th>
                                                             <?php echo $this->lang->line('subject'); ?>
                                                         </th>
-                                                        <th><br /><span data-toggle="tooltip" title="<?php echo "Gross Present Percentage(%)"; ?>">%</span></th>
+                                                        <th><?php echo $this->lang->line('held'); ?></th>
+                                                        <th><?php echo $this->lang->line('attended'); ?></th>
+                                                        <th>%</th>
 
-                                                        <?php
-                                                        foreach ($attendencetypeslist as $key => $value) {
-                                                            if (strip_tags($value["key_value"]) != "E") {
-                                                                ?>
-                                                                <th colspan=""><br/><span data-toggle="tooltip" title="<?php echo "Total " . $value["type"]; ?>"><?php echo strip_tags($value["key_value"]); ?>
-
-                                                                    </span></th>
-
-                                                        <?php }
-                                                        }
-                                                        ?>
+<!--                                                        --><?php
+//                                                        foreach ($attendencetypeslist as $key => $value) {
+//                                                            if (strip_tags($value["key_value"]) != "E") {
+//                                                                ?>
+<!--                                                                <th colspan=""><br/><span data-toggle="tooltip" title="--><?php //echo "Total " . $value["type"]; ?><!--">--><?php //echo strip_tags($value["key_value"]); ?>
+<!---->
+<!--                                                                    </span></th>-->
+<!---->
+<!--                                                        --><?php //}
+//                                                        }
+//                                                        ?>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td colspan="8" class="text-danger text-center"><?php echo $this->lang->line('no_record_found'); ?></td>
+                                                        <td colspan="10" class="text-danger text-center"><?php echo $this->lang->line('no_record_found'); ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1765,7 +1767,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 },
             ],
             "bSort": true,
-            "order": [[ 0, 'desc' ]],
+            "order": [[ 0, 'asc' ]],
         });
 
 

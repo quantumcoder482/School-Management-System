@@ -1009,5 +1009,7 @@ $lang['e_resource_list'] = 'e-Resources List';
 $lang['add_e_resource'] = 'Add e-Resource';
 $lang['edit_e_resource'] = 'Edit e-Resource';
 
-
+#Dashboard Attendance
+$lang['held'] = 'Held';
+$lang['attended'] = 'Attended';
 
