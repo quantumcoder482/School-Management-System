@@ -11,6 +11,7 @@ class Staff extends Admin_Controller {
         $this->load->model("staff_model");
         //  $this->load->model("timeline_model");
         $this->load->model("leaverequest_model");
+        $this->load->model("timetable_model");
         $this->contract_type = $this->config->item('contracttype');
         $this->marital_status = $this->config->item('marital_status');
         $this->staff_attendance = $this->config->item('staffattendance');
@@ -107,6 +108,82 @@ class Staff extends Admin_Controller {
         $this->load->view('layout/header', $data);
         $this->load->view('admin/staff/disablestaff', $data);
         $this->load->view('layout/footer', $data);
+    }
+
+    function leisurestafflist() {
+
+        if (!$this->rbac->hasPrivilege('leisure_staff', 'can_view')) {
+            access_denied();
+        }
+
+        $daynameList = $this->customlib->getDaysname();
+        $data['daynameList'] = $daynameList;
+
+        $this->session->set_userdata('top_menu', 'HR');
+        $this->session->set_userdata('sub_menu', 'admin/staff/leisurestafflist');
+        $data['title'] = 'Leisure Staff List';
+
+        $search = $this->input->post('search');
+        $day = $this->input->post('day');
+        $start_time = $this->input->post('stime');
+        $end_time = $this->input->post('etime');
+
+
+        if(isset($search)) {
+
+            $this->form_validation->set_rules('day', 'Day', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('stime', 'Start Time', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('etime', 'End Time', 'trim|required|xss_clean');
+
+            if($this->form_validation->run() == FALSE) {
+                $resultlist = array();
+                $data['resultlist'] = $resultlist;
+
+            }else {
+                $resultlist = array();
+                $leisurestaffs = $this->staff_model->getleisurestaffbyday($day);
+                $not_leisure_ids = array();
+
+                $s_time = $this->convert_time($start_time);
+                $e_time = $this->convert_time($end_time);
+
+                // All staff ids have timeline
+
+                foreach($leisurestaffs as $leisurestaff){
+                    $compare_start_time = $this->convert_time($leisurestaff['start_time']);
+                    $compare_end_time = $this->convert_time($leisurestaff['end_time']);
+                    if($s_time<$e_time){
+                        if(!($compare_start_time>$e_time || $compare_end_time<$s_time)){
+                            $not_leisure_ids[]=$leisurestaff['id'];
+                        }
+                    }
+                }
+
+
+                $all_staffs = $this->staff_model->get();
+
+                foreach($all_staffs as $staff){
+                    if(!in_array($staff['id'], $not_leisure_ids) && $staff['user_type'] == 'Teacher'){
+                        $resultlist[] = $staff;
+                    }
+                }
+
+                $data['resultlist'] = $resultlist;
+
+            }
+        }
+
+
+        $data['day'] = $day;
+        $data['stime'] = $start_time;
+        $data['etime'] = $end_time;
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('admin/staff/leisurestaff', $data);
+        $this->load->view('layout/footer', $data);
+
+
+
     }
 
     function profile($id) {
@@ -568,7 +645,6 @@ class Staff extends Admin_Controller {
             redirect('admin/staff');
         }
     }
-
 
     public function username_check($str){
         if(empty($str)){
@@ -1032,7 +1108,6 @@ class Staff extends Admin_Controller {
         $this->load->view("layout/footer", $data);
     }
 
-
     function change_password($id){
 
         $sessionData = $this->session->userdata('admin');
@@ -1079,6 +1154,11 @@ class Staff extends Admin_Controller {
 
               echo json_encode($array);   
            }
+
+    function convert_time($time){
+        if($time == "") return "00:00";
+        return date("H:i", strtotime($time));
+    }
 
 }
 

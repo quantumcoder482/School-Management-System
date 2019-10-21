@@ -541,6 +541,12 @@
                                             ?>
 
                                             <li class="<?php echo set_Submenu('admin/staff/disablestafflist'); ?>"><a href="<?php echo base_url(); ?>admin/staff/disablestafflist"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('disabled_staff'); ?></a></li>
+                                        <?php
+                                        }
+                                        if ($this->rbac->hasPrivilege('leisure_staff', 'can_view')) {
+                                            ?>
+
+                                            <li class="<?php echo set_Submenu('admin/staff/leisurestafflist'); ?>"><a href="<?php echo base_url(); ?>admin/staff/leisurestafflist"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('leisure_staff'); ?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </li>

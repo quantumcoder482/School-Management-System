@@ -536,6 +536,19 @@ class Staff_model extends CI_Model {
         $this->db->where("staff_id", $role_data["staff_id"])->update("staff_roles", $role_data);
     }
 
+    public function getleisurestaffbyday($day){
+
+        $sql = "SELECT staff.*,timetables.start_time, timetables.end_time FROM staff
+                RIGHT JOIN teacher_subjects ON teacher_subjects.teacher_id=staff.id
+                RIGHT JOIN timetables ON timetables.teacher_subject_id=teacher_subjects.id
+                WHERE timetables.day_name=". $this->db->escape($day);
+
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+
+    }
+
 }
 
 ?>

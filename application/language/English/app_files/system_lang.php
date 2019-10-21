@@ -1013,3 +1013,7 @@ $lang['edit_e_resource'] = 'Edit e-Resource';
 $lang['held'] = 'Held';
 $lang['attended'] = 'Attended';
 
+#Leisure staff list
+$lang['leisure_staff'] = 'Leisure Staff';
+
+
