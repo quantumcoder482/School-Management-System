@@ -85,7 +85,7 @@ class Teachersubject_model extends CI_Model {
     public function getSubjectByClsandSection($class_id, $section_id,$classteacher = 'yes') {
 
 
-          $userdata = $this->customlib->getUserData();
+        $userdata = $this->customlib->getUserData();
         $role_id = $userdata["role_id"];
 
         if (isset($role_id) && ($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes")) {
@@ -115,6 +115,17 @@ class Teachersubject_model extends CI_Model {
 
         $query = $this->db->query($sql);
 
+        return $query->result_array();
+    }
+
+
+    function getSubjectByTeacherId($teacher_id){
+        $sql = "select teacher_subjects.*,staff.name as `teacher_name`, staff.surname, subjects.id as subject_id, subjects.name, subjects.type, subjects.code from teacher_subjects
+                left join subjects on subjects.id=teacher_subjects.subject_id
+                left join staff on staff.id = teacher_subjects.teacher_id
+                where teacher_subjects.teacher_id=".$this->db->escape($teacher_id);
+
+        $query = $this->db->query($sql);
         return $query->result_array();
     }
 

@@ -1016,4 +1016,7 @@ $lang['attended'] = 'Attended';
 #Leisure staff list
 $lang['leisure_staff'] = 'Leisure Staff';
 
+#staff timetable
+$lang['staff_timetable'] = 'Staff Timetable';
+
 

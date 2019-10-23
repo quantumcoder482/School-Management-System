@@ -44,7 +44,7 @@ if ($this->session->flashdata('msg')) {
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('books'); ?></label>
                                 <select  autofocus="" id="book_id" name="book_id" class="form-control" >
-                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                    <option value=""></option>
                                     <?php
 foreach ($bookList as $book) {
     ?>
@@ -182,19 +182,23 @@ $count++;
 <script type="text/javascript">
     $(document).ready(function () {
          $('#confirm-return').modal({
-         backdrop: 'static',
-         keyboard: false,
-         show: false
-     })
+             backdrop: 'static',
+             keyboard: false,
+             show: false
+         });
 
-        var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy']) ?>';
-        $(".date").datepicker({
+         var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy']) ?>';
+         $(".date").datepicker({
+             format: date_format,
+             autoclose: true,
+             todayHighlight: true
+         });
 
-            format: date_format,
-            autoclose: true,
-            todayHighlight: true
+
+        $("#book_id").select2({
 
         });
+
     });
 
 

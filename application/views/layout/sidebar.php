@@ -547,6 +547,13 @@
                                             ?>
 
                                             <li class="<?php echo set_Submenu('admin/staff/leisurestafflist'); ?>"><a href="<?php echo base_url(); ?>admin/staff/leisurestafflist"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('leisure_staff'); ?></a></li>
+                                        <?php
+                                        }
+                                        if ($this->rbac->hasPrivilege('staff_timetable', 'can_view')) {
+                                            ?>
+
+                                            <li class="<?php echo set_Submenu('admin/staff/stafftimetable'); ?>"><a href="<?php echo base_url(); ?>admin/staff/stafftimetable"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('staff_timetable'); ?></a></li>
+
                                         <?php } ?>
                                     </ul>
                                 </li>

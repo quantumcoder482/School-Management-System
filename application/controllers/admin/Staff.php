@@ -186,6 +186,81 @@ class Staff extends Admin_Controller {
 
     }
 
+    function stafftimetable() {
+
+        if (!$this->rbac->hasPrivilege('staff_timetable', 'can_view')) {
+            access_denied();
+        }
+        $this->session->set_userdata('top_menu', 'HR');
+        $this->session->set_userdata('sub_menu', 'admin/staff/stafftimetable');
+        $session = $this->setting_model->getCurrentSession();
+
+        $staff_list = $this->staff_model->get();
+        $teacher_list = array();
+        foreach($staff_list as $staff){
+            if($staff['user_type'] == 'Teacher'){
+                $teacher_list[] = $staff;
+            }
+        }
+        $data['teacher_list'] = $teacher_list;
+
+        $this->form_validation->set_rules('teacher_id', 'Teacher', 'trim|required|xss_clean');
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('layout/header', $data);
+            $this->load->view('admin/staff/stafftimetable', $data);
+            $this->load->view('layout/footer', $data);
+        } else {
+            $teacher_id = $this->input->post('teacher_id');
+
+            $data['teacher_id'] = $teacher_id;
+
+            $result_subjects = $this->teachersubject_model->getSubjectByTeacherId($teacher_id);
+            $getDaysnameList = $this->customlib->getDaysname();
+            $data['getDaysnameList'] = $getDaysnameList;
+            $final_array = array();
+            if (!empty($result_subjects)) {
+                foreach ($result_subjects as $subject_k => $subject_v) {
+                    $result_array = array();
+                    foreach ($getDaysnameList as $day_key => $day_value) {
+                        $where_array = array(
+                            'teacher_subject_id' => $subject_v['id'],
+                            'day_name' => $day_value
+                        );
+                        $result = $this->timetable_model->get($where_array);
+                        if (!empty($result)) {
+                            $obj_0 = new stdClass();
+                            $obj_0->status = "Yes";
+                            $obj_0->start_time = $result[0]['start_time'];
+                            $obj_0->end_time = $result[0]['end_time'];
+                            $obj_0->room_no = $result[0]['room_no'];
+
+                            $obj_1 = new stdClass();
+                            $obj_1->status = "Yes";
+                            $obj_1->start_time = $result[1]['start_time'];
+                            $obj_1->end_time = $result[1]['end_time'];
+                            $obj_1->room_no = $result[1]['room_no'];
+
+                            $result_array[$day_value][0] = $obj_0;
+                            $result_array[$day_value][1] = $obj_1;
+                        } else {
+                            $obj = new stdClass();
+                            $obj->status = "No";
+                            $obj->start_time = "N/A";
+                            $obj->end_time = "N/A";
+                            $obj->room_no = "N/A";
+                            $result_array[$day_value][0] = $obj;
+                        }
+                    }
+                    $final_array[$subject_v['name']] = $result_array;
+                }
+            }
+            $data['result_array'] = $final_array;
+            $this->load->view('layout/header', $data);
+            $this->load->view('admin/staff/stafftimetable', $data);
+            $this->load->view('layout/footer', $data);
+        }
+    }
+
     function profile($id) {
         if (!$this->rbac->hasPrivilege('staff', 'can_view')) {
             access_denied();
